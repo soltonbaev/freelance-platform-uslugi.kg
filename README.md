@@ -1,70 +1,114 @@
-# Getting Started with Create React App
+# Идея сайта
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Площадка для услуг которая позволит легко клиенту найти работника по приемлемой цене и подходящему качеству
 
-## Available Scripts
+# Как сайт должен работать
 
-In the project directory, you can run:
+-  клиенту нужна услуга, например найти уборщицу для генеральной уборки
+-  клиент заходит на сайт
 
-### `npm start`
+   -  на главной странице висит поле поиска "мне нужно...", кнопка "получить помощь" и кнопка категорий услуг, типа "няню", 'репетитора', 'дом работницу' итд. При нажатии на кнопку категорию, формируется страница с готовым шаблоном для конкретной услуги. При нажатии на "получить помощь", алгоритм по ключевым словам определяет услугу и формирует подходящий шаблон
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+   -  затем появляется мастер шагов из четырех шагов
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Шаг 1
 
-### `npm test`
+    - клиент вводит свой адрес (если услуга грузчика или доставки, то вводит начальный и конечный адрес)
+    - клиент затем вводит опции для услугу (длительность, инструменты, транспорт итд)
+    - клиент вводит детали запрашиваемой услуги (что конкретно нужно сделать, каковы особенности итд)
+    - после заполнения, появляется кнопка "Просмотреть услуги и цены"
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Шаг 2
 
-### `npm run build`
+- Алгоритм по ключевым словам выводит список работников, предоставляющих запрашиваемые услуги.
+ - Работников можно фильтровать по дате (за сколько будет выполнена услуга), по времени (в какие часы доступен работник), по цене, по уровню профессионализма (левый сайдбар)
+ - Работникам можно сортировать по рекомендованным, по цене, по проценту позитивных отзывов, по количеству выполненых работ
+ - список работников выводятся в виде карточек. В каждой карточке:
+ - фотография работника
+ - ссылка на профиль работника
+ - цена за час
+ - количество завершенных услуг
+ - средний рейтинг и количество отзывов
+ - краткое описание (три четыре строки)
+ - один отзыв - ссылка 'Подробнее' открывающая модалку с профилем работника
+ - кнопка "Выбрать и продолжить"
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Шаг 3
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+-  Клиент выбирает работника
+-  появляется модалка с календарем где можно выбрать дату и время
+-  Клиент выбирает дату и время, появляется окошко для создания аккаунта если клиент не залогинен и опция для логина
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Шаг 4
 
-### `npm run eject`
+-  после того как клиент авторизован, появляются детали заказа с адресом клиентами, опциями услуги. Возможность изменить эти детали
+-  общая стоимость услуги в зависимости от выбранного работника и часов
+-  опция редактирования описания услуги перед ее отправкой
+-  способ оплаты/ наличка/ кредитка
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Структура сайта
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+-  Header
+   -  логотип
+   -  навбар
+      -  ссылка на локации, перекидывающая на секцию с локациями
+      -  ссылка на страницу с логином/авторизацией
+         -  при авторизации, меню меняется: убирается ссылка с локациями и 'стать работником'
+         -  появляется ссылка на страницу клиента "заказать услугу"
+         -  ссылка на страницу "Мои услуги"
+         -  ссылка на страницу "Мой профиль"
+      -  кнопка "стать работником" которая перекидывает на страницу
+   -  выплывающее меню с категориями услуг и опцией просмотреть все услуги
+-  Страницы
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   -  Для клиентов:
+      -  главная страница
+         -  поиск услуг с кнопками категории
+         -  популярные услуги в вашем городе
+         -  секция с информацией плюсов uslugi.kg
+         -  секция с популярными работниками
+         -  города где доступны услуги (поле поиска и список городов
+         -  отзывы клиентов о лучших работниках
+      -  страница  мастером по поиску и заказа услуги
+         -  страница с опциями услуги
+         -  страница с календарем и временем
+         -  страница с результатом поиска услуг
+         -  страница для подтверждения заказа
+      -  страница со всеми услугами и их категориями
+         -  на этой странице появляются карточки с общими категориями услуг (для дома, переезд, итд) и услугами (клейка обоев, упаковка вещей для переезда итд)
+         -  При клике на общую категорию появляется страница с описанием категории и услугами входящие в эту категорию
+         -  При клике на услугу, появляется страница с описанием услуги
+      -  страница для каждой категории услуг
+      -  страница для конкретной услуги
+      -  страница с логином/авторизацией
+         -  секция с созданием аккаунта
+         -  секция с логином
+         -  при авторизации появляются дополнительные страницы
+            -  страница где можно заказать услугу а также рекомендованные услуги которые базируются на истории услуг
+            -  страница 'Мои услуги' содержащие текущие и прошлые услуги
+            -  страница "Мой профиль"
+               -  содержит данные о клиенте которые можно редактировать:
+                  -  имя
+                  -  имейл
+                  -  город
+                  -  кнопка логаут
+               -  страница с транзацкиями (оплатами)
+               -  страница удаления аккаунта
+      -  модалка с профилем работника - фотка работника - что он делает и сколько берет - опыт работы - кнопка "Выбрать и продолжить" - секция "Обе мне" - секция "Умения и опыт" - Фотографии примеров сделанной работы - отзывы
+   -  Для работников
+      -  страница "стать работником"
+         -  дропдаун с выбором города
+         -  категория услуг
+         -  средняя цена услуги
+         -  кнопка "начать"
+         -  опция 'логин'
+         -  информация о преимуществах быть работником uslugi.kg
+      -  Профиль работника
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+-  Footer
+   -  Стать работником
+   -  Услуги по городам
+   -  Все услуги
+   -  Лучшие работники
+   -  Помощь
+   -  О проекте
