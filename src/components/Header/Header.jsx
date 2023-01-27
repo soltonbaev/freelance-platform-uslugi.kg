@@ -1,7 +1,16 @@
 import React from 'react';
+import Logo from './Logo';
+import Navbar from './Navbar';
+import TaskMenu from './TaskMenu';
 
 const Header = () => {
-   return <div></div>;
+   return (
+      <>
+         <Logo />
+         <Navbar />
+         <TaskMenu />
+      </>
+   );
 };
 
 export default Header;
