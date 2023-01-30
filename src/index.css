@@ -10,11 +10,12 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+
+a {
+  text-decoration: none;
+}
+.active a,
+.active button{
+  font-weight: bold;
 }
 
-.active p,
-.active button {
-  font-weight: bold;
-  color: rgb(0, 0, 0);
-  /* color: #e60a1c74 */
-}
