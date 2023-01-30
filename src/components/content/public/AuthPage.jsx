@@ -24,9 +24,18 @@ import {
 import {Box} from '@mui/system';
 import {useGlobalContext} from '../../../contexts/GlobalContextProvider';
 import fireBase from '../../../helpers/firebase';
+import {useNavigate} from 'react-router-dom';
 
 const AuthPage = () => {
-   const {user, setUser, hasAccount, setHasAccount} = useGlobalContext();
+   const navigate = useNavigate();
+   const {
+      user,
+      setUser,
+      hasAccount,
+      setHasAccount,
+      isLoggedIn,
+      setIsLoggedIn,
+   } = useGlobalContext();
    let [email, setEmail] = useState('');
 
    let [password, setPassword] = useState('');
@@ -56,6 +65,11 @@ const AuthPage = () => {
       fireBase
          .auth()
          .signInWithEmailAndPassword(email, password)
+         .then(res => {
+            setUser(res.user);
+            setIsLoggedIn(true);
+            navigate('/');
+         })
          .catch(err => {
             switch (err.code) {
                case 'auth/user-disabled':
@@ -70,10 +84,6 @@ const AuthPage = () => {
                   console.log(err.message);
             }
          });
-   };
-
-   const handleLogOut = () => {
-      fireBase.auth().signOut();
    };
 
    return (
