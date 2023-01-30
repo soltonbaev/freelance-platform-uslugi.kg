@@ -1,0 +1,44 @@
+.services:not(:last-child) {
+    border-right: 1px solid rgb(95, 95, 95);
+}
+.servicesItem{
+    position: relative;
+}
+
+.servicesItem a{
+    color: black;
+    text-decoration: none;
+}
+
+.servicesItem:hover{
+    text-decoration: underline;
+}
+
+.servicesList {
+    display: none;
+    position: absolute;
+    padding-top: 30px;
+    top: -20px;
+    width: 150px;
+    z-index: 1;
+    /* color: white */
+}
+
+.servicesList li {
+    list-style-type: none;
+    background-color: #cfcfcf;
+    color: black;
+    padding-bottom: 5px;
+    padding-left: 20px ;
+    padding-right: 20px ;
+    font-size: 16px;
+    border-bottom: 1px solid white;
+}
+
+.servicesList li a:hover {
+    color: white
+}
+
+.servicesItem:hover .servicesList {
+    display: block;
+} 
