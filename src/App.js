@@ -7,7 +7,6 @@ import MainRoutes from './MainRoutes';
 function App() {
    return (
       <div>
-         <AuthPage />
          <MainRoutes />
       </div>
    );
