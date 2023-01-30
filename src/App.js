@@ -1,8 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Navbar from "./components/Header/Navbar";
+import MainRoutes from "./MainRoutes";
 
 function App() {
-   return <></>;
+  return (
+    <div>
+      <Navbar />
+      <MainRoutes />
+    </div>
+  );
 }
 
 export default App;
