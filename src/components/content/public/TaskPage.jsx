@@ -1,7 +1,11 @@
-import React from 'react';
+import React from "react";
 
 const TaskPage = () => {
-   return <div></div>;
+  return (
+    <div>
+      <h1>Task</h1>
+    </div>
+  );
 };
 
 export default TaskPage;
