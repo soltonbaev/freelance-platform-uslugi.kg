@@ -12,9 +12,7 @@ root.render(
   <BrowserRouter>
     <React.StrictMode>
       <Header />
-      <div style={{ height: "64vh" }}>
         <App />
-      </div>
       <Footer />
     </React.StrictMode>
   </BrowserRouter>

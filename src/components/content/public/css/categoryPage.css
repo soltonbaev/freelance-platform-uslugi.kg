@@ -1,0 +1,20 @@
+.bgImage {
+    background: linear-gradient(rgba(0, 0, 0, 0.399), rgba(0, 0, 0, 0.8)), 
+    url(https://myqualityhandyman.com/wp-content/uploads/2020/08/AdobeStock_105876439-1-1080x662.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  /* filter: brightness(40%) */
+}
+
+
+
+
+.nav-link:hover{
+
+  color: blue !important;
+}
