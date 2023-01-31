@@ -25,7 +25,7 @@ import {Box} from '@mui/system';
 import {useGlobalContext} from '../../../contexts/GlobalContextProvider';
 import fireBase from '../../../helpers/firebase';
 import {useNavigate} from 'react-router-dom';
-import {collection, addDoc} from 'firebase/firestore';
+import {collection, setDoc, addDoc, doc, getDoc} from 'firebase/firestore';
 import {db} from '../../../helpers/firebase';
 
 const AuthPage = () => {
@@ -37,20 +37,27 @@ const AuthPage = () => {
       setHasAccount,
       isLoggedIn,
       setIsLoggedIn,
+      userDetails,
+      setUserDetails,
+      isUserWorker,
+      setUserWorker,
    } = useGlobalContext();
+   let [firstName, setFirstName] = useState('');
+   let [lastName, setLastName] = useState('');
    let [email, setEmail] = useState('');
-
+   let [phoneNumber, setPhoneNumber] = useState('');
    let [password, setPassword] = useState('');
-
    let [emailError, setEmailError] = useState('');
    let [passwordError, setPasswordError] = useState('');
-   let phone = '3475869648';
+
    const handleSignUp = () => {
       fireBase
          .auth()
          .createUserWithEmailAndPassword(email, password)
          .then(res => {
             addToDb(res);
+            navigate('/');
+            setUser(res.user);
          })
          .catch(err => {
             switch (err.code) {
@@ -65,26 +72,18 @@ const AuthPage = () => {
                   console.log(err.message);
             }
          });
-      // collection('userData')
-      //    .doc(signUpRes?.user?.uid)
-      //    .set({
-      //       email: signUpRes?.user?.email,
-      //       phoneNumber: phone,
-      //       uid: signUpRes?.user?.uid,
-      //       displayName: signUpRes?.user?.email.split('@')[0],
-      //    })
-      //    .then(() => {
-      //       alert('User added!');
-      //    });
+
       async function addToDb(signUpRes) {
          try {
-            const docRef = await addDoc(collection(db, 'userData'), {
-               email: signUpRes.user.email,
-               // phoneNumber: phone,
-               uid: signUpRes.user.uid,
-               displayName: signUpRes.user.email.split('@')[0],
-            });
-            console.log('Document written with ID: ', docRef.id);
+            const docRef = await setDoc(
+               doc(db, 'userData', signUpRes.user.uid),
+               {
+                  email: signUpRes.user.email,
+                  uid: signUpRes.user.uid,
+                  displayName: signUpRes.user.email.split('@')[0],
+                  isUserWorker: isUserWorker,
+               }
+            );
          } catch (e) {
             console.error('Error adding document: ', e);
          }
@@ -97,6 +96,7 @@ const AuthPage = () => {
          .signInWithEmailAndPassword(email, password)
          .then(res => {
             setUser(res.user);
+            getFromDb(res);
             setIsLoggedIn(true);
             navigate('/');
          })
@@ -114,10 +114,26 @@ const AuthPage = () => {
                   console.log(err.message);
             }
          });
+      async function getFromDb(loginRes) {
+         const docRef = doc(db, 'userData', loginRes.user.uid);
+         console.log('uid', loginRes.user.uid);
+         const docSnap = await getDoc(docRef);
+         if (docSnap.exists()) {
+            setUserDetails(docSnap.data());
+         } else {
+            // doc.data() will be undefined in this case
+            console.log('No such document!');
+         }
+      }
    };
 
    return (
       <div>
+         {isUserWorker ? (
+            <h1>Регистрация/Логин для продавца услуг</h1>
+         ) : (
+            <h1>Регистрация/Логин для покупателя услуг</h1>
+         )}
          <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
