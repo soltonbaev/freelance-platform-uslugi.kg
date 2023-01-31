@@ -49,6 +49,7 @@ const AuthPage = () => {
    let [password, setPassword] = useState('');
    let [emailError, setEmailError] = useState('');
    let [passwordError, setPasswordError] = useState('');
+   let [cities, setCity] = useState('');
 
    const handleSignUp = () => {
       fireBase
@@ -147,8 +148,49 @@ const AuthPage = () => {
                <Avatar>
                   <LockOutlined />
                </Avatar>
-               <Typography>Sign in</Typography>
+               {hasAccount ? (
+                  <Typography>Зарегистрировать аккаунт</Typography>
+               ) : (
+                  <Typography>Войти в свой аккаунт</Typography>
+               )}
                <Box component="form" noValidate sx={{mt: 1}}>
+                  {hasAccount || (
+                     <TextField
+                        margin="normal"
+                        size="small"
+                        required
+                        fullWidth
+                        id="first-name"
+                        label="Имя"
+                        name="firstName"
+                        helperText={emailError}
+                        value={firstName}
+                        onChange={e => {
+                           setFirstName(e.target.value);
+                        }}
+                        autoComplete="Имя"
+                        autoFocus
+                     />
+                  )}
+                  {hasAccount || (
+                     <TextField
+                        margin="normal"
+                        size="small"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Фамилия"
+                        name="lastName"
+                        helperText={emailError}
+                        value={lastName}
+                        onChange={e => {
+                           setLastName(e.target.value);
+                        }}
+                        autoComplete="Фамилия"
+                        autoFocus
+                     />
+                  )}
+
                   <TextField
                      margin="normal"
                      size="small"
