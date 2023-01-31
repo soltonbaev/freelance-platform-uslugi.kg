@@ -25,6 +25,8 @@ import {Box} from '@mui/system';
 import {useGlobalContext} from '../../../contexts/GlobalContextProvider';
 import fireBase from '../../../helpers/firebase';
 import {useNavigate} from 'react-router-dom';
+import {collection, addDoc} from 'firebase/firestore';
+import {db} from '../../../helpers/firebase';
 
 const AuthPage = () => {
    const navigate = useNavigate();
@@ -42,10 +44,14 @@ const AuthPage = () => {
 
    let [emailError, setEmailError] = useState('');
    let [passwordError, setPasswordError] = useState('');
+   let phone = '3475869648';
    const handleSignUp = () => {
       fireBase
          .auth()
          .createUserWithEmailAndPassword(email, password)
+         .then(res => {
+            addToDb(res);
+         })
          .catch(err => {
             switch (err.code) {
                case 'auth/email-already-in-use':
@@ -59,6 +65,30 @@ const AuthPage = () => {
                   console.log(err.message);
             }
          });
+      // collection('userData')
+      //    .doc(signUpRes?.user?.uid)
+      //    .set({
+      //       email: signUpRes?.user?.email,
+      //       phoneNumber: phone,
+      //       uid: signUpRes?.user?.uid,
+      //       displayName: signUpRes?.user?.email.split('@')[0],
+      //    })
+      //    .then(() => {
+      //       alert('User added!');
+      //    });
+      async function addToDb(signUpRes) {
+         try {
+            const docRef = await addDoc(collection(db, 'userData'), {
+               email: signUpRes.user.email,
+               // phoneNumber: phone,
+               uid: signUpRes.user.uid,
+               displayName: signUpRes.user.email.split('@')[0],
+            });
+            console.log('Document written with ID: ', docRef.id);
+         } catch (e) {
+            console.error('Error adding document: ', e);
+         }
+      }
    };
 
    const handleLogin = () => {
