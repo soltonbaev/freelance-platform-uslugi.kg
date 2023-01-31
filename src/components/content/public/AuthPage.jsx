@@ -108,6 +108,8 @@ const AuthPage = () => {
          if (isUserWorker) {
             userObj.category = category;
             userObj.hourlyWage = hourlyWage;
+            userObj.rating = '';
+            userObj.reviews = [];
          }
          try {
             const docRef = await setDoc(
