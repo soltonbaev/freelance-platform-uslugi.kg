@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 import HomePage from './components/content/public/HomePage';
@@ -14,6 +15,7 @@ const PUBLIC_ROUTES = [
    {link: '/profile', element: <ClientProfilePage />, id: 4},
    {link: '/my-tasks', element: <ClientMyTasks />, id: 5},
    { link: "/categories-page", element: <CategoriesPage/>, id: 6}
+
 ];
 
 const MainRoutes = () => {
@@ -21,7 +23,9 @@ const MainRoutes = () => {
     <Routes>
       <Route
         element={
-          <div style={{ minHeight: "54vh" }}>
+
+          <div style={{ minHeigth: "54vh" }}>
+
             <Outlet />
           </div>
         }
