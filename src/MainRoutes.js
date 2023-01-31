@@ -5,6 +5,7 @@ import AuthPage from './components/content/public/AuthPage';
 import TaskPage from './components/content/public/TaskPage';
 import ClientProfilePage from './components/content/private/ClientProfilePage';
 import ClientMyTasks from './components/content/private/ClientMyTasks';
+import CategoriesPage from "./components/content/public/CategoriesPage";
 
 const PUBLIC_ROUTES = [
    {link: '/', element: <HomePage />, id: 1},
@@ -12,17 +13,25 @@ const PUBLIC_ROUTES = [
    {link: '/task', element: <TaskPage />, id: 3},
    {link: '/profile', element: <ClientProfilePage />, id: 4},
    {link: '/my-tasks', element: <ClientMyTasks />, id: 5},
+   { link: "/categories-page", element: <CategoriesPage/>, id: 6}
 ];
+
 const MainRoutes = () => {
-   return (
-      <Routes>
-         <Route>
-            {PUBLIC_ROUTES.map(item => (
-               <Route path={item.link} element={item.element} key={item.id} />
-            ))}
-         </Route>
-      </Routes>
-   );
+  return (
+    <Routes>
+      <Route
+        element={
+          <div style={{ minHeight: "54vh" }}>
+            <Outlet />
+          </div>
+        }
+      >
+        {PUBLIC_ROUTES.map((item) => (
+          <Route path={item.link} element={item.element} key={item.id} />
+        ))}
+      </Route>
+    </Routes>
+  );
 };
 
 export default MainRoutes;

@@ -14,9 +14,7 @@ root.render(
       <React.StrictMode>
          <GlobalContextProvider>
             <Header />
-            <div style={{height: '64vh'}}>
                <App />
-            </div>
             <Footer />
          </GlobalContextProvider>
       </React.StrictMode>
