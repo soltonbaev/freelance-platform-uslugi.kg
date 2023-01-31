@@ -101,7 +101,7 @@ const TaskMenu = () => {
                   <Link to="*">{category.title}</Link>
 
                   <ul className="servicesList">
-                  <li style={{fontWeight: "bold"}}>Популярные категории</li>
+                  <li style={{fontWeight: "bold"}}>Популярные услуги</li>
                     {category.subServices.map((item) => (
                       <li>
                         <Link to={item.link}>{item.name}</Link>
@@ -141,7 +141,7 @@ const TaskMenu = () => {
                       <Typography>{category.title}</Typography>
 
                       <ul className="servicesList">
-                      <li style={{fontWeight: "bold"}}>Популярные категории</li>
+                      <li style={{fontWeight: "bold"}}>Популярные услуги</li>
                         {category.subServices.map((item) => (
                           <li>
                             <Link to={item.link}>{item.name}</Link>

@@ -26,6 +26,9 @@ const Navbar = () => {
    const [anchorElNav, setAnchorElNav] = React.useState(null);
    const [anchorElUser, setAnchorElUser] = React.useState(null);
    const [pages, setPages] = React.useState([]);
+
+   const navigate = useNavigate();
+
    const handleOpenNavMenu = event => {
       setAnchorElNav(event.currentTarget);
    };
@@ -33,6 +36,8 @@ const Navbar = () => {
    const handleCloseNavMenu = () => {
       setAnchorElNav(null);
    };
+
+
    React.useEffect(() => {
       console.log('navbar user', test);
       console.log('hasAccount', hasAccount);
@@ -288,7 +293,7 @@ const Navbar = () => {
                                     onClick={() => {
                                        setHasAccount(false);
                                        setIsUserWorker(true);
-                                       navigate('/auth');
+                                       navigate('/become-worker');
                                     }}
                                  >
                                     Предложить свои услуги
