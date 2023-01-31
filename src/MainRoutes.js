@@ -7,6 +7,7 @@ import ClientProfilePage from "./components/content/private/ClientProfilePage";
 import ClientMyTasks from "./components/content/private/ClientMyTasks";
 import CategoriesPage from "./components/content/public/CategoriesPage";
 import TaskCategoryPage from "./components/content/public/TaskCategoryPage";
+import BecomeWorker from "./components/content/public/BecomeWorker";
 
 const PUBLIC_ROUTES = [
   { link: "/", element: <HomePage />, id: 1 },
@@ -16,6 +17,7 @@ const PUBLIC_ROUTES = [
   { link: "/my-tasks", element: <ClientMyTasks />, id: 5 },
   { link: "/categories-page", element: <CategoriesPage />, id: 6 },
   { link: "/task-category", element: <TaskCategoryPage />, id: 7 },
+  { link: "/become-worker", element: <BecomeWorker />, id: 8 },
 ];
 
 const MainRoutes = () => {

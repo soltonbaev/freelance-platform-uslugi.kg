@@ -1,15 +1,11 @@
+import { doc, getDoc } from "firebase/firestore";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import firebase from "../helpers/firebase";
+import fireBase, { db } from "../helpers/firebase";
 
 export const globalContext = createContext();
 export const useGlobalContext = () => useContext(globalContext);
 
 const GlobalContextProvider = ({ children }) => {
-  let [user, setUser] = useState("");
-  let [hasAccount, setHasAccount] = useState("");
-  let [isLoggedIn, setIsLoggedIn] = useState(false);
-  let [test, setTest] = useState("Hellooooooo!!");
-
   const services = [
     {
       title: "Moving Services",
@@ -24,12 +20,31 @@ const GlobalContextProvider = ({ children }) => {
       ],
     },
   ];
+  let [user, setUser] = useState("");
+  let [hasAccount, setHasAccount] = useState("");
+  let [isLoggedIn, setIsLoggedIn] = useState(false);
+  let [userDetails, setUserDetails] = useState({});
+  let [test, setTest] = useState("Hellooooooo!!");
+  let [isUserWorker, setIsUserWorker] = useState(false);
 
   const authListener = () => {
-    firebase.auth().onAuthStateChanged((user) => {
+    fireBase.auth().onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
-        setIsLoggedIn(true);
+        async function getFromDb() {
+          const docRef = doc(db, "userData", user.uid);
+          // console.log('uid', user.uid);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            let docSnapData = docSnap.data();
+            console.log(docSnapData);
+            setUserDetails(docSnapData);
+          } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+          }
+        }
+        getFromDb();
       } else {
         setUser("");
       }
@@ -38,6 +53,7 @@ const GlobalContextProvider = ({ children }) => {
 
   useEffect(() => {
     authListener();
+    console.log("userDetails", userDetails.email);
   }, []);
 
   // useEffect(() => {
@@ -52,6 +68,10 @@ const GlobalContextProvider = ({ children }) => {
     test,
     isLoggedIn,
     setIsLoggedIn,
+    userDetails,
+    setUserDetails,
+    isUserWorker,
+    setIsUserWorker,
   };
   return (
     <globalContext.Provider value={value}>{children}</globalContext.Provider>
