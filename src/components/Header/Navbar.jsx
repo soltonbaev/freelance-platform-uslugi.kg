@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import {Container, Stack} from '@mui/system';
 import Logo from './2023-01-30_15-20-08.png';
 import {Menu, MenuItem} from '@mui/material';
@@ -17,6 +17,9 @@ const Navbar = () => {
    const [anchorElNav, setAnchorElNav] = React.useState(null);
    const [anchorElUser, setAnchorElUser] = React.useState(null);
    const [pages, setPages] = React.useState([]);
+
+   const navigate = useNavigate();
+
    const handleOpenNavMenu = event => {
       setAnchorElNav(event.currentTarget);
    };
@@ -24,6 +27,8 @@ const Navbar = () => {
    const handleCloseNavMenu = () => {
       setAnchorElNav(null);
    };
+
+
    React.useEffect(() => {
       console.log('navbar user', test);
       console.log('hasAccount', hasAccount);
@@ -224,6 +229,7 @@ const Navbar = () => {
                                     color: 'black',
                                     borderColor: 'black',
                                  }}
+                                 onClick={() => navigate("/become-worker")}
                               >
                                  Become a Tasker
                               </Button>
