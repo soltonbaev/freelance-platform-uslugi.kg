@@ -14,9 +14,13 @@ import {
    Checkbox,
    Container,
    CssBaseline,
+   FormControl,
    FormControlLabel,
    Grid,
+   InputLabel,
    Link,
+   MenuItem,
+   Select,
    TextField,
    Typography,
 } from '@mui/material';
@@ -49,7 +53,23 @@ const AuthPage = () => {
    let [password, setPassword] = useState('');
    let [emailError, setEmailError] = useState('');
    let [passwordError, setPasswordError] = useState('');
-   let [cities, setCity] = useState('');
+   let [city, setCity] = useState('');
+   let [category, setCategory] = useState('');
+   let [photoUrl, setPhotoUrl] = useState('');
+   let [hourlyWage, setHourlyWage] = useState('');
+
+   const cities = ['Бишкек', 'Ош', 'Джалал-Абад', 'Баткен', 'Чолпон-Ата'];
+   const serviceCategories = [
+      'Уборка',
+      'Переезд',
+      'Сантехника',
+      'Шоппинг и Доставка',
+      'Муж на час',
+      'Сборка мебели',
+      'Установка',
+      'Садовничество',
+      'Стройка',
+   ];
 
    const handleSignUp = () => {
       fireBase
@@ -75,15 +95,24 @@ const AuthPage = () => {
          });
 
       async function addToDb(signUpRes) {
+         const userObj = {
+            firstname: firstName,
+            lastName: lastName,
+            photoUrl: photoUrl,
+            email: signUpRes.user.email,
+            uid: signUpRes.user.uid,
+            displayName: signUpRes.user.email.split('@')[0],
+            isUserWorker: isUserWorker,
+            city: city,
+         };
+         if (isUserWorker) {
+            userObj.category = category;
+            userObj.hourlyWage = hourlyWage;
+         }
          try {
             const docRef = await setDoc(
                doc(db, 'userData', signUpRes.user.uid),
-               {
-                  email: signUpRes.user.email,
-                  uid: signUpRes.user.uid,
-                  displayName: signUpRes.user.email.split('@')[0],
-                  isUserWorker: isUserWorker,
-               }
+               userObj
             );
          } catch (e) {
             console.error('Error adding document: ', e);
@@ -149,9 +178,9 @@ const AuthPage = () => {
                   <LockOutlined />
                </Avatar>
                {hasAccount ? (
-                  <Typography>Зарегистрировать аккаунт</Typography>
-               ) : (
                   <Typography>Войти в свой аккаунт</Typography>
+               ) : (
+                  <Typography>Зарегистрировать аккаунт</Typography>
                )}
                <Box component="form" noValidate sx={{mt: 1}}>
                   {hasAccount || (
@@ -223,6 +252,89 @@ const AuthPage = () => {
                         setPassword(e.target.value);
                      }}
                   />
+                  {hasAccount || (
+                     <TextField
+                        margin="normal"
+                        size="small"
+                        required
+                        fullWidth
+                        name="photoUrl"
+                        label="Photo Url"
+                        type="text"
+                        id="photoUrl"
+                        autoComplete="current-password"
+                        helperText={passwordError}
+                        value={password}
+                        onChange={e => {
+                           setPhotoUrl(e.target.value);
+                        }}
+                     />
+                  )}
+
+                  {hasAccount || (
+                     <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                           Выбрать город
+                        </InputLabel>
+                        <Select
+                           labelId="demo-simple-select-label"
+                           id="demo-simple-select"
+                           value={city}
+                           label="Город"
+                           onChange={e => {
+                              setCity(e.target.value);
+                           }}
+                        >
+                           {cities.map(city => {
+                              return <MenuItem value={city}>{city}</MenuItem>;
+                           })}
+                        </Select>
+                     </FormControl>
+                  )}
+                  {isUserWorker && !hasAccount && (
+                     <TextField
+                        margin="normal"
+                        size="small"
+                        required
+                        fullWidth
+                        name="wage"
+                        label="Желаемая почасовая оплата в сомах"
+                        type="number"
+                        id="wage"
+                        autoComplete="current-password"
+                        helperText={passwordError}
+                        value={hourlyWage}
+                        onChange={e => {
+                           setHourlyWage(e.target.value);
+                        }}
+                     />
+                  )}
+
+                  {isUserWorker && !hasAccount && (
+                     <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                           Выбрать категорию
+                        </InputLabel>
+                        <Select
+                           labelId="demo-simple-select-label"
+                           id="demo-simple-select"
+                           value={category}
+                           label="Категория"
+                           onChange={e => {
+                              setCategory(e.target.value);
+                           }}
+                        >
+                           {serviceCategories.map(category => {
+                              return (
+                                 <MenuItem value={category}>
+                                    {category}
+                                 </MenuItem>
+                              );
+                           })}
+                        </Select>
+                     </FormControl>
+                  )}
+
                   <FormControlLabel
                      control={<Checkbox value="remember" color="primary" />}
                      label="Remember me"
