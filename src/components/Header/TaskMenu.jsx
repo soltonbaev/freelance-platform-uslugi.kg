@@ -73,19 +73,27 @@ const TaskMenu = () => {
   ];
 
   return (
-    <Box>
+    <Box sx={{ mt: "10px", mb: "10px" }}>
       <Container>
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
             minHeight: "30px",
+            // width: "100%",
+            flexGrow: 1,
+            display: { sm: "block", xs: "none" },
           }}
         >
-          <Grid container spacing={0}>
+          <Grid
+            container
+            spacing={0}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             {services.map((category) => (
-              <Grid className="services" sx={{ width: "190px" }}>
+              <Grid className="services" sx={{ width: "180px" }}>
                 <Box
                   className="servicesItem"
                   sx={{ textAlign: "center", minHeight: "30px" }}
@@ -93,6 +101,7 @@ const TaskMenu = () => {
                   <Link to="*">{category.title}</Link>
 
                   <ul className="servicesList">
+                  <li style={{fontWeight: "bold"}}>Популярные категории</li>
                     {category.subServices.map((item) => (
                       <li>
                         <Link to={item.link}>{item.name}</Link>
@@ -103,6 +112,48 @@ const TaskMenu = () => {
               </Grid>
             ))}
           </Grid>
+        </Box>
+
+        {/* ==================================================================== */}
+
+        <Box
+          sx={{
+            minHeight: "30px",
+            // width: "100%",
+            flexGrow: 1,
+            display: { sm: "none", xs: "block" },
+          }}
+        >
+          <ul className="servicesMenu">
+            <Typography
+              sx={{ borderLeft: "1px solid black", paddingLeft: "5px" }}
+            >
+              Services
+            </Typography>
+            <li className="servicesMenuList">
+              {services.map((category) => (
+                <li>
+                  <Grid className="services" sx={{ width: "180px" }}>
+                    <Box
+                      className="servicesItem"
+                      sx={{ textAlign: "center", minHeight: "30px" }}
+                    >
+                      <Typography>{category.title}</Typography>
+
+                      <ul className="servicesList">
+                      <li style={{fontWeight: "bold"}}>Популярные категории</li>
+                        {category.subServices.map((item) => (
+                          <li>
+                            <Link to={item.link}>{item.name}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </Box>
+                  </Grid>
+                </li>
+              ))}
+            </li>
+          </ul>
         </Box>
       </Container>
     </Box>

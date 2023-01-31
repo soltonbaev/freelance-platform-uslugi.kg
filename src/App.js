@@ -4,12 +4,11 @@ import AuthPage from './components/content/public/AuthPage';
 import Navbar from './components/Header/Navbar';
 import MainRoutes from './MainRoutes';
 
+
 function App() {
-   return (
-      <div>
-         <MainRoutes />
-      </div>
-   );
+   return <>
+      <MainRoutes/>
+   </>;
 }
 
 export default App;
