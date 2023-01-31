@@ -10,41 +10,61 @@ import {
 } from "@mui/material";
 import { Box, flexbox } from "@mui/system";
 import React from "react";
+import { useGlobalContext } from "../../../contexts/GlobalContextProvider";
 
 const TaskCategoryPage = () => {
+  const { services } = useGlobalContext();
+
   return (
     <Box>
-      <Box className="bgImage">
+      {services.map((item) => (
         <Box
           sx={{
-            width: "100vw",
-            height: "400px ",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
+            background:
+              "linear-gradient(rgba(0, 0, 0, 0.399), rgba(0, 0, 0, 0.8))",
+            backgroundImage: `url(${item.imgUrl})`,
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed",
+            webkitBackgroundSize: "cover",
+            mozBackgroundSize: "cover",
+            oBackgroundSize: "cover",
+            backgroundSize: "cover",
+            backgroundColor: "balck",
           }}
         >
-          <Typography
-            variant="h2"
-            style={{
-              textAlign: "center",
-              color: "white",
+          <Box
+            sx={{
+              width: "100vw",
+              height: "400px ",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
             }}
           >
-            Ricardo
-          </Typography>
-          <Typography
-            style={{
-              color: "white",
-              textAlign: "center",
-            }}
-          >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi,
-            beatae?
-          </Typography>
-        </Box>
-        {/* <img
+            <Typography
+              variant="h2"
+              style={{
+                textAlign: "center",
+                color: " #817979",
+              }}
+            >
+              {item.title}
+            </Typography>
+            <Typography
+              style={{
+                color: " #817979",
+                textAlign: "center",
+                fontWeight: "30px",
+                fontSize: "25px",
+              }}
+            >
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi,
+              beatae?
+            </Typography>
+          </Box>
+          {/* <img
           src="https://avatars.mds.yandex.net/i?id=c35e86300ad03620f1315bff8d910b00-5584150-images-thumbs&n=13"
           style={{
             width: "100%",
@@ -52,7 +72,8 @@ const TaskCategoryPage = () => {
             objectFit: "cover",
           }}
         /> */}
-      </Box>
+        </Box>
+      ))}
       <Box>
         <Card
           sx={{
