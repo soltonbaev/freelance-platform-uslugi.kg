@@ -10,7 +10,15 @@ const ClientProfilePage = () => {
       fireBase.auth().signOut();
       navigate('/');
    };
-
+   const {
+      firstName,
+      lastName,
+      email,
+      city,
+      hourlyWage,
+      aboutMe,
+      isUserWorker,
+   } = userDetails;
    useEffect(() => {
       console.log('profile userDetails', userDetails);
    }, [userDetails]);
@@ -18,9 +26,14 @@ const ClientProfilePage = () => {
       <div>
          <h1>Мой профиль</h1>
          <ul>
-            <li>Name: </li>
-            <li>Last Name:</li>
-            <li>email: </li>
+            <li>Имя: {firstName}</li>
+            <li>Фамилия:{lastName}</li>
+            <li>Адрес почты: {email}</li>
+            <li> Город: {city}</li>
+            {isUserWorker && <li>Почасовая оплата   {hourlyWage}  сом</li>}
+            <li>Обо мне: {aboutMe}</li>
+            <li>Мой рейтинг</li>
+            <li> Мои отзывы</li>
          </ul>
          <button onClick={handleLogOut}>Выйти из аккаунта</button>
       </div>

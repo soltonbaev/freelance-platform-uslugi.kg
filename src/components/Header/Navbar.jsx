@@ -6,14 +6,23 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import {Container, Stack} from '@mui/system';
 import Logo from './2023-01-30_15-20-08.png';
 import {Menu, MenuItem} from '@mui/material';
 import {useGlobalContext} from '../../contexts/GlobalContextProvider';
 
 const Navbar = () => {
-   const {user, hasAccount, test, isLoggedIn} = useGlobalContext();
+   const navigate = useNavigate();
+   const {
+      user,
+      setHasAccount,
+      hasAccount,
+      isUserWorker,
+      setIsUserWorker,
+      test,
+      isLoggedIn,
+   } = useGlobalContext();
    const [anchorElNav, setAnchorElNav] = React.useState(null);
    const [anchorElUser, setAnchorElUser] = React.useState(null);
    const [pages, setPages] = React.useState([]);
@@ -36,7 +45,7 @@ const Navbar = () => {
       } else {
          setPages([
             {name: 'Локации', link: '/', id: 1},
-            {name: 'Войти/Зарегистрироваться', link: '/auth', id: 3},
+            // {name: 'Войти/Зарегистрироваться', link: '/auth', id: 3},
          ]);
       }
    }, [user]);
@@ -128,20 +137,50 @@ const Navbar = () => {
                                     justifyContent: 'center',
                                  }}
                               >
-                                 <Button
-                                    variant="outlined"
-                                    color="error"
-                                    style={{
-                                       color: 'black',
-                                       borderColor: 'black',
-                                       fontWeight: 'bold ',
-                                       width: '7rem',
-                                       height: '3rem',
-                                       textAlign: 'center',
-                                    }}
-                                 >
-                                    Become a Tasker
-                                 </Button>
+                                 {!user ? (
+                                    <Button
+                                       variant="outlined"
+                                       color="error"
+                                       style={{
+                                          color: 'black',
+                                          borderColor: 'black',
+                                          fontWeight: 'bold ',
+                                          width: '7rem',
+                                          height: '3rem',
+                                          textAlign: 'center',
+                                       }}
+                                       onClick={() => {
+                                          setHasAccount(true);
+                                          setIsUserWorker(false);
+                                          navigate('/auth');
+                                       }}
+                                    >
+                                       Войти/Зарегистрироваться
+                                    </Button>
+                                 ) : (
+                                    ''
+                                 )}
+                                 {!isUserWorker && (
+                                    <Button
+                                       variant="outlined"
+                                       color="error"
+                                       style={{
+                                          color: 'black',
+                                          borderColor: 'black',
+                                          fontWeight: 'bold ',
+                                          width: '7rem',
+                                          height: '3rem',
+                                          textAlign: 'center',
+                                       }}
+                                       onClick={() => {
+                                          setHasAccount(false);
+                                          setIsUserWorker(true);
+                                          navigate('/auth');
+                                       }}
+                                    >
+                                       Become a Tasker
+                                    </Button>
+                                 )}
                               </Box>
                            </Menu>
                         </Box>
@@ -216,18 +255,46 @@ const Navbar = () => {
                                  </NavLink>
                               </MenuItem>
                            ))}
-                           <Stack direction="row" spacing={2}>
-                              <Button
-                                 variant="outlined"
-                                 color="error"
-                                 style={{
-                                    color: 'black',
-                                    borderColor: 'black',
-                                 }}
-                              >
-                                 Become a Tasker
-                              </Button>
-                           </Stack>
+                           {!user ? (
+                              <Stack direction="row" spacing={2}>
+                                 <Button
+                                    variant="outlined"
+                                    color="error"
+                                    style={{
+                                       color: 'black',
+                                       borderColor: 'black',
+                                    }}
+                                    onClick={() => {
+                                       setHasAccount(true);
+                                       setIsUserWorker(false);
+                                       navigate('/auth');
+                                    }}
+                                 >
+                                    Войти/Зарегистрироваться
+                                 </Button>
+                              </Stack>
+                           ) : (
+                              ''
+                           )}
+                           {isUserWorker || (
+                              <Stack direction="row" spacing={2}>
+                                 <Button
+                                    variant="outlined"
+                                    color="error"
+                                    style={{
+                                       color: 'black',
+                                       borderColor: 'black',
+                                    }}
+                                    onClick={() => {
+                                       setHasAccount(false);
+                                       setIsUserWorker(true);
+                                       navigate('/auth');
+                                    }}
+                                 >
+                                    Предложить свои услуги
+                                 </Button>
+                              </Stack>
+                           )}
                         </Typography>
                      </Box>
                   </Toolbar>
