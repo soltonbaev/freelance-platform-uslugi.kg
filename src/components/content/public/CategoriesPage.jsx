@@ -14,33 +14,12 @@ import categoryPage from "./css/categoryPage.css";
 
 const CategoriesPage = () => {
   const { servicesArr, categoriesArr, getCategoriesServices, getServices } = useGlobalContext();
-  // const { categories, setCategories} = useState(categoriesArr);
-  // const { services, setServices} = useState([servicesArr]);
 
   useEffect(() => {
     getCategoriesServices();
     getServices();
  }, []);
 
-//  useEffect(() => {
-//   setServices(servicesArr)
-//  }, [servicesArr]);
- 
-//  useEffect(() => {
-//   setCategories(categoriesArr)
-//  }, [categoriesArr])
-// setCategories(categoriesArr);
-// servicesArr.forEach(element => {
-//   console.log("asd", element);
-// });
-
- console.log("Asd", servicesArr);
- console.log("fdsad", categoriesArr);
-
-
-// const services = servicesArr.filter(service => {
-//   if(service.category === category[0].id) return service;
-// })
 
   return (
     <div>

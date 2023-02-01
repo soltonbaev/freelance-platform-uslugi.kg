@@ -30,9 +30,9 @@ const GlobalContextProvider = ({children}) => {
    const cities = ['Бишкек', 'Ош', 'Джалал-Абад', 'Баткен', 'Чолпон-Ата'];
 
    let [categoriesArr, setCategoriesArr] = useState([]);
-   // let [servicesArr, setServicesArr] = useState([]);
+   let [servicesArr, setServicesArr] = useState([]);
    // let categoriesArr = getCategoriesServices();
-   let servicesArr = getServices();
+   // let servicesArr = getServices();
 
    // useEffect(() => {
    //    getCategoriesServices();
@@ -68,7 +68,7 @@ const GlobalContextProvider = ({children}) => {
       }
       await getData();
       // return arr;
-      // setServicesArr(arr);
+      setServicesArr(arr);
    }
 
    const authListener = () => {
