@@ -1,5 +1,5 @@
 .bgImage {
-    background: linear-gradient(rgba(0, 0, 0, 0.399), rgba(0, 0, 0, 0.8)), 
+  background: linear-gradient(rgba(0, 0, 0, 0.399), rgba(0, 0, 0, 0.8)),
     url(https://kudapostupat.by/img/2020/367-372.jpg);
   background-repeat: no-repeat;
   background-position: center center;
@@ -9,6 +9,17 @@
   -o-background-size: cover;
   background-size: cover;
   /* filter: brightness(40%) */
+}
+.bgImageAbout {
+  background: linear-gradient(rgba(0, 0, 0, 0.399), rgba(0, 0, 0, 0.8)),
+    url(https://skladikoff.ru/wp-content/uploads/2022/09/muving-1024x683.jpeg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 /* *{

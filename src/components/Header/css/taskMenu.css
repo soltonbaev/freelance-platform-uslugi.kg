@@ -31,8 +31,8 @@ li {
   background-color: #cfcfcf;
   color: black;
   padding-bottom: 5px;
-  padding-left: 20px;
-  padding-right: 20px;
+  /* padding-left: 20px;
+  padding-right: 20px; */
   font-size: 16px;
   border-bottom: 1px solid white;
 }
@@ -43,6 +43,7 @@ li {
 
 .servicesItem:hover .servicesList {
   display: block;
+  z-index: 100;
 }
 /* ================== */
 
@@ -66,8 +67,8 @@ li {
 .servicesMenu .services .servicesList {
   position: absolute;
   padding-top: 30px;
-  top: -30px;
+  top: -10px;
   width: 150px;
-  right: -151px;
+  right: -80px;
   z-index: 1;
 }
