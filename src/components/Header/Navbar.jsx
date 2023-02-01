@@ -46,7 +46,8 @@ const Navbar = () => {
       ]);
     } else {
       setPages([
-        { name: "Локации", link: "/", id: 1 },
+        { name: "Все услуги", link: "/categories-page", id: 1 },
+        { name: "Локации", link: "/", id: 2 },
         // {name: 'Войти/Зарегистрироваться', link: '/auth', id: 3},
       ]);
     }

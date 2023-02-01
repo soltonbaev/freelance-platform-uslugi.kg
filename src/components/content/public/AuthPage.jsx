@@ -31,6 +31,7 @@ import fireBase from '../../../helpers/firebase';
 import {useNavigate} from 'react-router-dom';
 import {collection, setDoc, addDoc, doc, getDoc} from 'firebase/firestore';
 import {db} from '../../../helpers/firebase';
+import {useStepWizardContext} from '../../../contexts/StepWizardContext';
 
 const AuthPage = () => {
    const navigate = useNavigate();
@@ -45,7 +46,11 @@ const AuthPage = () => {
       setUserDetails,
       isUserWorker,
       setUserWorker,
+      categoriesArr,
+
+      cities,
    } = useGlobalContext();
+   const {city, setCity} = useStepWizardContext();
    let [firstName, setFirstName] = useState('');
    let [lastName, setLastName] = useState('');
    let [email, setEmail] = useState('');
@@ -53,23 +58,10 @@ const AuthPage = () => {
    let [password, setPassword] = useState('');
    let [emailError, setEmailError] = useState('');
    let [passwordError, setPasswordError] = useState('');
-   let [city, setCity] = useState('');
+
    let [category, setCategory] = useState('');
    let [photoUrl, setPhotoUrl] = useState('');
    let [hourlyWage, setHourlyWage] = useState('');
-
-   const cities = ['Бишкек', 'Ош', 'Джалал-Абад', 'Баткен', 'Чолпон-Ата'];
-   const serviceCategories = [
-      'Уборка',
-      'Переезд',
-      'Сантехника',
-      'Шоппинг и Доставка',
-      'Муж на час',
-      'Сборка мебели',
-      'Установка',
-      'Садовничество',
-      'Стройка',
-   ];
 
    const handleSignUp = () => {
       fireBase
@@ -108,7 +100,6 @@ const AuthPage = () => {
          if (isUserWorker) {
             userObj.category = category;
             userObj.hourlyWage = hourlyWage;
-            userObj.rating = '';
             userObj.reviews = [];
          }
          try {
@@ -326,10 +317,10 @@ const AuthPage = () => {
                               setCategory(e.target.value);
                            }}
                         >
-                           {serviceCategories.map(category => {
+                           {categoriesArr.map(category => {
                               return (
-                                 <MenuItem value={category}>
-                                    {category}
+                                 <MenuItem value={category.id}>
+                                    {category.title}
                                  </MenuItem>
                               );
                            })}
