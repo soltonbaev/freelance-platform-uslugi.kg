@@ -2,14 +2,14 @@ import React, {useEffect} from 'react';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import {useStepWizardContext} from '../../../../contexts/StepWizardContext';
-import {Navigate, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {Button, Card, Grid} from '@mui/material';
 import {useGlobalContext} from '../../../../contexts/GlobalContextProvider';
 
 const CalendarTimePage = () => {
    const navigate = useNavigate();
    const {user} = useGlobalContext();
-   const {time, setTime, setIsWizardInProgress} = useStepWizardContext();
+   const {setTime, setIsWizardInProgress} = useStepWizardContext();
    useEffect(() => {
       setIsWizardInProgress(true);
    }, []);

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -17,14 +16,10 @@ const Navbar = () => {
    const {
       user,
       setHasAccount,
-      hasAccount,
       isUserWorker,
       setIsUserWorker,
-      test,
-      isLoggedIn,
    } = useGlobalContext();
    const [anchorElNav, setAnchorElNav] = React.useState(null);
-   const [anchorElUser, setAnchorElUser] = React.useState(null);
    const [pages, setPages] = React.useState([]);
 
    const handleOpenNavMenu = event => {
@@ -36,8 +31,6 @@ const Navbar = () => {
    };
 
    React.useEffect(() => {
-      console.log('navbar user', test);
-      console.log('hasAccount', hasAccount);
       if (user) {
          setPages([
             {name: 'Заказать услугу', link: '/', id: 1},

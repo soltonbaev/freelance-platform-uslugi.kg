@@ -7,8 +7,6 @@ import taskMenu from './css/taskMenu.css';
 
 const TaskMenu = () => {
    const {servicesArr, categoriesArr} = useGlobalContext();
-   console.log('categories array', categoriesArr);
-   console.log('services array', servicesArr);
    const services = [
       {
          title: 'Moving Services',
@@ -19,6 +17,7 @@ const TaskMenu = () => {
             {name: 'Furniture Movers', link: '#', id: 3},
             {name: 'Full Service Help Moving', link: '#', id: 4},
          ],
+         id: 1,
       },
       {
          title: 'Mounting & Installation',
@@ -29,6 +28,7 @@ const TaskMenu = () => {
             {name: 'Hang Christmas Lights', link: '#', id: 3},
             {name: 'Ceiling Fan Installation', link: '#', id: 4},
          ],
+         id: 2,
       },
       {
          title: 'Cleaning',
@@ -40,6 +40,7 @@ const TaskMenu = () => {
             {name: 'Laundry Help', link: '#', id: 4},
             {name: 'Window Cleaning', link: '#', id: 5},
          ],
+         id: 3,
       },
       {
          title: 'Furniture Assembly',
@@ -50,6 +51,7 @@ const TaskMenu = () => {
             {name: 'Bookshelf Assembly', link: '#', id: 3},
             {name: 'Disassemble furniture', link: '#', id: 4},
          ],
+         id: 4,
       },
       {
          title: 'Yardwork Services',
@@ -62,6 +64,7 @@ const TaskMenu = () => {
             {name: 'Hose Installation', link: '#', id: 5},
             {name: 'Fence Staining', link: '#', id: 6},
          ],
+         id: 5,
       },
       {
          title: 'Winter Tasks',
@@ -73,6 +76,7 @@ const TaskMenu = () => {
             {name: 'Storm Door Installation', link: '#', id: 4},
             {name: 'Water Heater Maintenance', link: '#', id: 5},
          ],
+         id: 6,
       },
    ];
 
@@ -97,7 +101,11 @@ const TaskMenu = () => {
                   }}
                >
                   {services.map(category => (
-                     <Grid className="services" sx={{width: '180px'}}>
+                     <Grid
+                        key={category.id}
+                        className="services"
+                        sx={{width: '180px'}}
+                     >
                         <Box
                            className="servicesItem"
                            sx={{textAlign: 'center', minHeight: '30px'}}
@@ -109,7 +117,7 @@ const TaskMenu = () => {
                                  Популярные услуги
                               </li>
                               {category.subServices.map(item => (
-                                 <li>
+                                 <li key={item.id}>
                                     <Link to={item.link}>{item.name}</Link>
                                  </li>
                               ))}
@@ -138,7 +146,7 @@ const TaskMenu = () => {
                   </Typography>
                   <li className="servicesMenuList">
                      {services.map(category => (
-                        <li>
+                        <li key={category.id}>
                            <Grid className="services" sx={{width: '180px'}}>
                               <Box
                                  className="servicesItem"
@@ -151,7 +159,7 @@ const TaskMenu = () => {
                                        Популярные услуги
                                     </li>
                                     {category.subServices.map(item => (
-                                       <li>
+                                       <li key={item.id}>
                                           <Link to={item.link}>
                                              {item.name}
                                           </Link>

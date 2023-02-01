@@ -13,6 +13,7 @@ import TaskOptionsPage from './components/content/public/StepWizard/TaskOptionsP
 import ConfirmationPage from './components/content/public/StepWizard/ConfirmationPage';
 import CalendarTimePage from './components/content/public/StepWizard/CalendarTimePage';
 import ChatBox from './components/content/private/chat/ChatBox';
+import ChatHistory from './components/content/private/chat/ChatHistory';
 
 const PUBLIC_ROUTES = [
    {link: '/', element: <HomePage />, id: 1},
@@ -28,6 +29,7 @@ const PUBLIC_ROUTES = [
    {link: '/workers', element: <FoundWorkersPage />, id: 11},
    {link: '/confirm', element: <ConfirmationPage />, id: 12},
    {link: '/chat', element: <ChatBox />, id: 13},
+   {link: '/chat-history', element: <ChatHistory />, id: 13},
 ];
 
 const MainRoutes = () => {

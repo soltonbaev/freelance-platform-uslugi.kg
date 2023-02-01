@@ -1,11 +1,3 @@
-// import React from 'react';
-
-// const AuthPage = () => {
-//    return <div></div>;
-// };
-
-// export default AuthPage;
-
 import React, {useState} from 'react';
 import {LockOutlined} from '@mui/icons-material';
 import {

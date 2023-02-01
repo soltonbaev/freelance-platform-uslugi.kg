@@ -4,7 +4,6 @@ import {useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../../../contexts/GlobalContextProvider';
 import {useStepWizardContext} from '../../../../contexts/StepWizardContext';
 const ConfirmationPage = () => {
-   const navigate = useNavigate();
    const {category} = useGlobalContext();
    const {
       time,
@@ -74,7 +73,6 @@ const ConfirmationPage = () => {
             variant="outlined"
             onClick={() => {
                createTask();
-               navigate('/chat');
             }}
          >
             Подтвердить и связаться с помощником

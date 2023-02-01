@@ -2,12 +2,10 @@ import {FormControl, InputLabel, MenuItem, Select} from '@mui/material';
 import React, {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../../contexts/GlobalContextProvider';
-import {useStepWizardContext} from '../../../contexts/StepWizardContext';
 
 const UnauthorizedHomePage = () => {
    const navigate = useNavigate();
    const {
-      servicesArr,
       categoriesArr,
       category,
       setCategory,
@@ -18,17 +16,7 @@ const UnauthorizedHomePage = () => {
    useEffect(() => {
       getCategoriesServices();
       getServices();
-      // categoriesArr.map(item => {
-      //    console.log(item);
-      // });
    }, []);
-
-   // useEffect(() => {
-   //    if (categoriesArr.length) {
-   //       console.log(categoriesArr, 'data');
-   //    }
-   //    console.log(categoriesArr, 'data2');
-   // }, [categoriesArr]);
 
    return (
       <div>
@@ -45,12 +33,10 @@ const UnauthorizedHomePage = () => {
                label="Категория услуг"
                onChange={e => {
                   setCategory(e.target.value);
-
                   navigate('/task-options');
                }}
             >
                {categoriesArr.map(category => {
-                  console.log(category);
                   return (
                      <MenuItem value={category.id}>{category.title}</MenuItem>
                   );

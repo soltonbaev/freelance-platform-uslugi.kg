@@ -19,6 +19,7 @@ const ChatBox = () => {
 
    useEffect(() => {
       setIsChatActive(true);
+      console.log('taskUid', taskUid);
       const q = query(
          collection(db, 'tasks', taskUid, 'messages'),
          orderBy('createdAt'),

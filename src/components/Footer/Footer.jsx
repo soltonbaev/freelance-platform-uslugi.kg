@@ -22,10 +22,10 @@ import {ExpandMore} from '@mui/icons-material';
 import siteLogo from './logo.jpg';
 
 const Footer = () => {
-   const navigate = useNavigate();
    const footerInfo = [
       {
          title: 'Discover',
+         id: 1,
          footerContent: [
             {
                name: 'All Services',
@@ -41,6 +41,7 @@ const Footer = () => {
       },
       {
          title: 'Company',
+         id: 2,
          footerContent: [
             {
                name: 'About Us',
@@ -66,6 +67,7 @@ const Footer = () => {
       },
       {
          title: 'Legal',
+         id: 3,
          footerContent: [
             {
                name: 'Cookies Policy',
@@ -116,12 +118,13 @@ const Footer = () => {
                         </Grid>
                      </Grid>
                      {footerInfo.map(item => (
-                        <Grid sx={{width: '200px'}}>
+                        <Grid key={item.id} sx={{width: '200px'}}>
                            <Typography variant="h6" color="black">
                               {item.title}
                            </Typography>
                            {item.footerContent.map(page => (
                               <NavLink
+                                 key={page.id}
                                  to={page.link}
                                  style={{textDecoration: 'none'}}
                               >
@@ -217,6 +220,7 @@ const Footer = () => {
                   </Box>
                   {footerInfo.map(item => (
                      <Accordion
+                        key={item.id}
                         sx={{
                            background: '#33485d',
                            border: '1px solid rgba(255, 255, 255, 0.8)',
@@ -234,7 +238,7 @@ const Footer = () => {
                         <AccordionDetails>
                            <Grid sx={{width: '100%'}}>
                               {item.footerContent.map(page => (
-                                 <NavLink to={page.link}>
+                                 <NavLink key={page.id} to={page.link}>
                                     <Typography
                                        variant="body2"
                                        sx={{

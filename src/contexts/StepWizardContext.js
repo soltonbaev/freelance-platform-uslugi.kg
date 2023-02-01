@@ -3,11 +3,13 @@ import React, {createContext, useContext, useEffect, useState} from 'react';
 import fireBase, {db} from '../helpers/firebase';
 import {useGlobalContext} from './GlobalContextProvider';
 import {collection, addDoc} from 'firebase/firestore';
+import {useNavigate} from 'react-router-dom';
 
 export const stepWizardContext = createContext();
 export const useStepWizardContext = () => useContext(stepWizardContext);
 
 const StepWizardContextProvider = ({children}) => {
+   const navigate = useNavigate();
    const [buyerId, setBuyerId] = useState('');
    const [sellerId, setSellerId] = useState('');
    const [time, setTime] = useState('');
@@ -22,7 +24,13 @@ const StepWizardContextProvider = ({children}) => {
    async function createTask() {
       const taskObj = {
          buyerUid: userDetails.uid,
+         buyerInfo: [
+            userDetails.firstName,
+            userDetails.lastName,
+            userDetails.email,
+         ],
          sellerUid: workerObj.uid,
+         sellerInfo: [workerObj.firstName, workerObj.lastName, workerObj.email],
          scheduledTimeAndDate: time,
          isCompleted: false,
          timeStamp: Date.now(),
@@ -34,6 +42,10 @@ const StepWizardContextProvider = ({children}) => {
       const docRef = await addDoc(collection(db, 'tasks'), taskObj);
       console.log('Task added with  ID: ', docRef.id);
       setTaskUid(docRef.id);
+      const colRef = collection(docRef, 'messages');
+      const col = await addDoc(colRef, {col: 'messages'});
+      console.log('Collection added with  ID: ', col.id);
+      navigate('/chat');
    }
 
    let value = {
