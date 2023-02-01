@@ -15,9 +15,7 @@ root.render(
       <React.StrictMode>
          <GlobalContextProvider>
             <StepWizardContextProvider>
-               <Header />
                <App />
-               <Footer />
             </StepWizardContextProvider>
          </GlobalContextProvider>
       </React.StrictMode>

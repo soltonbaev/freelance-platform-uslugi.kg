@@ -35,6 +35,9 @@ const GlobalContextProvider = ({children}) => {
    let [isUserWorker, setIsUserWorker] = useState(false);
    let [category, setCategory] = useState('Выбрать категорию');
    let [usersByQuery, setUsersByQuery] = useState([]);
+   let [taskUid, setTaskUid] = useState('');
+   let [isChatActive, setIsChatActive] = useState(false);
+
    const cities = ['Бишкек', 'Ош', 'Джалал-Абад', 'Баткен', 'Чолпон-Ата'];
 
    let [categoriesArr, setCategoriesArr] = useState([]);
@@ -51,8 +54,8 @@ const GlobalContextProvider = ({children}) => {
       const arr = [];
       const q = query(
          collection(db, 'userData'),
-         where('isUserWorker', '==', workerQuery)
-         // where('city', '==', cityQuery)
+         where('isUserWorker', '==', workerQuery),
+         where('city', '==', cityQuery)
       );
 
       const querySnapshot = await getDocs(q);
@@ -149,6 +152,10 @@ const GlobalContextProvider = ({children}) => {
       usersByQuery,
       setUsersByQuery,
       getUsersByQuery,
+      taskUid,
+      setTaskUid,
+      isChatActive,
+      setIsChatActive,
    };
    return (
       <globalContext.Provider value={value}>{children}</globalContext.Provider>

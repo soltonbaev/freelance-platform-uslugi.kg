@@ -10,13 +10,20 @@ import './ChatBox.css';
 import {db} from '../../../../helpers/firebase';
 import Message from './Message';
 import SendMessage from './SendMessage';
+import {useGlobalContext} from '../../../../contexts/GlobalContextProvider';
 
 const ChatBox = () => {
    const [messages, setMessages] = useState([]);
    const scroll = useRef();
+   const {taskUid, setIsChatActive} = useGlobalContext();
 
    useEffect(() => {
-      const q = query(collection(db, 'tasks'), orderBy('createdAt'), limit(50));
+      setIsChatActive(true);
+      const q = query(
+         collection(db, 'tasks', taskUid, 'messages'),
+         orderBy('createdAt'),
+         limit(50)
+      );
 
       const unsubscribe = onSnapshot(q, QuerySnapshot => {
          let messages = [];
@@ -31,7 +38,7 @@ const ChatBox = () => {
    return (
       <main className="chat-box">
          <div className="messages-wrapper">
-            {messages?.map(message => (
+            {messages.map(message => (
                <Message key={message.id} message={message} />
             ))}
          </div>

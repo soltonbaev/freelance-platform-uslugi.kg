@@ -2,6 +2,7 @@ import {FormControl, InputLabel, MenuItem, Select} from '@mui/material';
 import React, {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../../contexts/GlobalContextProvider';
+import {useStepWizardContext} from '../../../contexts/StepWizardContext';
 
 const UnauthorizedHomePage = () => {
    const navigate = useNavigate();
@@ -44,6 +45,7 @@ const UnauthorizedHomePage = () => {
                label="Категория услуг"
                onChange={e => {
                   setCategory(e.target.value);
+
                   navigate('/task-options');
                }}
             >

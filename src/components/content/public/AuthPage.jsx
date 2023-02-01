@@ -51,7 +51,7 @@ const AuthPage = () => {
       category,
       cities,
    } = useGlobalContext();
-   const {city, setCity} = useStepWizardContext();
+   const {city, setCity, isWizardInProgress} = useStepWizardContext();
    let [firstName, setFirstName] = useState('');
    let [lastName, setLastName] = useState('');
    let [email, setEmail] = useState('');
@@ -68,8 +68,8 @@ const AuthPage = () => {
          .createUserWithEmailAndPassword(email, password)
          .then(res => {
             addToDb(res);
-            navigate('/');
             setUser(res.user);
+            isWizardInProgress ? navigate('/confirm') : navigate('/');
          })
          .catch(err => {
             switch (err.code) {
@@ -120,7 +120,7 @@ const AuthPage = () => {
             setUser(res.user);
             getFromDb(res);
             setIsLoggedIn(true);
-            navigate('/');
+            isWizardInProgress ? navigate('/confirm') : navigate('/');
          })
          .catch(err => {
             switch (err.code) {

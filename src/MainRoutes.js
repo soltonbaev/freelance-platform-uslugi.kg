@@ -10,8 +10,9 @@ import TaskCategoryPage from './components/content/public/TaskCategoryPage';
 import BecomeWorker from './components/content/public/BecomeWorker';
 import FoundWorkersPage from './components/content/public/StepWizard/FoundWorkersPage';
 import TaskOptionsPage from './components/content/public/StepWizard/TaskOptionsPage';
-import CalendarPage from './components/content/public/StepWizard/CalendarPage';
 import ConfirmationPage from './components/content/public/StepWizard/ConfirmationPage';
+import CalendarTimePage from './components/content/public/StepWizard/CalendarTimePage';
+import ChatBox from './components/content/private/chat/ChatBox';
 
 const PUBLIC_ROUTES = [
    {link: '/', element: <HomePage />, id: 1},
@@ -23,9 +24,10 @@ const PUBLIC_ROUTES = [
    {link: '/task-category', element: <TaskCategoryPage />, id: 7},
    {link: '/become-worker', element: <BecomeWorker />, id: 8},
    {link: '/task-options', element: <TaskOptionsPage />, id: 9},
-   {link: '/calendar', element: <CalendarPage />, id: 10},
+   {link: '/calendar', element: <CalendarTimePage />, id: 10},
    {link: '/workers', element: <FoundWorkersPage />, id: 11},
    {link: '/confirm', element: <ConfirmationPage />, id: 12},
+   {link: '/chat', element: <ChatBox />, id: 13},
 ];
 
 const MainRoutes = () => {
