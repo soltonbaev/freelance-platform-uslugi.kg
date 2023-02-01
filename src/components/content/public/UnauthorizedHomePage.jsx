@@ -1,11 +1,14 @@
 import {FormControl, InputLabel, MenuItem, Select} from '@mui/material';
 import React, {useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../../contexts/GlobalContextProvider';
 
 const UnauthorizedHomePage = () => {
+   const navigate = useNavigate();
    const {
       servicesArr,
       categoriesArr,
+      category,
       setCategory,
       getCategoriesServices,
       getServices,
@@ -29,13 +32,6 @@ const UnauthorizedHomePage = () => {
    return (
       <div>
          <h1>Добро пожаловать, дорогой гость</h1>
-         {/* <ul>
-            {' '}
-            Ul test
-            {categoriesArr.map(category => {
-               return console.log('catArr', category.title);
-            })}
-         </ul> */}
 
          <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">
@@ -44,10 +40,11 @@ const UnauthorizedHomePage = () => {
             <Select
                labelId="demo-simple-select-label"
                id="demo-simple-select"
-               value="category"
+               value={category}
                label="Категория услуг"
                onChange={e => {
                   setCategory(e.target.value);
+                  navigate('/task-options');
                }}
             >
                {categoriesArr.map(category => {

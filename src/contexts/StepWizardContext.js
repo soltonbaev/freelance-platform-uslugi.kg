@@ -10,6 +10,9 @@ const StepWizardContextProvider = ({children}) => {
    const [sellerId, setSellerId] = useState('');
    const [time, setTime] = useState('');
    const [date, setDate] = useState('');
+   const [city, setCity] = useState('');
+   const [taskLength, setTaskLength] = useState('');
+   const [taskDesc, setTaskDesc] = useState('');
 
    const taskObj = {
       buyerId: buyerId,
@@ -28,7 +31,13 @@ const StepWizardContextProvider = ({children}) => {
       sellerId,
       time,
       date,
+      city,
+      taskLength,
+      setTaskLength,
+      setCity,
       createTask,
+      taskDesc,
+      setTaskDesc,
    };
    return (
       <stepWizardContext.Provider value={value}>
