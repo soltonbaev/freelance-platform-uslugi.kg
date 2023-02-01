@@ -5,10 +5,7 @@ import ClientHomePage from '../private/ClientHomePage';
 import UnauthorizedHomePage from './UnauthorizedHomePage';
 
 const HomePage = () => {
-   const {user, test} = useGlobalContext();
-   useEffect(() => {
-      console.log('homepage user', test);
-   }, []);
+   const {user} = useGlobalContext();
    return <div>{user ? <ClientHomePage /> : <UnauthorizedHomePage />}</div>;
 };
 
