@@ -1,9 +1,9 @@
 import React from 'react';
-import {auth} from '../firebase';
-import {useAuthState} from 'react-firebase-hooks/auth';
+import {useGlobalContext} from '../../../../contexts/GlobalContextProvider';
 
 const Message = ({message}) => {
-   const [user] = useAuthState(auth);
+   const {user} = useGlobalContext();
+
    console.log(message.avatar);
    return (
       <div className={`chat-bubble ${message.uid === user.uid ? 'right' : ''}`}>

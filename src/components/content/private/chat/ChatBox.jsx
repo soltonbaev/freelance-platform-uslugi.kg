@@ -6,6 +6,7 @@ import {
    onSnapshot,
    limit,
 } from 'firebase/firestore';
+import './ChatBox.css';
 import {db} from '../../../../helpers/firebase';
 import Message from './Message';
 import SendMessage from './SendMessage';
