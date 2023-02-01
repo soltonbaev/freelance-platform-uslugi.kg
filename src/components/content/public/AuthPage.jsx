@@ -47,7 +47,8 @@ const AuthPage = () => {
       isUserWorker,
       setUserWorker,
       categoriesArr,
-
+      setCategory,
+      category,
       cities,
    } = useGlobalContext();
    const {city, setCity} = useStepWizardContext();
@@ -58,8 +59,6 @@ const AuthPage = () => {
    let [password, setPassword] = useState('');
    let [emailError, setEmailError] = useState('');
    let [passwordError, setPasswordError] = useState('');
-
-   let [category, setCategory] = useState('');
    let [photoUrl, setPhotoUrl] = useState('');
    let [hourlyWage, setHourlyWage] = useState('');
 
@@ -88,7 +87,7 @@ const AuthPage = () => {
 
       async function addToDb(signUpRes) {
          const userObj = {
-            firstname: firstName,
+            firstName: firstName,
             lastName: lastName,
             photoUrl: photoUrl,
             email: signUpRes.user.email,
@@ -257,7 +256,7 @@ const AuthPage = () => {
                         id="photoUrl"
                         autoComplete="current-password"
                         helperText={passwordError}
-                        value={password}
+                        value={photoUrl}
                         onChange={e => {
                            setPhotoUrl(e.target.value);
                         }}
