@@ -26,8 +26,16 @@ const GlobalContextProvider = ({children}) => {
    let [userDetails, setUserDetails] = useState({});
    let [test, setTest] = useState('Hellooooooo!!');
    let [isUserWorker, setIsUserWorker] = useState(false);
+   let [category, setCategory] = useState('');
+   let [categoriesArr, setCategoriesArr] = useState([]);
+   let [servicesArr, setServicesArr] = useState([]);
 
-   function getServiceCategories() {
+   useEffect(() => {
+      getCategoriesServices();
+      getServices();
+   }, []);
+
+   function getCategoriesServices() {
       const arr = [];
       async function getData() {
          const querySnapshot = await getDocs(
@@ -39,7 +47,7 @@ const GlobalContextProvider = ({children}) => {
          });
       }
       getData();
-      return arr;
+      setCategoriesArr(arr);
    }
 
    function getServices() {
@@ -53,7 +61,7 @@ const GlobalContextProvider = ({children}) => {
          });
       }
       getData();
-      return arr;
+      setServicesArr(arr);
    }
 
    const authListener = () => {
@@ -101,8 +109,8 @@ const GlobalContextProvider = ({children}) => {
       setUserDetails,
       isUserWorker,
       setIsUserWorker,
-      getServiceCategories,
-      getServices,
+      categoriesArr,
+      servicesArr,
    };
    return (
       <globalContext.Provider value={value}>{children}</globalContext.Provider>

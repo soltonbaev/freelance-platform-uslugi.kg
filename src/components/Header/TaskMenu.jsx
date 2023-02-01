@@ -6,9 +6,9 @@ import {useGlobalContext} from '../../contexts/GlobalContextProvider';
 import taskMenu from './css/taskMenu.css';
 
 const TaskMenu = () => {
-   const {getServiceCategories, getServices} = useGlobalContext();
-   console.log('categories array', getServiceCategories());
-   console.log('services array', getServices());
+   const {servicesArr, categoriesArr} = useGlobalContext();
+   console.log('categories array', categoriesArr);
+   console.log('services array', servicesArr);
    const services = [
       {
          title: 'Moving Services',
