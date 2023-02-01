@@ -144,6 +144,7 @@ const GlobalContextProvider = ({children}) => {
       getCategoriesServices,
       getServices,
       setCategory,
+      category,
       cities,
       usersByQuery,
       setUsersByQuery,
