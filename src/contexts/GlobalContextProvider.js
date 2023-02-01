@@ -27,6 +27,7 @@ const GlobalContextProvider = ({children}) => {
    let [test, setTest] = useState('Hellooooooo!!');
    let [isUserWorker, setIsUserWorker] = useState(false);
    let [category, setCategory] = useState('');
+   const cities = ['Бишкек', 'Ош', 'Джалал-Абад', 'Баткен', 'Чолпон-Ата'];
 
    let [categoriesArr, setCategoriesArr] = useState([]);
    // let [servicesArr, setServicesArr] = useState([]);
@@ -117,8 +118,11 @@ const GlobalContextProvider = ({children}) => {
       setIsUserWorker,
       categoriesArr,
       servicesArr,
+      category,
       getCategoriesServices,
       getServices,
+      setCategory,
+      cities,
    };
    return (
       <globalContext.Provider value={value}>{children}</globalContext.Provider>

@@ -16,11 +16,7 @@ const ChatBox = () => {
    const scroll = useRef();
 
    useEffect(() => {
-      const q = query(
-         collection(db, 'messages'),
-         orderBy('createdAt'),
-         limit(50)
-      );
+      const q = query(collection(db, 'tasks'), orderBy('createdAt'), limit(50));
 
       const unsubscribe = onSnapshot(q, QuerySnapshot => {
          let messages = [];
