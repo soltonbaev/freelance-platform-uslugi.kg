@@ -27,15 +27,18 @@ const GlobalContextProvider = ({children}) => {
    let [test, setTest] = useState('Hellooooooo!!');
    let [isUserWorker, setIsUserWorker] = useState(false);
    let [category, setCategory] = useState('');
+
    let [categoriesArr, setCategoriesArr] = useState([]);
-   let [servicesArr, setServicesArr] = useState([]);
+   // let [servicesArr, setServicesArr] = useState([]);
+   // let categoriesArr = getCategoriesServices();
+   let servicesArr = getServices();
 
-   useEffect(() => {
-      getCategoriesServices();
-      getServices();
-   }, []);
+   // useEffect(() => {
+   //    getCategoriesServices();
+   //    getServices();
+   // }, []);
 
-   function getCategoriesServices() {
+   async function getCategoriesServices() {
       const arr = [];
       async function getData() {
          const querySnapshot = await getDocs(
@@ -43,14 +46,16 @@ const GlobalContextProvider = ({children}) => {
          );
 
          querySnapshot.forEach(doc => {
-            arr.push(doc.data());
+            console.log(doc.data());
+            arr.push({id: doc.id, ...doc.data()});
          });
       }
-      getData();
+      await getData();
       setCategoriesArr(arr);
+      // return arr;
    }
 
-   function getServices() {
+   async function getServices() {
       const arr = [];
       async function getData() {
          const querySnapshot = await getDocs(
@@ -60,8 +65,9 @@ const GlobalContextProvider = ({children}) => {
             arr.push(doc.data());
          });
       }
-      getData();
-      setServicesArr(arr);
+      await getData();
+      // return arr;
+      // setServicesArr(arr);
    }
 
    const authListener = () => {
@@ -111,6 +117,8 @@ const GlobalContextProvider = ({children}) => {
       setIsUserWorker,
       categoriesArr,
       servicesArr,
+      getCategoriesServices,
+      getServices,
    };
    return (
       <globalContext.Provider value={value}>{children}</globalContext.Provider>

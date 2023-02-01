@@ -45,6 +45,7 @@ const AuthPage = () => {
       setUserDetails,
       isUserWorker,
       setUserWorker,
+      categoriesArr,
    } = useGlobalContext();
    let [firstName, setFirstName] = useState('');
    let [lastName, setLastName] = useState('');
@@ -108,7 +109,6 @@ const AuthPage = () => {
          if (isUserWorker) {
             userObj.category = category;
             userObj.hourlyWage = hourlyWage;
-            userObj.rating = '';
             userObj.reviews = [];
          }
          try {
@@ -326,10 +326,10 @@ const AuthPage = () => {
                               setCategory(e.target.value);
                            }}
                         >
-                           {serviceCategories.map(category => {
+                           {categoriesArr.map(category => {
                               return (
-                                 <MenuItem value={category}>
-                                    {category}
+                                 <MenuItem value={category.id}>
+                                    {category.title}
                                  </MenuItem>
                               );
                            })}

@@ -1,22 +1,43 @@
 import {FormControl, InputLabel, MenuItem, Select} from '@mui/material';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useGlobalContext} from '../../../contexts/GlobalContextProvider';
 
 const UnauthorizedHomePage = () => {
-   const {servicesArr, categoriesArr} = useGlobalContext();
+   const {
+      servicesArr,
+      categoriesArr,
+      setCategory,
+      getCategoriesServices,
+      getServices,
+   } = useGlobalContext();
 
-   console.log();
+   useEffect(() => {
+      getCategoriesServices();
+      getServices();
+      // categoriesArr.map(item => {
+      //    console.log(item);
+      // });
+   }, []);
+
+   // useEffect(() => {
+   //    if (categoriesArr.length) {
+   //       console.log(categoriesArr, 'data');
+   //    }
+   //    console.log(categoriesArr, 'data2');
+   // }, [categoriesArr]);
+
    return (
       <div>
          <h1>Добро пожаловать, дорогой гость</h1>
-         <ul>
+         {/* <ul>
+            {' '}
+            Ul test
             {categoriesArr.map(category => {
-               console.log('catArr', category.title);
-               return <li>{category.title}</li>;
+               return console.log('catArr', category.title);
             })}
-         </ul>
+         </ul> */}
 
-         {/* <FormControl fullWidth>
+         <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">
                Какими услугами вы хотели бы сегодня воспользоваться?
             </InputLabel>
@@ -29,14 +50,14 @@ const UnauthorizedHomePage = () => {
                   setCategory(e.target.value);
                }}
             >
-               {catArr.map(category => {
-                  console.log(category.title);
+               {categoriesArr.map(category => {
+                  console.log(category);
                   return (
                      <MenuItem value={category.id}>{category.title}</MenuItem>
                   );
                })}
             </Select>
-         </FormControl> */}
+         </FormControl>
       </div>
    );
 };
