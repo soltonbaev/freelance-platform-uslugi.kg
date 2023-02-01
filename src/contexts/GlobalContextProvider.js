@@ -20,6 +20,7 @@ const GlobalContextProvider = ({ children }) => {
       ],
     },
   ];
+
   let [user, setUser] = useState("");
   let [hasAccount, setHasAccount] = useState("");
   let [isLoggedIn, setIsLoggedIn] = useState(false);

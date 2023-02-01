@@ -8,13 +8,15 @@ import ClientMyTasks from "./components/content/private/ClientMyTasks";
 import CategoriesPage from "./components/content/public/CategoriesPage";
 import TaskCategoryPage from "./components/content/public/TaskCategoryPage";
 import BecomeWorker from "./components/content/public/BecomeWorker";
+import WorkerHomePage from "./components/content/private/WorkerHomePage";
+import WorkerProfileMaodal from "./components/content/public/WorkerProfileModal";
 
 const PUBLIC_ROUTES = [
   { link: "/", element: <HomePage />, id: 1 },
   { link: "/auth", element: <AuthPage />, id: 2 },
   { link: "/task", element: <TaskPage />, id: 3 },
   { link: "/profile", element: <ClientProfilePage />, id: 4 },
-  { link: "/my-tasks", element: <ClientMyTasks />, id: 5 },
+  { link: "/my-tasks", element: <WorkerProfileMaodal />, id: 5 },
   { link: "/categories-page", element: <CategoriesPage />, id: 6 },
   { link: "/task-category", element: <TaskCategoryPage />, id: 7 },
   { link: "/become-worker", element: <BecomeWorker />, id: 8 },
