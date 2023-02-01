@@ -1,4 +1,11 @@
-import {doc, getDoc, getDocs, collection} from 'firebase/firestore';
+import {
+   doc,
+   getDoc,
+   getDocs,
+   collection,
+   query,
+   where,
+} from 'firebase/firestore';
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import fireBase, {db} from '../helpers/firebase';
 
@@ -26,18 +33,34 @@ const GlobalContextProvider = ({children}) => {
    let [userDetails, setUserDetails] = useState({});
    let [test, setTest] = useState('Hellooooooo!!');
    let [isUserWorker, setIsUserWorker] = useState(false);
-   let [category, setCategory] = useState('');
+   let [category, setCategory] = useState('Выбрать категорию');
+   let [usersByQuery, setUsersByQuery] = useState([]);
    const cities = ['Бишкек', 'Ош', 'Джалал-Абад', 'Баткен', 'Чолпон-Ата'];
 
    let [categoriesArr, setCategoriesArr] = useState([]);
-   // let [servicesArr, setServicesArr] = useState([]);
+   let [servicesArr, setServicesArr] = useState([]);
    // let categoriesArr = getCategoriesServices();
-   let servicesArr = getServices();
+   // let servicesArr = getServices();
 
    // useEffect(() => {
    //    getCategoriesServices();
    //    getServices();
    // }, []);
+
+   async function getUsersByQuery(workerQuery, cityQuery) {
+      const arr = [];
+      const q = query(
+         collection(db, 'userData'),
+         where('isUserWorker', '==', workerQuery)
+         // where('city', '==', cityQuery)
+      );
+
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach(doc => {
+         arr.push(doc.data());
+      });
+      setUsersByQuery(arr);
+   }
 
    async function getCategoriesServices() {
       const arr = [];
@@ -120,6 +143,11 @@ const GlobalContextProvider = ({children}) => {
       servicesArr,
       getCategoriesServices,
       getServices,
+      setCategory,
+      cities,
+      usersByQuery,
+      setUsersByQuery,
+      getUsersByQuery,
    };
    return (
       <globalContext.Provider value={value}>{children}</globalContext.Provider>
