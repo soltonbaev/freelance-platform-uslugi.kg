@@ -111,6 +111,8 @@ const GlobalContextProvider = ({children}) => {
       setIsUserWorker,
       categoriesArr,
       servicesArr,
+      getCategoriesServices,
+      getServices
    };
    return (
       <globalContext.Provider value={value}>{children}</globalContext.Provider>

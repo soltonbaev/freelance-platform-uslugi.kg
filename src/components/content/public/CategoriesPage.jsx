@@ -7,16 +7,44 @@ import {
   Typography,
 } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useGlobalContext } from "../../../contexts/GlobalContextProvider";
 import categoryPage from "./css/categoryPage.css";
 
 const CategoriesPage = () => {
-  const { services } = useGlobalContext();
+  const { servicesArr, categoriesArr, getCategoriesServices, getServices } = useGlobalContext();
+  // const { categories, setCategories} = useState(categoriesArr);
+  // const { services, setServices} = useState([servicesArr]);
+
+  useEffect(() => {
+    getCategoriesServices();
+    getServices();
+ }, []);
+
+//  useEffect(() => {
+//   setServices(servicesArr)
+//  }, [servicesArr]);
+ 
+//  useEffect(() => {
+//   setCategories(categoriesArr)
+//  }, [categoriesArr])
+// setCategories(categoriesArr);
+// servicesArr.forEach(element => {
+//   console.log("asd", element);
+// });
+
+ console.log("Asd", servicesArr);
+ console.log("fdsad", categoriesArr);
+
+
+// const services = servicesArr.filter(service => {
+//   if(service.category === category[0].id) return service;
+// })
 
   return (
     <div>
+      
       <Box className="bgImage">
         {/* <img src='https://myqualityhandyman.com/wp-content/uploads/2020/08/AdobeStock_105876439-1-1080x662.jpg' style={{width: "100%", height: "100%", objectFit: "cover"}} /> */}
         <Container>
@@ -30,12 +58,9 @@ const CategoriesPage = () => {
             }}
           >
             <Typography color="white" variant="h2" textAlign="center">
-              ALL SERVICES
+              Все наши сервисы
             </Typography>
-            <Typography color="white" variant="h5" textAlign="center">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime,
-              nam?
-            </Typography>
+
           </Box>
         </Container>
       </Box>
@@ -50,8 +75,10 @@ const CategoriesPage = () => {
             spacing={{ xs: 2, md: 3 }}
             columns={{ xs: 2, sm: 6, md: 9 }}
           >
-            {services.map((item) => (
-              <Grid item xs={3}>
+            
+            {categoriesArr.map((item) => (
+              <Grid item xs={3} key={item.id}>
+                
                 <Card>
                   <CardMedia
                     component="img"
@@ -66,28 +93,30 @@ const CategoriesPage = () => {
                     <NavLink
                       className="nav-link"
                       style={{ color: "black" }}
-                      to="/task-category"
+                      to={`/task-category/${item.id}`}
                     >
                       <Typography variant="h6" component="p">
                         {item.title}
                       </Typography>
                     </NavLink>
                     <Typography variant="body1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      {item.desc}
                     </Typography>
                   </Box>
                   <Divider></Divider>
-                  {item.subServices.map((service) => (
-                    <CardContent sx={{ margin: "10px 0", padding: 0 }}>
-                      <NavLink
-                        className="nav-link"
-                        style={{ color: "black" }}
-                        to="*"
-                      >
-                        {service.name}
-                      </NavLink>
-                    </CardContent>
-                  ))}
+                  {servicesArr.map((service) => {
+                    if(service.category === item.id) return (
+                      <CardContent sx={{ margin: "10px 0", padding: 0 }}>
+                        <NavLink
+                          className="nav-link"
+                          style={{ color: "black" }}
+                          to="*"
+                        >
+                          {service.title}
+                        </NavLink>
+                      </CardContent>
+                    )
+                  })}
                 </Card>
               </Grid>
             ))}

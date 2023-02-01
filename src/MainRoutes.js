@@ -20,7 +20,7 @@ const PUBLIC_ROUTES = [
    {link: '/profile', element: <ClientProfilePage />, id: 4},
    {link: '/my-tasks', element: <ClientMyTasks />, id: 5},
    {link: '/categories-page', element: <CategoriesPage />, id: 6},
-   {link: '/task-category', element: <TaskCategoryPage />, id: 7},
+   {link: '/task-category/:id', element: <TaskCategoryPage />, id: 7},
    {link: '/become-worker', element: <BecomeWorker />, id: 8},
    {link: '/task-options', element: <TaskOptionsPage />, id: 9},
    {link: '/calendar', element: <CalendarPage />, id: 10},
