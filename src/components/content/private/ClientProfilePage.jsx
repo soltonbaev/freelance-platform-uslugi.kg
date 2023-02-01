@@ -4,7 +4,7 @@ import {useGlobalContext} from '../../../contexts/GlobalContextProvider';
 import fireBase from '../../../helpers/firebase';
 
 const ClientProfilePage = () => {
-   const {user, userDetails} = useGlobalContext();
+   const {userDetails} = useGlobalContext();
    const navigate = useNavigate();
    const handleLogOut = () => {
       fireBase.auth().signOut();
@@ -19,9 +19,7 @@ const ClientProfilePage = () => {
       aboutMe,
       isUserWorker,
    } = userDetails;
-   useEffect(() => {
-      console.log('profile userDetails', userDetails);
-   }, [userDetails]);
+
    return (
       <div>
          <h1>Мой профиль</h1>
@@ -35,6 +33,13 @@ const ClientProfilePage = () => {
             <li>Мой рейтинг</li>
             <li> Мои отзывы</li>
          </ul>
+         <button
+            onClick={() => {
+               navigate('/chat-history');
+            }}
+         >
+            История чатов
+         </button>
          <button onClick={handleLogOut}>Выйти из аккаунта</button>
       </div>
    );

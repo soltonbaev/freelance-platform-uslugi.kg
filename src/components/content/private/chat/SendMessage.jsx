@@ -1,21 +1,27 @@
 import React, {useState} from 'react';
-import {auth, db} from '../firebase';
+import {db} from '../../../../helpers/firebase';
 import {addDoc, collection, serverTimestamp} from 'firebase/firestore';
-
+import {useGlobalContext} from '../../../../contexts/GlobalContextProvider';
 const SendMessage = ({scroll}) => {
    const [message, setMessage] = useState('');
-
+   const {userDetails, taskUid} = useGlobalContext();
    const sendMessage = async event => {
       event.preventDefault();
+
       if (message.trim() === '') {
          alert('Enter valid message');
          return;
       }
-      const {uid, displayName, photoURL} = auth.currentUser;
-      await addDoc(collection(db, 'messages'), {
+      //  console.log('userDetails', userDetails);
+
+      const {uid, displayName, photoUrl} = userDetails;
+      console.log(message);
+      console.log(uid);
+      console.log(photoUrl);
+      await addDoc(collection(db, 'tasks', taskUid, 'messages'), {
          text: message,
          name: displayName,
-         avatar: photoURL,
+         avatar: photoUrl,
          createdAt: serverTimestamp(),
          uid,
       });

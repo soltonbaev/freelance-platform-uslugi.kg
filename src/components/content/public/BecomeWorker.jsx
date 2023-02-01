@@ -9,10 +9,7 @@ import {
    Select,
    Typography,
 } from '@mui/material';
-import React, {useEffect, useState} from 'react';
-import becomeWorker from './css/becomeWorker.css';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
+import React, {useEffect} from 'react';
 import {Stack} from '@mui/system';
 import {useStepWizardContext} from '../../../contexts/StepWizardContext';
 import {useGlobalContext} from '../../../contexts/GlobalContextProvider';
@@ -28,8 +25,7 @@ const BecomeWorker = () => {
       categoriesArr,
       getCategoriesServices,
    } = useGlobalContext();
-   //  const [cityInp, setCity] = useState('');
-   //  const [categoryInp, setCategory] = useState('');
+
    useEffect(() => {
       getCategoriesServices();
    }, []);
