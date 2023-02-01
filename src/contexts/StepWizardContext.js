@@ -10,7 +10,7 @@ const StepWizardContextProvider = ({children}) => {
    const [sellerId, setSellerId] = useState('');
    const [time, setTime] = useState('');
    const [date, setDate] = useState('');
-   const [city, setCity] = useState('');
+   const [city, setCity] = useState('Выбрать город');
    const [taskLength, setTaskLength] = useState('');
    const [taskDesc, setTaskDesc] = useState('');
 
