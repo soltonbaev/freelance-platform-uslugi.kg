@@ -1,13 +1,17 @@
 import {
-  doc,
-  getDoc,
-  getDocs,
-  collection,
-  query,
-  where,
-} from "firebase/firestore";
-import React, { createContext, useContext, useEffect, useState } from "react";
-import fireBase, { db } from "../helpers/firebase";
+
+   doc,
+   getDoc,
+   getDocs,
+   collection,
+   query,
+   where,
+   setDoc,
+   updateDoc,
+} from 'firebase/firestore';
+import React, {createContext, useContext, useEffect, useState} from 'react';
+import fireBase, {db} from '../helpers/firebase';
+
 
 export const globalContext = createContext();
 export const useGlobalContext = () => useContext(globalContext);
@@ -80,6 +84,7 @@ const GlobalContextProvider = ({ children }) => {
 
       querySnapshot.forEach((doc) => {
         arr.push({ id: doc.id, ...doc.data() });
+
       });
     }
     await getData();
@@ -101,31 +106,34 @@ const GlobalContextProvider = ({ children }) => {
     setServicesArr(arr);
   }
 
-  const authListener = () => {
-    fireBase.auth().onAuthStateChanged(async (user) => {
-      if (user) {
-        setUser(user);
-        console.log("authListener User", user);
-        async function getFromDb() {
-          const docRef = doc(db, "userData", user.uid);
-          const docSnap = await getDoc(docRef);
-          if (docSnap.exists()) {
-            let docSnapData = docSnap.data();
-            setUserDetails(docSnapData);
-          } else {
-            console.log("No such document!");
-          }
-        }
-        await getFromDb();
-      } else {
-        setUser("");
-      }
-    });
-  };
+
+   const authListener = () => {
+      fireBase.auth().onAuthStateChanged(async user => {
+         if (user) {
+            setUser(user);
+            console.log('authListener User', user);
+            async function getFromDb() {
+               const docRef = doc(db, 'userData', user.uid);
+               const docSnap = await getDoc(docRef);
+               if (docSnap.exists()) {
+                  let docSnapData = docSnap.data();
+                  setUserDetails(docSnapData);
+               } else {
+                  console.log('No such document!');
+               }
+            }
+            await getFromDb();
+         } else {
+            setUser('');
+         }
+      });
+   };
+
 
   useEffect(() => {
     authListener();
   }, []);
+
 
   let value = {
     services,
@@ -161,6 +169,7 @@ const GlobalContextProvider = ({ children }) => {
   return (
     <globalContext.Provider value={value}>{children}</globalContext.Provider>
   );
+
 };
 
 export default GlobalContextProvider;

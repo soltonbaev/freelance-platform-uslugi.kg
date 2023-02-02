@@ -18,3 +18,9 @@
 
   color: blue !important;
 }
+
+
+.nav-way li + li::before {
+  content: "/";
+  padding: 0 7px;
+}

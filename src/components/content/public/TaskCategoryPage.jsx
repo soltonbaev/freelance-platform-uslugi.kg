@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Box, flexbox } from "@mui/system";
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useGlobalContext } from "../../../contexts/GlobalContextProvider";
 
 const TaskCategoryPage = () => {
@@ -24,6 +24,8 @@ const TaskCategoryPage = () => {
   }, []);
 
   const params = useParams();
+
+  const navigate = useNavigate();
   console.log("cat", categoriesArr);
 
   const category = categoriesArr.filter((category) => {
@@ -34,7 +36,6 @@ const TaskCategoryPage = () => {
     if (service.category === category[0].id) return service;
   });
 
-  console.log("Asd", category);
 
   return (
     <Box>
@@ -91,6 +92,18 @@ const TaskCategoryPage = () => {
           }}
         /> */}
       </Box>
+      <ul className="nav-way" style={{ display: "flex", color: "black"}} >
+        <li>
+          <NavLink to="/" style={{color: "black"}} >Главная страница</NavLink>
+        </li>
+        <li>
+          <NavLink to="/categories-page" style={{color: "black"}} >Все сервисы</NavLink>
+        </li>
+        <li>
+          <NavLink to="#" style={{color: "black"}} >{category[0].title}</NavLink>
+        </li>
+      </ul>
+
       {services.map((service) => (
         <Box>
           <Card
@@ -124,9 +137,12 @@ const TaskCategoryPage = () => {
                 }}
               />
               <CardContent>
+                <NavLink style={{color: "black"}} to={`/task-page/${service.title}`} >
                 <Typography gutterBottom variant="h4" component="div">
                   {service.title}
                 </Typography>
+
+                </NavLink>
                 <Typography
                   variant="body2"
                   color="#3d463d"
@@ -145,6 +161,7 @@ const TaskCategoryPage = () => {
                       style={{
                         backgroundColor: "#0d7a5f",
                       }}
+                      onClick={() => navigate("/")}
                     >
                       Contained
                     </Button>

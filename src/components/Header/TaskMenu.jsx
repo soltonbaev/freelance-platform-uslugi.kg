@@ -6,7 +6,6 @@ import { useGlobalContext } from "../../contexts/GlobalContextProvider";
 import taskMenu from "./css/taskMenu.css";
 
 const TaskMenu = () => {
-
   const { servicesArr, categoriesArr, getCategoriesServices, getServices } =
     useGlobalContext();
 
@@ -14,8 +13,6 @@ const TaskMenu = () => {
     getCategoriesServices();
     getServices();
   }, []);
-
-  console.log("Asd", categoriesArr);
 
   return (
     <Box sx={{ mt: "10px", mb: "10px" }}>
@@ -45,14 +42,15 @@ const TaskMenu = () => {
                 >
                   <Link to="*">{category.title}</Link>
 
-
                   <ul className="servicesList">
                     <li style={{ fontWeight: "bold" }}>Популярные услуги</li>
                     {servicesArr.map((service) => {
                       if (service.category === category.id) {
                         return (
                           <li>
-                            <Link to="*">{service.title}</Link>
+                            <Link to={`/task-page/${service.title}`}>
+                              {service.title}
+                            </Link>
                           </li>
                         );
                       }
@@ -78,7 +76,6 @@ const TaskMenu = () => {
             <Typography
               sx={{ borderLeft: "1px solid black", paddingLeft: "5px" }}
             >
-
               Services
             </Typography>
             <li className="servicesMenuList">
@@ -94,7 +91,6 @@ const TaskMenu = () => {
                       <ul className="servicesList">
                         <li style={{ fontWeight: "bold" }}>
                           Популярные услуги
-
                         </li>
                         {servicesArr.map((service) => {
                           if (service.category === category.id) {

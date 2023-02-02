@@ -17,6 +17,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import WorkerCard from "../WorkerCard";
 
 const UnauthorizedHomePage = () => {
+
   const navigate = useNavigate();
   const {
     categoriesArr,
@@ -148,6 +149,7 @@ const UnauthorizedHomePage = () => {
               sx={{ marginTop: "10px" }}
               variant="body2"
               color="text.secondary"
+
             >
               <CheckIcon /> Планируйте, когда это работает для вас — уже сегодня
             </Typography>

@@ -98,6 +98,9 @@ const AuthPage = () => {
                doc(db, 'userData', signUpRes.user.uid),
                userObj
             );
+            const colRef = collection(docRef, 'reviews');
+            const col = await addDoc(colRef, {col: 'reviews'});
+            console.log('reviews collection added with  ID: ', col.id);
          } catch (e) {
             console.error('Error adding document: ', e);
          }

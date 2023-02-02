@@ -43,12 +43,13 @@ li {
 
 .servicesItem:hover .servicesList {
   display: block;
-  z-index: 100;
+  z-index: 101;
 }
 /* ================== */
 
 .servicesMenu:hover li {
   display: block;
+  z-index: 100;
 }
 
 .servicesMenu .servicesMenuList {
