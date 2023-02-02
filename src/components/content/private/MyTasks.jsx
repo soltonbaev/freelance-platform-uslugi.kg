@@ -16,16 +16,26 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../../contexts/GlobalContextProvider';
 import {db} from '../../../helpers/firebase';
+import ReviewModal from '../public/reviews/ReviewModal';
 const MyTasks = () => {
-   const {userDetails, user, setTaskUid, isUserWorker} = useGlobalContext();
+   const {
+      userDetails,
+      user,
+      setTaskUid,
+      isUserWorker,
+      setTaskCompleted,
+   } = useGlobalContext();
    const [chatsWithSellers, setChatsWithSellers] = useState([]);
    const [chatsWithBuyers, setChatsWithBuyers] = useState([]);
+   const [workerUid, setWorkerUid] = useState([]);
    const navigate = useNavigate();
    useEffect(() => {
       console.log('userDetails', userDetails);
       getChatsWithBuyers(user);
       getChatsWithSellers(user);
    }, []);
+
+   const [addReviewModal, setAddReviewModal] = useState(false);
 
    async function getChatsWithBuyers(user) {
       console.log('current chat userid', user);
@@ -56,6 +66,14 @@ const MyTasks = () => {
    }
    return (
       <>
+         {addReviewModal && (
+            <ReviewModal
+               addReviewModal={addReviewModal}
+               setAddReviewModal={setAddReviewModal}
+               workerUid={workerUid}
+               setWorkerUid={setWorkerUid}
+            />
+         )}
          {isUserWorker ? (
             <h1> История предоставленных услуг</h1>
          ) : (
@@ -73,7 +91,7 @@ const MyTasks = () => {
                   </TableRow>
                </TableHead>
                <TableBody>
-                  {isUserWorker
+                  {!isUserWorker
                      ? chatsWithBuyers.map(task => (
                           <TableRow
                              key={task[1].sellerInfo[0]}
@@ -94,7 +112,6 @@ const MyTasks = () => {
                                 {task[1].taskDesc}
                              </TableCell>
                              <TableCell align="right">
-                                {' '}
                                 <Button
                                    onClick={() => {
                                       setTaskUid(task[0]);
@@ -104,6 +121,25 @@ const MyTasks = () => {
                                 >
                                    Чат
                                 </Button>
+                             </TableCell>
+                             <TableCell align="right">
+                                {task[1].isCompleted ? (
+                                   <Button disabled>Завершено</Button>
+                                ) : (
+                                   <Button
+                                      onClick={() => {
+                                         //   setTaskCompleted(task[0]);
+                                         //   getChatsWithBuyers(user);
+                                         setWorkerUid(task[1].sellerUid);
+                                         setAddReviewModal(true);
+
+                                         //   navigate('/chat');
+                                      }}
+                                      variant="contained"
+                                   >
+                                      Завершить
+                                   </Button>
+                                )}
                              </TableCell>
                           </TableRow>
                        ))

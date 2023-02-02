@@ -5,6 +5,8 @@ import {
    collection,
    query,
    where,
+   setDoc,
+   updateDoc,
 } from 'firebase/firestore';
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import fireBase, {db} from '../helpers/firebase';
@@ -87,6 +89,18 @@ const GlobalContextProvider = ({children}) => {
       setServicesArr(arr);
    }
 
+   async function setTaskCompleted(taskUid) {
+      console.log('task completed');
+      try {
+         const docRef = await updateDoc(doc(db, 'tasks', taskUid), {
+            isCompleted: true,
+         });
+         console.log('Value updated with', docRef);
+      } catch (e) {
+         console.error('Error adding document: ', e);
+      }
+   }
+
    const authListener = () => {
       fireBase.auth().onAuthStateChanged(async user => {
          if (user) {
@@ -128,7 +142,6 @@ const GlobalContextProvider = ({children}) => {
       categoriesArr,
       servicesArr,
       getCategoriesServices,
-
       getServices,
       setCategory,
       category,
@@ -140,6 +153,9 @@ const GlobalContextProvider = ({children}) => {
       setTaskUid,
       isChatActive,
       setIsChatActive,
+      setTaskCompleted,
+      // addReviewModal,
+      // setAddReviewModal,
    };
    return (
       <globalContext.Provider value={value}>{children}</globalContext.Provider>
