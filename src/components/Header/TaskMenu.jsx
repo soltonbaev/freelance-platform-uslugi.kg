@@ -15,7 +15,6 @@ const TaskMenu = () => {
     getServices();
   }, []);
 
-  console.log("Asd", categoriesArr);
 
   return (
     <Box sx={{ mt: "10px", mb: "10px" }}>

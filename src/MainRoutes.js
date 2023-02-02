@@ -14,6 +14,7 @@ import ConfirmationPage from './components/content/public/StepWizard/Confirmatio
 import CalendarTimePage from './components/content/public/StepWizard/CalendarTimePage';
 import ChatBox from './components/content/private/chat/ChatBox';
 import ChatHistory from './components/content/private/chat/ChatHistory';
+import Review from './components/content/public/Review';
 import MyTasks from './components/content/private/MyTasks';
 
 const PUBLIC_ROUTES = [
@@ -29,6 +30,7 @@ const PUBLIC_ROUTES = [
    {link: '/calendar', element: <CalendarTimePage />, id: 10},
    {link: '/workers', element: <FoundWorkersPage />, id: 11},
    {link: '/confirm', element: <ConfirmationPage />, id: 12},
+   {link: '/review', element: <Review />, id: 13},
    {link: '/chat', element: <ChatBox />, id: 13},
    {link: '/chat-history', element: <ChatHistory />, id: 13},
 
