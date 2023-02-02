@@ -19,6 +19,7 @@ const ClientProfilePage = () => {
       aboutMe,
       isUserWorker,
    } = userDetails;
+   console.log(user);
    useEffect(() => {
       console.log('profile userDetails', userDetails);
    }, [userDetails]);

@@ -12,6 +12,7 @@ import FoundWorkersPage from "./components/content/public/StepWizard/FoundWorker
 import TaskOptionsPage from "./components/content/public/StepWizard/TaskOptionsPage";
 import CalendarPage from "./components/content/public/StepWizard/CalendarPage";
 import ConfirmationPage from "./components/content/public/StepWizard/ConfirmationPage";
+import Review from "./components/content/public/Review";
 
 const PUBLIC_ROUTES = [
    {link: '/', element: <HomePage />, id: 1},
@@ -26,6 +27,7 @@ const PUBLIC_ROUTES = [
    {link: '/calendar', element: <CalendarPage />, id: 10},
    {link: '/workers', element: <FoundWorkersPage />, id: 11},
    {link: '/confirm', element: <ConfirmationPage />, id: 12},
+   {link: '/review', element: <Review />, id: 13},
 ];
 
 const MainRoutes = () => {

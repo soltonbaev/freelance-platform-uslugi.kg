@@ -34,7 +34,6 @@ const TaskCategoryPage = () => {
     if (service.category === category[0].id) return service;
   });
 
-  console.log("Asd", category);
 
   return (
     <Box>
