@@ -6,6 +6,12 @@ import { Button, Card, CardContent } from "@mui/material";
 
 const Review = () => {
   const [value, setValue] = React.useState(2);
+  let rating = [];
+  let review = [];
+
+  function addReview(){
+    
+  }
   return (
     <Box>
       <Button>Оставить отзыв</Button>
