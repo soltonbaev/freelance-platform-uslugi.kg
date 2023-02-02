@@ -93,7 +93,7 @@ const GlobalContextProvider = ({children}) => {
       }
       await getData();
       // return arr;
-      // setServicesArr(arr);
+      setServicesArr(arr);
    }
 
    const authListener = () => {
@@ -145,6 +145,7 @@ const GlobalContextProvider = ({children}) => {
       categoriesArr,
       servicesArr,
       getCategoriesServices,
+
       getServices,
       setCategory,
       category,
@@ -156,6 +157,7 @@ const GlobalContextProvider = ({children}) => {
       setTaskUid,
       isChatActive,
       setIsChatActive,
+
    };
    return (
       <globalContext.Provider value={value}>{children}</globalContext.Provider>

@@ -22,7 +22,7 @@ const PUBLIC_ROUTES = [
    {link: '/profile', element: <ClientProfilePage />, id: 4},
    {link: '/my-tasks', element: <ClientMyTasks />, id: 5},
    {link: '/categories-page', element: <CategoriesPage />, id: 6},
-   {link: '/task-category', element: <TaskCategoryPage />, id: 7},
+   {link: '/task-category/:id', element: <TaskCategoryPage />, id: 7},
    {link: '/become-worker', element: <BecomeWorker />, id: 8},
    {link: '/task-options', element: <TaskOptionsPage />, id: 9},
    {link: '/calendar', element: <CalendarTimePage />, id: 10},
@@ -30,6 +30,7 @@ const PUBLIC_ROUTES = [
    {link: '/confirm', element: <ConfirmationPage />, id: 12},
    {link: '/chat', element: <ChatBox />, id: 13},
    {link: '/chat-history', element: <ChatHistory />, id: 13},
+
 ];
 
 const MainRoutes = () => {
