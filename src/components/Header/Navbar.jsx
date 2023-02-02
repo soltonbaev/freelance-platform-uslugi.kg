@@ -18,10 +18,10 @@ const Navbar = () => {
       setHasAccount,
       isUserWorker,
       setIsUserWorker,
+      userDetails,
    } = useGlobalContext();
    const [anchorElNav, setAnchorElNav] = React.useState(null);
    const [pages, setPages] = React.useState([]);
-
    const handleOpenNavMenu = event => {
       setAnchorElNav(event.currentTarget);
    };
@@ -34,6 +34,11 @@ const Navbar = () => {
       if (user) {
          setPages([
             {name: 'Заказать услугу', link: '/', id: 1},
+            {name: 'Мои услуги', link: '/my-tasks', id: 2},
+            {name: 'Мой Профиль', link: '/profile', id: 3},
+         ]);
+      } else if (userDetails.isUserWorker) {
+         setPages([
             {name: 'Мои услуги', link: '/my-tasks', id: 2},
             {name: 'Мой Профиль', link: '/profile', id: 3},
          ]);
@@ -274,7 +279,7 @@ const Navbar = () => {
                            ) : (
                               ''
                            )}
-                           {isUserWorker || (
+                           {userDetails.isUserWorker || (
                               <Stack direction="row" spacing={2}>
                                  <Button
                                     variant="outlined"

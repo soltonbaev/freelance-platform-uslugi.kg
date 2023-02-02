@@ -31,7 +31,6 @@ const GlobalContextProvider = ({children}) => {
    let [hasAccount, setHasAccount] = useState('');
    let [isLoggedIn, setIsLoggedIn] = useState(false);
    let [userDetails, setUserDetails] = useState({});
-   let [test, setTest] = useState('Hellooooooo!!');
    let [isUserWorker, setIsUserWorker] = useState(false);
    let [category, setCategory] = useState('');
    let [usersByQuery, setUsersByQuery] = useState([]);
@@ -42,13 +41,6 @@ const GlobalContextProvider = ({children}) => {
 
    let [categoriesArr, setCategoriesArr] = useState([]);
    let [servicesArr, setServicesArr] = useState([]);
-   // let categoriesArr = getCategoriesServices();
-   // let servicesArr = getServices();
-
-   // useEffect(() => {
-   //    getCategoriesServices();
-   //    getServices();
-   // }, []);
 
    async function getUsersByQuery(workerQuery, cityQuery) {
       const arr = [];
@@ -78,7 +70,6 @@ const GlobalContextProvider = ({children}) => {
       }
       await getData();
       setCategoriesArr(arr);
-      // return arr;
    }
 
    async function getServices() {
@@ -92,8 +83,7 @@ const GlobalContextProvider = ({children}) => {
          });
       }
       await getData();
-      // return arr;
-      // setServicesArr(arr);
+      setServicesArr(arr);
    }
 
    const authListener = () => {
@@ -122,20 +112,12 @@ const GlobalContextProvider = ({children}) => {
       authListener();
    }, []);
 
-   // useEffect(() => {
-   //    getFromDb(user);
-   // }, []);
-
-   // useEffect(() => {
-   //    console.log(user);
-   // }, [user]);
    let value = {
       services,
       user,
       setUser,
       hasAccount,
       setHasAccount,
-      test,
       isLoggedIn,
       setIsLoggedIn,
       userDetails,
