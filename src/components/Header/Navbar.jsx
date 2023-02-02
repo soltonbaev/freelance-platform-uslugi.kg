@@ -31,13 +31,13 @@ const Navbar = () => {
    };
 
    React.useEffect(() => {
-      if (user) {
+      if (user && !isUserWorker) {
          setPages([
             {name: 'Заказать услугу', link: '/', id: 1},
             {name: 'Мои услуги', link: '/my-tasks', id: 2},
             {name: 'Мой Профиль', link: '/profile', id: 3},
          ]);
-      } else if (userDetails.isUserWorker) {
+      } else if (user && isUserWorker) {
          setPages([
             {name: 'Мои услуги', link: '/my-tasks', id: 2},
             {name: 'Мой Профиль', link: '/profile', id: 3},
@@ -45,10 +45,25 @@ const Navbar = () => {
       } else {
          setPages([
             {name: 'Локации', link: '/', id: 1},
-            // {name: 'Войти/Зарегистрироваться', link: '/auth', id: 3},
+            {name: 'Войти/Зарегистрироваться', link: '/auth', id: 3},
          ]);
       }
    }, [user]);
+
+   React.useEffect(() => {
+      if (!isUserWorker) {
+         setPages([
+            {name: 'Заказать услугу', link: '/', id: 1},
+            {name: 'Мои услуги', link: '/my-tasks', id: 2},
+            {name: 'Мой Профиль', link: '/profile', id: 3},
+         ]);
+      } else if (isUserWorker) {
+         setPages([
+            {name: 'Мои услуги', link: '/my-tasks', id: 2},
+            {name: 'Мой Профиль', link: '/profile', id: 3},
+         ]);
+      }
+   }, [isUserWorker]);
    //  const pages = [
    //     {name: 'Locations', link: '/', id: 1},
    //     {name: 'Services', link: '/auth', id: 2},
