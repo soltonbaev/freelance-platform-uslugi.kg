@@ -1,11 +1,23 @@
-import {Button, Grid} from '@mui/material';
+import {
+   Button,
+   Grid,
+   Paper,
+   Table,
+   TableBody,
+   TableCell,
+   TableContainer,
+   TableHead,
+   TableRow,
+   Typography,
+} from '@mui/material';
+import {Container} from '@mui/system';
 import {collection, getDocs, query, where} from 'firebase/firestore';
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../../contexts/GlobalContextProvider';
 import {db} from '../../../helpers/firebase';
 const MyTasks = () => {
-   const {userDetails, user, setTaskUid, getUserByUid} = useGlobalContext();
+   const {userDetails, user, setTaskUid, isUserWorker} = useGlobalContext();
    const [chatsWithSellers, setChatsWithSellers] = useState([]);
    const [chatsWithBuyers, setChatsWithBuyers] = useState([]);
    const navigate = useNavigate();
@@ -30,7 +42,6 @@ const MyTasks = () => {
       setChatsWithBuyers(arr);
    }
    async function getChatsWithSellers(user) {
-      console.log('current chat userid', user);
       const arr = [];
       const q = query(
          collection(db, 'tasks'),
@@ -45,88 +56,93 @@ const MyTasks = () => {
    }
    return (
       <>
-         {userDetails.isUserWorker ? (
+         {isUserWorker ? (
             <h1> История предоставленных услуг</h1>
          ) : (
             <h1>История купленных услуг</h1>
          )}
-         {userDetails.isUserWorker ? (
-            <Grid
-               container
-               spacing={2}
-               direction="column"
-               alignItems="center"
-               justifyContent="center"
-            >
-               {chatsWithSellers.map(chat => {
-                  console.log(chat);
-                  return (
-                     <Grid
-                        container
-                        spacing={2}
-                        alignItems="center"
-                        justifyContent="center"
-                     >
-                        <Grid item>
-                           {chat[1].buyerInfo[0]}
-                           {chat[1].buyerInfo[1]}
-                        </Grid>
-                        <Grid item>{chat[0]}</Grid>
-                        <Grid item>{chat[1].taskDesc}</Grid>
-                        <Grid item>
-                           <Button
-                              onClick={() => {
-                                 setTaskUid(chat[0]);
-                                 navigate('/chat');
-                              }}
-                              variant="outlined"
-                           >
-                              Чат
-                           </Button>
-                        </Grid>
-                     </Grid>
-                  );
-               })}
-            </Grid>
-         ) : (
-            <Grid
-               container
-               spacing={2}
-               direction="column"
-               alignItems="center"
-               justifyContent="center"
-            >
-               {chatsWithBuyers.map(chat => {
-                  console.log(chat);
-                  return (
-                     <Grid
-                        container
-                        spacing={2}
-                        alignItems="center"
-                        justifyContent="center"
-                     >
-                        <Grid item>
-                           {chat[1].sellerInfo[0]}
-                           {chat[1].sellerInfo[1]}
-                        </Grid>
-                        <Grid item>{chat[0]}</Grid>
-                        <Grid item>{chat[1].taskDesc}</Grid>
-                        <Grid item>
-                           <Button
-                              onClick={() => {
-                                 setTaskUid(chat[0]);
-                                 navigate('/chat');
-                              }}
-                              variant="outlined"
-                           >
-                              Чат
-                           </Button>
-                        </Grid>
-                     </Grid>
-                  );
-               })}
-            </Grid>
-         )}
+         <TableContainer component={Paper}>
+            <Table sx={{minWidth: 650}} aria-label="simple table">
+               <TableHead>
+                  <TableRow>
+                     <TableCell>Имя</TableCell>
+                     <TableCell align="right">Фамилия</TableCell>
+                     <TableCell align="right">Почта</TableCell>
+                     <TableCell align="right">Описание</TableCell>
+                     <TableCell align="right">Действие</TableCell>
+                  </TableRow>
+               </TableHead>
+               <TableBody>
+                  {isUserWorker
+                     ? chatsWithBuyers.map(task => (
+                          <TableRow
+                             key={task[1].sellerInfo[0]}
+                             sx={{
+                                '&:last-child td, &:last-child th': {border: 0},
+                             }}
+                          >
+                             <TableCell component="th" scope="row">
+                                {task[1].sellerInfo[0]}
+                             </TableCell>
+                             <TableCell align="right">
+                                {task[1].sellerInfo[1]}
+                             </TableCell>
+                             <TableCell align="right">
+                                {task[1].sellerInfo[2]}
+                             </TableCell>
+                             <TableCell align="right">
+                                {task[1].taskDesc}
+                             </TableCell>
+                             <TableCell align="right">
+                                {' '}
+                                <Button
+                                   onClick={() => {
+                                      setTaskUid(task[0]);
+                                      navigate('/chat');
+                                   }}
+                                   variant="outlined"
+                                >
+                                   Чат
+                                </Button>
+                             </TableCell>
+                          </TableRow>
+                       ))
+                     : chatsWithSellers.map(task => (
+                          <TableRow
+                             key={task[1].buyerInfo[0]}
+                             sx={{
+                                '&:last-child td, &:last-child th': {border: 0},
+                             }}
+                          >
+                             <TableCell component="th" scope="row">
+                                {task[1].buyerInfo[0]}
+                             </TableCell>
+                             <TableCell align="right">
+                                {task[1].buyerInfo[1]}
+                             </TableCell>
+                             <TableCell align="right">
+                                {task[1].buyerInfo[2]}
+                             </TableCell>
+                             <TableCell align="right">
+                                {task[1].taskDesc}
+                             </TableCell>
+                             <TableCell align="right">
+                                {' '}
+                                <Button
+                                   onClick={() => {
+                                      setTaskUid(task[0]);
+                                      navigate('/chat');
+                                   }}
+                                   variant="outlined"
+                                >
+                                   Чат
+                                </Button>
+                             </TableCell>
+                          </TableRow>
+                       ))}
+               </TableBody>
+            </Table>
+         </TableContainer>
       </>
    );
 };

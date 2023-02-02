@@ -20,7 +20,7 @@ const UnauthorizedHomePage = () => {
 
    return (
       <div>
-         <h1>Добро пожаловать, дорогой гость</h1>
+         <h1>Добро пожаловать, гость</h1>
 
          <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">
