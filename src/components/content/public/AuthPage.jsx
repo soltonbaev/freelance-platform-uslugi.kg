@@ -1,11 +1,3 @@
-// import React from 'react';
-
-// const AuthPage = () => {
-//    return <div></div>;
-// };
-
-// export default AuthPage;
-
 import React, {useState} from 'react';
 import {LockOutlined} from '@mui/icons-material';
 import {
@@ -47,10 +39,11 @@ const AuthPage = () => {
       isUserWorker,
       setUserWorker,
       categoriesArr,
-
+      setCategory,
+      category,
       cities,
    } = useGlobalContext();
-   const {city, setCity} = useStepWizardContext();
+   const {city, setCity, isWizardInProgress} = useStepWizardContext();
    let [firstName, setFirstName] = useState('');
    let [lastName, setLastName] = useState('');
    let [email, setEmail] = useState('');
@@ -58,8 +51,6 @@ const AuthPage = () => {
    let [password, setPassword] = useState('');
    let [emailError, setEmailError] = useState('');
    let [passwordError, setPasswordError] = useState('');
-
-   let [category, setCategory] = useState('');
    let [photoUrl, setPhotoUrl] = useState('');
    let [hourlyWage, setHourlyWage] = useState('');
 
@@ -69,8 +60,8 @@ const AuthPage = () => {
          .createUserWithEmailAndPassword(email, password)
          .then(res => {
             addToDb(res);
-            navigate('/');
             setUser(res.user);
+            isWizardInProgress ? navigate('/confirm') : navigate('/');
          })
          .catch(err => {
             switch (err.code) {
@@ -88,7 +79,7 @@ const AuthPage = () => {
 
       async function addToDb(signUpRes) {
          const userObj = {
-            firstname: firstName,
+            firstName: firstName,
             lastName: lastName,
             photoUrl: photoUrl,
             email: signUpRes.user.email,
@@ -121,7 +112,7 @@ const AuthPage = () => {
             setUser(res.user);
             getFromDb(res);
             setIsLoggedIn(true);
-            navigate('/');
+            isWizardInProgress ? navigate('/confirm') : navigate('/');
          })
          .catch(err => {
             switch (err.code) {
@@ -257,7 +248,7 @@ const AuthPage = () => {
                         id="photoUrl"
                         autoComplete="current-password"
                         helperText={passwordError}
-                        value={password}
+                        value={photoUrl}
                         onChange={e => {
                            setPhotoUrl(e.target.value);
                         }}

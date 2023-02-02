@@ -1,4 +1,5 @@
 import {
+
   Box,
   Button,
   Card,
@@ -20,10 +21,24 @@ import { Stack } from "@mui/system";
 import smartphoneLogo from "./css/images/icons/smartphone.svg";
 import analyticsLogo from "./css/images/icons/analytics.svg";
 import moneyLogo from "./css/images/icons/money.svg";
+import {useStepWizardContext} from '../../../contexts/StepWizardContext';
+import {useGlobalContext} from '../../../contexts/GlobalContextProvider';
+import {useNavigate} from 'react-router-dom';
 
 const BecomeWorker = () => {
-  const [cityInp, setCity] = useState("");
-  const [categoryInp, setCategory] = useState("");
+   const navigate = useNavigate();
+   const {city, setCity} = useStepWizardContext();
+   const {
+      category,
+      setCategory,
+      cities,
+      categoriesArr,
+      getCategoriesServices,
+   } = useGlobalContext();
+
+   useEffect(() => {
+      getCategoriesServices();
+   }, []);
 
   return (
     <div>
@@ -67,38 +82,50 @@ const BecomeWorker = () => {
                   flexDirection: { xs: "column", sm: "row" },
                 }}
               >
-                <Stack
-                  spacing={2}
-                  sx={{ width: { xs: "100%", sm: "300px" }, mb: "10px" }}
-                >
-                  <TextField
-                    label="Выберите город"
-                    select
-                    value={cityInp}
-                    onChange={(e) => setCity(e.target.value)}
-                  >
-                    <MenuItem value="bishkek">Бишкек</MenuItem>
-                    <MenuItem value="osh">Ош</MenuItem>
-                    <MenuItem value="jalal-abad">Джалал-Абад</MenuItem>
-                    <MenuItem value="karakol">Каракол</MenuItem>
-                    <MenuItem value="tokmok">Токмок</MenuItem>
-                  </TextField>
-                  <TextField
-                    label="Выберите категорию"
-                    select
-                    value={categoryInp}
-                    onChange={(e) => setCategory(e.target.value)}
-                  >
-                    <MenuItem value="clining">Клининг</MenuItem>
-                    <MenuItem value="yardwork-services">
-                      Садовые работы
-                    </MenuItem>
-                    <MenuItem value="furniture-assembly">
-                      Сборка мебели
-                    </MenuItem>
-                    <MenuItem value="moving">Помощь с переездом</MenuItem>
-                  </TextField>
-                </Stack>
+                <Stack spacing={2}>
+                           <FormControl fullWidth>
+                              <InputLabel id="demo-simple-select-label">
+                                 Выбрать город
+                              </InputLabel>
+                              <Select
+                                 labelId="demo-simple-select-label"
+                                 id="demo-simple-select"
+                                 value={city}
+                                 label="Город"
+                                 onChange={e => {
+                                    setCity(e.target.value);
+                                 }}
+                              >
+                                 {cities.map(city => {
+                                    return (
+                                       <MenuItem value={city}>{city}</MenuItem>
+                                    );
+                                 })}
+                              </Select>
+                           </FormControl>
+                           <FormControl fullWidth>
+                              <InputLabel id="demo-simple-select-label">
+                                 Выбрать категорию
+                              </InputLabel>
+                              <Select
+                                 labelId="demo-simple-select-label"
+                                 id="demo-simple-select"
+                                 value={category}
+                                 label="Категория"
+                                 onChange={e => {
+                                    setCategory(e.target.value);
+                                 }}
+                              >
+                                 {categoriesArr.map(category => {
+                                    return (
+                                       <MenuItem value={category.id}>
+                                          {category.title}
+                                       </MenuItem>
+                                    );
+                                 })}
+                              </Select>
+                           </FormControl>
+                        </Stack>
                 <Box
                   sx={{
                     textAlign: "center",
@@ -121,9 +148,16 @@ const BecomeWorker = () => {
               </Box>
               {/* ==== */}
               <Divider sx={{ background: "white", mb: "10px", mt: "10px" }} />
-              <Button sx={{ width: "100%" }} variant="contained">
-                Начать работать
-              </Button>
+               <Button
+                        onClick={() => {
+                           navigate('/auth');
+                        }}
+                        sx={{width: '100%'}}
+                        variant="contained"
+                        color="success"
+                     >
+                        Начать работать
+                     </Button>
             </Box>
           </Box>
         </Container>
@@ -336,3 +370,4 @@ const BecomeWorker = () => {
 };
 
 export default BecomeWorker;
+

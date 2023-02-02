@@ -6,7 +6,7 @@ import {
    Select,
    TextareaAutosize,
 } from '@mui/material';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Navigate, useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../../../contexts/GlobalContextProvider';
 import {useStepWizardContext} from '../../../../contexts/StepWizardContext';
@@ -14,7 +14,17 @@ import {useStepWizardContext} from '../../../../contexts/StepWizardContext';
 const TaskOptionsPage = () => {
    const navigate = useNavigate();
    const {cities} = useGlobalContext();
-   const {city, setCity, setTaskLength, setTaskDesc} = useStepWizardContext();
+   const {
+      city,
+      setCity,
+      setTaskLength,
+      setTaskDesc,
+      setIsWizardInProgress,
+   } = useStepWizardContext();
+
+   useEffect(() => {
+      setIsWizardInProgress(true);
+   }, []);
    return (
       <>
          <h1>Шаг 1</h1>;
@@ -54,7 +64,7 @@ const TaskOptionsPage = () => {
             aria-label="minimum height"
             minRows={3}
             placeholder="Опишите вашу задачу. Пожалуйста уточните детали задачи, например размер вашего помещения, какие инструменты нужны для выполнения задачи итд "
-            style={{width: 200}}
+            style={{width: '100%'}}
             onChange={e => {
                setTaskDesc(e.target.value);
             }}
