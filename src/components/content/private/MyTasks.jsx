@@ -65,122 +65,126 @@ const MyTasks = () => {
       setChatsWithSellers(arr);
    }
    return (
-      <>
-         {addReviewModal && (
-            <ReviewModal
-               addReviewModal={addReviewModal}
-               setAddReviewModal={setAddReviewModal}
-               workerUid={workerUid}
-               setWorkerUid={setWorkerUid}
-            />
-         )}
-         {isUserWorker ? (
-            <h1> История предоставленных услуг</h1>
-         ) : (
-            <h1>История купленных услуг</h1>
-         )}
-         <TableContainer component={Paper}>
-            <Table sx={{minWidth: 650}} aria-label="simple table">
-               <TableHead>
-                  <TableRow>
-                     <TableCell>Имя</TableCell>
-                     <TableCell align="right">Фамилия</TableCell>
-                     <TableCell align="right">Почта</TableCell>
-                     <TableCell align="right">Описание</TableCell>
-                     <TableCell align="right">Действие</TableCell>
-                  </TableRow>
-               </TableHead>
-               <TableBody>
-                  {!isUserWorker
-                     ? chatsWithBuyers.map(task => (
-                          <TableRow
-                             key={task[1].sellerInfo[0]}
-                             sx={{
-                                '&:last-child td, &:last-child th': {border: 0},
-                             }}
-                          >
-                             <TableCell component="th" scope="row">
-                                {task[1].sellerInfo[0]}
-                             </TableCell>
-                             <TableCell align="right">
-                                {task[1].sellerInfo[1]}
-                             </TableCell>
+      <Container maxWidth="lg">
+         <Paper elevation={5} sx={{padding: '1rem', margin: '2rem'}}>
+            {addReviewModal && (
+               <ReviewModal
+                  addReviewModal={addReviewModal}
+                  setAddReviewModal={setAddReviewModal}
+                  workerUid={workerUid}
+                  setWorkerUid={setWorkerUid}
+               />
+            )}
+            {isUserWorker ? (
+               <h1> История предоставленных услуг</h1>
+            ) : (
+               <h1>История купленных услуг</h1>
+            )}
+            <TableContainer component={Paper}>
+               <Table sx={{minWidth: 650}} aria-label="simple table">
+                  <TableHead>
+                     <TableRow>
+                        <TableCell>Имя</TableCell>
+                        <TableCell align="right">Фамилия</TableCell>
+                        <TableCell align="right">Почта</TableCell>
+                        <TableCell align="right">Описание</TableCell>
+                        <TableCell align="right">Действие</TableCell>
+                     </TableRow>
+                  </TableHead>
+                  <TableBody>
+                     {!isUserWorker
+                        ? chatsWithBuyers.map(task => (
+                             <TableRow
+                                key={task[1].sellerInfo[0]}
+                                sx={{
+                                   '&:last-child td, &:last-child th': {
+                                      border: 0,
+                                   },
+                                }}
+                             >
+                                <TableCell component="th" scope="row">
+                                   {task[1].sellerInfo[0]}
+                                </TableCell>
+                                <TableCell align="right">
+                                   {task[1].sellerInfo[1]}
+                                </TableCell>
 
-                             <TableCell align="right">
-                                {task[1].sellerInfo[2]}
-                             </TableCell>
-                             <TableCell align="right">
-                                {task[1].taskDesc}
-                             </TableCell>
-                             <TableCell align="right">
-                                <Button
-                                   onClick={() => {
-                                      setTaskUid(task[0]);
-                                      navigate('/chat');
-                                   }}
-                                   variant="outlined"
-                                >
-                                   Чат
-                                </Button>
-                             </TableCell>
-                             <TableCell align="right">
-                                {task[1].isCompleted ? (
-                                   <Button disabled>Завершено</Button>
-                                ) : (
+                                <TableCell align="right">
+                                   {task[1].sellerInfo[2]}
+                                </TableCell>
+                                <TableCell align="right">
+                                   {task[1].taskDesc}
+                                </TableCell>
+                                <TableCell align="right">
                                    <Button
                                       onClick={() => {
-                                         //   setTaskCompleted(task[0]);
-                                         //   getChatsWithBuyers(user);
-                                         setWorkerUid(task[1].sellerUid);
-                                         setAddReviewModal(true);
-
-                                         //   navigate('/chat');
+                                         setTaskUid(task[0]);
+                                         navigate('/chat');
                                       }}
-                                      variant="contained"
+                                      variant="outlined"
                                    >
-                                      Завершить
+                                      Чат
                                    </Button>
-                                )}
-                             </TableCell>
-                          </TableRow>
-                       ))
-                     : chatsWithSellers.map(task => (
-                          <TableRow
-                             key={task[1].buyerInfo[0]}
-                             sx={{
-                                '&:last-child td, &:last-child th': {border: 0},
-                             }}
-                          >
-                             <TableCell component="th" scope="row">
-                                {task[1].buyerInfo[0]}
-                             </TableCell>
-                             <TableCell align="right">
-                                {task[1].buyerInfo[1]}
-                             </TableCell>
-                             <TableCell align="right">
-                                {task[1].buyerInfo[2]}
-                             </TableCell>
-                             <TableCell align="right">
-                                {task[1].taskDesc}
-                             </TableCell>
-                             <TableCell align="right">
-                                {' '}
-                                <Button
-                                   onClick={() => {
-                                      setTaskUid(task[0]);
-                                      navigate('/chat');
-                                   }}
-                                   variant="outlined"
-                                >
-                                   Чат
-                                </Button>
-                             </TableCell>
-                          </TableRow>
-                       ))}
-               </TableBody>
-            </Table>
-         </TableContainer>
-      </>
+                                </TableCell>
+                                <TableCell align="right">
+                                   {task[1].isCompleted ? (
+                                      <Button disabled>Завершено</Button>
+                                   ) : (
+                                      <Button
+                                         onClick={() => {
+                                            setWorkerUid(task[1].sellerUid);
+                                            setAddReviewModal(true);
+                                            setTaskCompleted(task[0]);
+                                            getChatsWithBuyers(user);
+                                         }}
+                                         variant="contained"
+                                      >
+                                         Завершить
+                                      </Button>
+                                   )}
+                                </TableCell>
+                             </TableRow>
+                          ))
+                        : chatsWithSellers.map(task => (
+                             <TableRow
+                                key={task[1].buyerInfo[0]}
+                                sx={{
+                                   '&:last-child td, &:last-child th': {
+                                      border: 0,
+                                   },
+                                }}
+                             >
+                                <TableCell component="th" scope="row">
+                                   {task[1].buyerInfo[0]}
+                                </TableCell>
+                                <TableCell align="right">
+                                   {task[1].buyerInfo[1]}
+                                </TableCell>
+                                <TableCell align="right">
+                                   {task[1].buyerInfo[2]}
+                                </TableCell>
+                                <TableCell align="right">
+                                   {task[1].taskDesc}
+                                </TableCell>
+                                <TableCell align="right">
+                                   {' '}
+                                   <Button
+                                      onClick={() => {
+                                         setTaskUid(task[0]);
+                                         navigate('/chat');
+                                      }}
+                                      variant="outlined"
+                                   >
+                                      Чат
+                                   </Button>
+                                </TableCell>
+                             </TableRow>
+                          ))}
+                  </TableBody>
+               </Table>
+            </TableContainer>
+         </Paper>
+      </Container>
    );
 };
 

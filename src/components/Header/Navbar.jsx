@@ -21,7 +21,10 @@ const Navbar = () => {
       userDetails,
    } = useGlobalContext();
    const [anchorElNav, setAnchorElNav] = React.useState(null);
-   const [pages, setPages] = React.useState([]);
+   const [pages, setPages] = React.useState([
+      {name: 'Локации', link: '/', id: 1},
+      {name: 'Предложить услуги', link: '/become-worker', id: 2},
+   ]);
    const handleOpenNavMenu = event => {
       setAnchorElNav(event.currentTarget);
    };
@@ -31,33 +34,23 @@ const Navbar = () => {
    };
 
    React.useEffect(() => {
-      if (user && !isUserWorker) {
+      if (user) {
          setPages([
             {name: 'Заказать услугу', link: '/', id: 1},
-            {name: 'Мои услуги', link: '/my-tasks', id: 2},
-            {name: 'Мой Профиль', link: '/profile', id: 3},
-         ]);
-      } else if (user && isUserWorker) {
-         setPages([
-            {name: 'Мои услуги', link: '/my-tasks', id: 2},
-            {name: 'Мой Профиль', link: '/profile', id: 3},
+            {name: 'Все услуги', link: '/categories-page', id: 2},
+            {name: 'Мои услуги', link: '/my-tasks', id: 3},
+            {name: 'Мой Профиль', link: '/profile', id: 4},
          ]);
       } else {
          setPages([
             {name: 'Локации', link: '/', id: 1},
-            {name: 'Войти/Зарегистрироваться', link: '/auth', id: 3},
+            {name: 'Предложить услуги', link: '/become-worker', id: 2},
          ]);
       }
    }, [user]);
 
    React.useEffect(() => {
-      if (!isUserWorker) {
-         setPages([
-            {name: 'Заказать услугу', link: '/', id: 1},
-            {name: 'Мои услуги', link: '/my-tasks', id: 2},
-            {name: 'Мой Профиль', link: '/profile', id: 3},
-         ]);
-      } else if (isUserWorker) {
+      if (user && isUserWorker) {
          setPages([
             {name: 'Мои услуги', link: '/my-tasks', id: 2},
             {name: 'Мой Профиль', link: '/profile', id: 3},
@@ -65,7 +58,7 @@ const Navbar = () => {
       }
    }, [isUserWorker]);
    //  const pages = [
-   //     {name: 'Locations', link: '/', id: 1},
+   //     {name: 'Locations', link: '/', id: 1}
    //     {name: 'Services', link: '/auth', id: 2},
    //     {name: 'Sigin up/Log in', link: '/task', id: 3},
    //  ];
@@ -73,12 +66,13 @@ const Navbar = () => {
    return (
       <Box
          sx={{
-            backgroundColor: '#cecece',
+            backgroundColor: 'white',
+            boxShadow: 3,
          }}
       >
-         <Container sx={{backgroundColor: '#cecece'}}>
+         <Container sx={{backgroundColor: 'white'}}>
             <Box sx={{flexGrow: 1}}>
-               <Box position="static" sx={{backgroundColor: '#cecece'}}>
+               <Box position="static" sx={{backgroundColor: 'white'}}>
                   <Toolbar
                      sx={{
                         display: 'flex',
@@ -157,8 +151,9 @@ const Navbar = () => {
                                        variant="outlined"
                                        color="error"
                                        style={{
-                                          color: 'black',
-                                          borderColor: 'black',
+                                          color: '#1d76e2',
+                                          borderColor:
+                                             'linear-gradient(45deg,  #1d76e2, #3f00c9)',
                                           fontWeight: 'bold ',
                                           width: '7rem',
                                           height: '3rem',
@@ -170,12 +165,12 @@ const Navbar = () => {
                                           navigate('/auth');
                                        }}
                                     >
-                                       Войти/Зарегистрироваться
+                                       ВХОД
                                     </Button>
                                  ) : (
                                     ''
                                  )}
-                                 {!isUserWorker && (
+                                 {/* {!isUserWorker && (
                                     <Button
                                        variant="outlined"
                                        color="error"
@@ -195,19 +190,19 @@ const Navbar = () => {
                                     >
                                        Become a Tasker
                                     </Button>
-                                 )}
+                                 )} */}
                               </Box>
                            </Menu>
                         </Box>
                      </IconButton>
-                     <Box sx={{flexGrow: '1'}}>
+                     <Box sx={{flexGrow: '1', cursor: 'pointer'}}>
                         <img
                            onClick={() => {
                               navigate('/');
                            }}
                            src={Logo}
                            style={{
-                              width: '10rem',
+                              width: '15rem',
                            }}
                         />
                      </Box>
@@ -276,11 +271,11 @@ const Navbar = () => {
                            {!user ? (
                               <Stack direction="row" spacing={2}>
                                  <Button
-                                    variant="outlined"
-                                    color="error"
+                                    variant="contained"
                                     style={{
-                                       color: 'black',
-                                       borderColor: 'black',
+                                       color: 'white',
+                                       background:
+                                          'linear-gradient(27deg,  #1d76e2, #3f00c9)',
                                     }}
                                     onClick={() => {
                                        setHasAccount(true);
@@ -288,17 +283,16 @@ const Navbar = () => {
                                        navigate('/auth');
                                     }}
                                  >
-                                    Войти/Зарегистрироваться
+                                    ВХОД
                                  </Button>
                               </Stack>
                            ) : (
                               ''
                            )}
-                           {userDetails.isUserWorker || (
+                           {/* {userDetails.isUserWorker || (
                               <Stack direction="row" spacing={2}>
                                  <Button
                                     variant="outlined"
-                                    color="error"
                                     style={{
                                        color: 'black',
                                        borderColor: 'black',
@@ -312,7 +306,7 @@ const Navbar = () => {
                                     Предложить свои услуги
                                  </Button>
                               </Stack>
-                           )}
+                           )} */}
                         </Typography>
                      </Box>
                   </Toolbar>

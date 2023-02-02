@@ -1,9 +1,10 @@
 import {Rating} from '@mui/material';
 import {collection, getDocs} from 'firebase/firestore';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {db} from '../../../../helpers/firebase';
 
 const RenderRating = ({value, uid}) => {
+   const [averageRating, setAverageRating] = useState(0);
    async function getRatings() {
       const arr = [];
       const querySnapshot = await getDocs(
@@ -12,9 +13,18 @@ const RenderRating = ({value, uid}) => {
       querySnapshot.forEach(doc => {
          arr.push(doc.data());
       });
+      let sum = 0;
       arr.forEach(review => {
-         console.log(review.rating);
+         if (review.rating) {
+            //  console.log(uid, review.rating);
+            sum += review.rating;
+         }
+         //
       });
+      if (sum > 0) {
+         setAverageRating(sum / arr.length);
+      }
+      console.log('Average rating', averageRating);
    }
 
    useEffect(() => {
@@ -23,7 +33,7 @@ const RenderRating = ({value, uid}) => {
 
    return (
       <>
-         <Rating name="read-only" value={value} readOnly />
+         <Rating name="read-only" value={averageRating} readOnly />
       </>
    );
 };
