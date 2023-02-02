@@ -22,6 +22,7 @@
   background-size: cover;
 }
 
-/* *{
-    background-color: #cfcfcf86;
-} */
+.nav-way li + li::before {
+  content: "/";
+  padding: 0 7px;
+}
