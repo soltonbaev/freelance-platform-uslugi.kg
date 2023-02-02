@@ -14,6 +14,7 @@ const ClientHomePage = () => {
    const navigate = useNavigate();
    const {
       user,
+      userDetails,
       categoriesArr,
       category,
       setCategory,
@@ -32,7 +33,7 @@ const ClientHomePage = () => {
             elevation={5}
             sx={{minHeight: '50vh', padding: '1rem', margin: '1rem'}}
          >
-            <h1>С возвращением, дорогой {user._delegate.email}</h1>
+            <h1>С возвращением, {userDetails.firstName}</h1>
 
             <FormControl sx={{width: '80%'}}>
                <InputLabel id="demo-simple-select-label">
