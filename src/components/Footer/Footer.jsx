@@ -24,63 +24,65 @@ import siteLogo from './logo.jpg';
 const Footer = () => {
    const footerInfo = [
       {
-         title: 'Discover',
+
+         title: 'Страницы',
          id: 1,
          footerContent: [
             {
-               name: 'All Services',
-               link: '#',
+               name: 'Все сервисы',
+               link: '/categories-page',
                id: 1,
             },
             {
-               name: 'Elite Taskers',
-               link: '#',
+               name: 'О работе с нами',
+               link: '/become-worker',
                id: 2,
             },
          ],
       },
       {
-         title: 'Company',
-         id: 2,
+         title: 'Помощь',
+          id: 2,
          footerContent: [
             {
-               name: 'About Us',
+               name: 'О нас',
                link: '#',
                id: 1,
             },
             {
-               name: 'Blog',
+               name: 'Блог',
                link: '#',
                id: 2,
             },
             {
-               name: 'Help Center',
+               name: 'Центр помощи',
                link: '#',
                id: 3,
             },
             {
-               name: 'Contact Us',
+               name: 'Обратная связь',
                link: '#',
                id: 4,
             },
          ],
       },
       {
-         title: 'Legal',
+
+         title: 'Политика сайта',
          id: 3,
          footerContent: [
             {
-               name: 'Cookies Policy',
+               name: 'Политика cookie',
                link: '#',
                id: 1,
             },
             {
-               name: 'Privacy Policy',
+               name: 'Политика конфиденциальности',
                link: '#',
                id: 2,
             },
             {
-               name: 'Terms of Service',
+               name: 'Условия использования',
                link: '#',
                id: 3,
             },
@@ -147,7 +149,7 @@ const Footer = () => {
                      <Grid sx={{width: '200px'}}>
                         <Stack direction="column" spacing={2}>
                            <Typography variant="h6" color="black">
-                              Install App
+                              Скачать приложение
                            </Typography>
                            <NavLink to="#">
                               <img
@@ -259,7 +261,7 @@ const Footer = () => {
                   ))}
                   <Grid sx={{mt: '20px', mb: '20px'}}>
                      <Typography variant="h6" color="black">
-                        Install App
+                     Скачать приложение
                      </Typography>
 
                      <Stack

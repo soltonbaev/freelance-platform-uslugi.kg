@@ -83,6 +83,7 @@ const GlobalContextProvider = ({children}) => {
          });
       }
       await getData();
+      // return arr;
       setServicesArr(arr);
    }
 
@@ -127,6 +128,7 @@ const GlobalContextProvider = ({children}) => {
       categoriesArr,
       servicesArr,
       getCategoriesServices,
+
       getServices,
       setCategory,
       category,
