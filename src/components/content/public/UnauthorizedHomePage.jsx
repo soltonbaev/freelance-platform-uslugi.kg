@@ -14,6 +14,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../../contexts/GlobalContextProvider";
 import CheckIcon from "@mui/icons-material/Check";
+import WorkerCard from "../WorkerCard";
 
 const UnauthorizedHomePage = () => {
   const navigate = useNavigate();
@@ -23,11 +24,15 @@ const UnauthorizedHomePage = () => {
     setCategory,
     getCategoriesServices,
     getServices,
+    getUsersByType,
+    usersByType,
+    setUsersByType,
   } = useGlobalContext();
 
   useEffect(() => {
     getCategoriesServices();
     getServices();
+    getUsersByType(true);
   }, []);
 
   return (
@@ -46,9 +51,8 @@ const UnauthorizedHomePage = () => {
           backgroundSize: "cover",
           webkitBackgroundSize: "cover",
           backgroundColor: "balck",
-          width: "100%",
           height: "70vh",
-          margin: "1rem",
+          //  margin: "1rem",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -95,20 +99,22 @@ const UnauthorizedHomePage = () => {
 
       <Card
         sx={{
-          maxWidth: "60rem",
+          width: "70vw",
 
-          margin: "auto",
-          marginTop: "5vh",
-          marginBottom: "5vh",
+          margin: "10px auto",
+
           border: "1px solid grey",
           borderRadius: "10px",
         }}
       >
-        <CardActionArea sx={{ display: "flex" }}>
+        <CardActionArea
+          sx={{ display: "flex", flexDirection: { md: "row", xs: "column" } }}
+        >
           <CardMedia
             component="img"
             sx={{
-              height: "400px",
+              width: { xs: "80%", md: "50%" },
+
               margin: "1rem",
               borderRzadius: "10px",
             }}
@@ -157,334 +163,39 @@ const UnauthorizedHomePage = () => {
         </CardActionArea>
       </Card>
       <Box
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          flexWarap: "wrap",
+        //  justifyContent: "space-around",
+
+        sx={{
+          display: { xs: "block", lg: "flex" },
+          justifyContent: { xs: "none", lg: "space-around" },
         }}
       >
-        <Card
-          sx={{
-            minWidth: "30vw",
-            height: "60vh",
+        {/* //-------------------------------------------------------------------------------------------------------------------------------------------- */}
+        <Box
+          //  justifyContent: "space-around",
 
-            marginTop: "5vh",
-            marginBottom: "5vh",
-            border: "1px solid grey",
-            borderRadius: "10px",
+          sx={{
+            //   display: { xs: "block", lg: "flex" },
+            //   justifyContent: { xs: "none", lg: "space-around" },
+            //   flexWrap: { xs: "block", lg: "wrap" },
+            display: "flex",
+            justifyContent: "space-around",
+            flexWrap: "wrap",
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-            }}
-          >
-            <CardMedia
-              component="img"
-              style={{
-                width: "100px",
-                height: "100px",
-                margin: "20px",
-              }}
-              image="https://echwaluphotography.files.wordpress.com/2011/10/noo-12.jpg"
-            />
-            <CardContent>
-              <Typography variant="h5">Nigger.N</Typography>
-              <Typography variant="body2" sx={{ marginTop: "0.5rem" }}>
-                100% положительных отзывов
-              </Typography>
-              <Typography variant="body2" sx={{ marginTop: "0.5rem" }}>
-                132 выполненые задачи
-              </Typography>
-            </CardContent>
-          </Box>
-          <Box
-            sx={{
-              textAlign: "center",
-            }}
-          >
-            <Typography
-              variant="body2"
-              sx={{
-                marginTop: "0.5rem",
-                fontWeight: "50px",
-                fontSize: "30px",
-              }}
-            >
-              Скилы
-            </Typography>
-
-            <Typography
-              variant="body2"
-              sx={{
-                marginTop: "0.5rem",
-                fontWeight: "normal",
-                fontSize: "20px",
-              }}
-            >
-              Собирание хлопка : Всю жизнь
-            </Typography>
-
-            <Typography
-              variant="body2"
-              sx={{
-                marginTop: "0.5rem",
-                fontWeight: "normal",
-                fontSize: "20px",
-              }}
-            >
-              Ограбление : Box KFC
-            </Typography>
-
-            <Typography
-              variant="body2"
-              sx={{
-                marginTop: "0.5rem",
-                fontWeight: "normal",
-                fontSize: "20px",
-              }}
-            >
-              Читать реп : 30 сом
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              textAlign: "center",
-            }}
-          >
-            <Typography
-              variant="h6"
-              sx={{ marginTop: "2rem", fontWeight: "bold", fontSize: "20px" }}
-            >
-              Почему я?
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{
-                marginTop: "0.5rem",
-                fontWeight: "normal",
-                fontSize: "20px",
-              }}
-            >
-              Потому что я черный,а черные лучше во всем
-            </Typography>
-          </Box>
-        </Card>
-
-        <Card
-          sx={{
-            minWidth: "30vw",
-            height: "60vh",
-
-            marginTop: "5vh",
-            marginBottom: "5vh",
-            border: "1px solid grey",
-            borderRadius: "10px",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-            }}
-          >
-            <CardMedia
-              component="img"
-              style={{
-                width: "100px",
-                height: "100px",
-                margin: "20px",
-              }}
-              image="https://echwaluphotography.files.wordpress.com/2011/10/noo-12.jpg"
-            />
-            <CardContent>
-              <Typography variant="h5">Nigger.N</Typography>
-              <Typography variant="body2" sx={{ marginTop: "0.5rem" }}>
-                100% положительных отзывов
-              </Typography>
-              <Typography variant="body2" sx={{ marginTop: "0.5rem" }}>
-                132 выполненые задачи
-              </Typography>
-            </CardContent>
-          </Box>
-          <Box
-            sx={{
-              textAlign: "center",
-            }}
-          >
-            <Typography
-              variant="body2"
-              sx={{
-                marginTop: "0.5rem",
-                fontWeight: "50px",
-                fontSize: "30px",
-              }}
-            >
-              Скилы
-            </Typography>
-
-            <Typography
-              variant="body2"
-              sx={{
-                marginTop: "0.5rem",
-                fontWeight: "normal",
-                fontSize: "20px",
-              }}
-            >
-              Собирание хлопка : Всю жизнь
-            </Typography>
-
-            <Typography
-              variant="body2"
-              sx={{
-                marginTop: "0.5rem",
-                fontWeight: "normal",
-                fontSize: "20px",
-              }}
-            >
-              Ограбление : Box KFC
-            </Typography>
-
-            <Typography
-              variant="body2"
-              sx={{
-                marginTop: "0.5rem",
-                fontWeight: "normal",
-                fontSize: "20px",
-              }}
-            >
-              Читать реп : 30 сом
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              textAlign: "center",
-            }}
-          >
-            <Typography
-              variant="h6"
-              sx={{ marginTop: "2rem", fontWeight: "bold", fontSize: "20px" }}
-            >
-              Почему я?
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{
-                marginTop: "0.5rem",
-                fontWeight: "normal",
-                fontSize: "20px",
-              }}
-            >
-              Потому что я черный,а черные лучше во всем
-            </Typography>
-          </Box>
-        </Card>
-        <Card
-          sx={{
-            minWidth: "30vw",
-            height: "60vh",
-
-            marginTop: "5vh",
-            marginBottom: "5vh",
-            border: "1px solid grey",
-            borderRadius: "10px",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-            }}
-          >
-            <CardMedia
-              component="img"
-              style={{
-                width: "100px",
-                height: "100px",
-                margin: "20px",
-              }}
-              image="https://echwaluphotography.files.wordpress.com/2011/10/noo-12.jpg"
-            />
-            <CardContent>
-              <Typography variant="h5">Nigger.N</Typography>
-              <Typography variant="body2" sx={{ marginTop: "0.5rem" }}>
-                100% положительных отзывов
-              </Typography>
-              <Typography variant="body2" sx={{ marginTop: "0.5rem" }}>
-                132 выполненые задачи
-              </Typography>
-            </CardContent>
-          </Box>
-          <Box
-            sx={{
-              textAlign: "center",
-            }}
-          >
-            <Typography
-              variant="body2"
-              sx={{
-                marginTop: "0.5rem",
-                fontWeight: "50px",
-                fontSize: "30px",
-              }}
-            >
-              Скилы
-            </Typography>
-
-            <Typography
-              variant="body2"
-              sx={{
-                marginTop: "0.5rem",
-                fontWeight: "normal",
-                fontSize: "20px",
-              }}
-            >
-              Собирание хлопка : Всю жизнь
-            </Typography>
-
-            <Typography
-              variant="body2"
-              sx={{
-                marginTop: "0.5rem",
-                fontWeight: "normal",
-                fontSize: "20px",
-              }}
-            >
-              Ограбление : Box KFC
-            </Typography>
-
-            <Typography
-              variant="body2"
-              sx={{
-                marginTop: "0.5rem",
-                fontWeight: "normal",
-                fontSize: "20px",
-              }}
-            >
-              Читать реп : 30 сом
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              textAlign: "center",
-            }}
-          >
-            <Typography
-              variant="h6"
-              sx={{ marginTop: "2rem", fontWeight: "bold", fontSize: "20px" }}
-            >
-              Почему я?
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{
-                marginTop: "0.5rem",
-                fontWeight: "normal",
-                fontSize: "20px",
-              }}
-            >
-              Потому что я черный,а черные лучше во всем
-            </Typography>
-          </Box>
-        </Card>
+          {usersByType.map((item) => {
+            console.log(item);
+            return (
+              <WorkerCard
+                lastName={item.lastName}
+                firstName={item.firstName}
+                skils={item.category}
+                price={item.hourlyWage}
+                image={item.photoUrl}
+              />
+            );
+          })}
+        </Box>
       </Box>
     </Box>
   );
