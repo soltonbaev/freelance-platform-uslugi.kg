@@ -6,6 +6,8 @@ import {
   Grid,
   Typography,
   Pagination,
+  ListItem,
+  List,
 } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import React, { useEffect, useState } from "react";
@@ -51,6 +53,16 @@ const CategoriesPage = () => {
         </Container>
       </Box>
       {/* ============ */}
+
+      <ul className="nav-way" style={{ display: "flex", color: "black"}} >
+        <li>
+          <NavLink to="/" style={{color: "black"}} >Главная страница</NavLink>
+        </li>
+        <li>
+          <NavLink to="/categories-page" style={{color: "black"}} >Все сервисы</NavLink>
+        </li>
+      </ul>
+
       <Container
         className="all-services-content"
         sx={{ mt: "30px", mb: "30px" }}
@@ -89,7 +101,7 @@ const CategoriesPage = () => {
                           <NavLink
                             className="nav-link"
                             style={{ color: "black" }}
-                            to="*"
+                            to={`/task-page/${service.title}`}
                           >
                             {service.title}
                           </NavLink>

@@ -33,6 +33,8 @@ const PUBLIC_ROUTES = [
    {link: '/review', element: <Review />, id: 13},
    {link: '/chat', element: <ChatBox />, id: 13},
    {link: '/chat-history', element: <ChatHistory />, id: 13},
+   {link: '/task-page/:id', element: <TaskPage />, id: 14},
+   
 
 ];
 
