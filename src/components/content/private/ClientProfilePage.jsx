@@ -1,24 +1,17 @@
+import {Button} from '@mui/material';
 import React, {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../../contexts/GlobalContextProvider';
 import fireBase from '../../../helpers/firebase';
 
 const ClientProfilePage = () => {
-   const {userDetails} = useGlobalContext();
+   const {userDetails, isUserWorker, setIsUserWorker} = useGlobalContext();
    const navigate = useNavigate();
    const handleLogOut = () => {
       fireBase.auth().signOut();
       navigate('/');
    };
-   const {
-      firstName,
-      lastName,
-      email,
-      city,
-      hourlyWage,
-      aboutMe,
-      isUserWorker,
-   } = userDetails;
+   const {firstName, lastName, email, city, hourlyWage, aboutMe} = userDetails;
 
    return (
       <div>
@@ -28,18 +21,32 @@ const ClientProfilePage = () => {
             <li>Фамилия:{lastName}</li>
             <li>Адрес почты: {email}</li>
             <li> Город: {city}</li>
-            {isUserWorker && <li>Почасовая оплата   {hourlyWage}  сом</li>}
-            <li>Обо мне: {aboutMe}</li>
-            <li>Мой рейтинг</li>
-            <li> Мои отзывы</li>
+            {isUserWorker && (
+               <>
+                  <li>Почасовая оплата   {hourlyWage}  сом</li>
+                  <li>Обо мне: {aboutMe}</li>
+                  <li>Мой рейтинг</li>
+                  <li> Мои отзывы</li>
+               </>
+            )}
          </ul>
-         <button
-            onClick={() => {
-               navigate('/chat-history');
-            }}
-         >
-            История чатов
-         </button>
+         {isUserWorker ? (
+            <Button
+               onClick={() => {
+                  setIsUserWorker(false);
+               }}
+            >
+               Переключится в режим клиента
+            </Button>
+         ) : (
+            <Button
+               onClick={() => {
+                  setIsUserWorker(true);
+               }}
+            >
+               Переключится в режим помощника
+            </Button>
+         )}
          <button onClick={handleLogOut}>Выйти из аккаунта</button>
       </div>
    );
