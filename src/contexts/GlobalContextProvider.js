@@ -1,4 +1,11 @@
-import {doc, getDoc, getDocs, collection} from 'firebase/firestore';
+import {
+   doc,
+   getDoc,
+   getDocs,
+   collection,
+   query,
+   where,
+} from 'firebase/firestore';
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import fireBase, {db} from '../helpers/firebase';
 
@@ -24,20 +31,31 @@ const GlobalContextProvider = ({children}) => {
    let [hasAccount, setHasAccount] = useState('');
    let [isLoggedIn, setIsLoggedIn] = useState(false);
    let [userDetails, setUserDetails] = useState({});
-   let [test, setTest] = useState('Hellooooooo!!');
    let [isUserWorker, setIsUserWorker] = useState(false);
    let [category, setCategory] = useState('');
+   let [usersByQuery, setUsersByQuery] = useState([]);
+   let [taskUid, setTaskUid] = useState('');
+   let [isChatActive, setIsChatActive] = useState(false);
+
    const cities = ['Бишкек', 'Ош', 'Джалал-Абад', 'Баткен', 'Чолпон-Ата'];
 
    let [categoriesArr, setCategoriesArr] = useState([]);
    let [servicesArr, setServicesArr] = useState([]);
-   // let categoriesArr = getCategoriesServices();
-   // let servicesArr = getServices();
 
-   // useEffect(() => {
-   //    getCategoriesServices();
-   //    getServices();
-   // }, []);
+   async function getUsersByQuery(workerQuery, cityQuery) {
+      const arr = [];
+      const q = query(
+         collection(db, 'userData'),
+         where('isUserWorker', '==', workerQuery),
+         where('city', '==', cityQuery)
+      );
+
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach(doc => {
+         arr.push(doc.data());
+      });
+      setUsersByQuery(arr);
+   }
 
    async function getCategoriesServices() {
       const arr = [];
@@ -47,13 +65,11 @@ const GlobalContextProvider = ({children}) => {
          );
 
          querySnapshot.forEach(doc => {
-            console.log(doc.data());
             arr.push({id: doc.id, ...doc.data()});
          });
       }
       await getData();
       setCategoriesArr(arr);
-      // return arr;
    }
 
    async function getServices() {
@@ -72,23 +88,21 @@ const GlobalContextProvider = ({children}) => {
    }
 
    const authListener = () => {
-      fireBase.auth().onAuthStateChanged(user => {
+      fireBase.auth().onAuthStateChanged(async user => {
          if (user) {
             setUser(user);
+            console.log('authListener User', user);
             async function getFromDb() {
                const docRef = doc(db, 'userData', user.uid);
-               // console.log('uid', user.uid);
                const docSnap = await getDoc(docRef);
                if (docSnap.exists()) {
                   let docSnapData = docSnap.data();
-                  console.log(docSnapData);
                   setUserDetails(docSnapData);
                } else {
-                  // doc.data() will be undefined in this case
                   console.log('No such document!');
                }
             }
-            getFromDb();
+            await getFromDb();
          } else {
             setUser('');
          }
@@ -97,19 +111,14 @@ const GlobalContextProvider = ({children}) => {
 
    useEffect(() => {
       authListener();
-      console.log('userDetails', userDetails.email);
    }, []);
 
-   // useEffect(() => {
-   //    console.log(user);
-   // }, [user]);
    let value = {
       services,
       user,
       setUser,
       hasAccount,
       setHasAccount,
-      test,
       isLoggedIn,
       setIsLoggedIn,
       userDetails,
@@ -119,7 +128,18 @@ const GlobalContextProvider = ({children}) => {
       categoriesArr,
       servicesArr,
       getCategoriesServices,
-      getServices
+
+      getServices,
+      setCategory,
+      category,
+      cities,
+      usersByQuery,
+      setUsersByQuery,
+      getUsersByQuery,
+      taskUid,
+      setTaskUid,
+      isChatActive,
+      setIsChatActive,
    };
    return (
       <globalContext.Provider value={value}>{children}</globalContext.Provider>

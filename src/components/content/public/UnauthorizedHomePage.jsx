@@ -6,7 +6,6 @@ import {useGlobalContext} from '../../../contexts/GlobalContextProvider';
 const UnauthorizedHomePage = () => {
    const navigate = useNavigate();
    const {
-      servicesArr,
       categoriesArr,
       category,
       setCategory,
@@ -17,17 +16,7 @@ const UnauthorizedHomePage = () => {
    useEffect(() => {
       getCategoriesServices();
       getServices();
-      // categoriesArr.map(item => {
-      //    console.log(item);
-      // });
    }, []);
-
-   // useEffect(() => {
-   //    if (categoriesArr.length) {
-   //       console.log(categoriesArr, 'data');
-   //    }
-   //    console.log(categoriesArr, 'data2');
-   // }, [categoriesArr]);
 
    return (
       <div>
@@ -48,7 +37,6 @@ const UnauthorizedHomePage = () => {
                }}
             >
                {categoriesArr.map(category => {
-                  console.log(category);
                   return (
                      <MenuItem value={category.id}>{category.title}</MenuItem>
                   );
