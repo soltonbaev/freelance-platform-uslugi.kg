@@ -34,7 +34,7 @@ const StepWizardContextProvider = ({children}) => {
          scheduledTimeAndDate: time,
          isCompleted: false,
          timeStamp: Date.now(),
-         messages: [],
+
          taskDesc: taskDesc,
          taskLength: taskLength,
       };

@@ -142,7 +142,6 @@ const GlobalContextProvider = ({children}) => {
       categoriesArr,
       servicesArr,
       getCategoriesServices,
-
       getServices,
       setCategory,
       category,
@@ -155,6 +154,8 @@ const GlobalContextProvider = ({children}) => {
       isChatActive,
       setIsChatActive,
       setTaskCompleted,
+      // addReviewModal,
+      // setAddReviewModal,
    };
    return (
       <globalContext.Provider value={value}>{children}</globalContext.Provider>

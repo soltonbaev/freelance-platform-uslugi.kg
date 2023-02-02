@@ -16,6 +16,7 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../../contexts/GlobalContextProvider';
 import {db} from '../../../helpers/firebase';
+import ReviewModal from '../public/reviews/ReviewModal';
 const MyTasks = () => {
    const {
       userDetails,
@@ -26,12 +27,15 @@ const MyTasks = () => {
    } = useGlobalContext();
    const [chatsWithSellers, setChatsWithSellers] = useState([]);
    const [chatsWithBuyers, setChatsWithBuyers] = useState([]);
+   const [workerUid, setWorkerUid] = useState([]);
    const navigate = useNavigate();
    useEffect(() => {
       console.log('userDetails', userDetails);
       getChatsWithBuyers(user);
       getChatsWithSellers(user);
    }, []);
+
+   const [addReviewModal, setAddReviewModal] = useState(false);
 
    async function getChatsWithBuyers(user) {
       console.log('current chat userid', user);
@@ -62,6 +66,14 @@ const MyTasks = () => {
    }
    return (
       <>
+         {addReviewModal && (
+            <ReviewModal
+               addReviewModal={addReviewModal}
+               setAddReviewModal={setAddReviewModal}
+               workerUid={workerUid}
+               setWorkerUid={setWorkerUid}
+            />
+         )}
          {isUserWorker ? (
             <h1> История предоставленных услуг</h1>
          ) : (
@@ -116,8 +128,11 @@ const MyTasks = () => {
                                 ) : (
                                    <Button
                                       onClick={() => {
-                                         setTaskCompleted(task[0]);
-                                         getChatsWithBuyers(user);
+                                         //   setTaskCompleted(task[0]);
+                                         //   getChatsWithBuyers(user);
+                                         setWorkerUid(task[1].sellerUid);
+                                         setAddReviewModal(true);
+
                                          //   navigate('/chat');
                                       }}
                                       variant="contained"
