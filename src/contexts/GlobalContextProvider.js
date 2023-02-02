@@ -55,6 +55,7 @@ const GlobalContextProvider = ({children}) => {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach(doc => {
          arr.push(doc.data());
+         console.log('users doc', doc);
       });
       setUsersByQuery(arr);
    }

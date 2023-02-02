@@ -105,6 +105,7 @@ const MyTasks = () => {
                              <TableCell align="right">
                                 {task[1].sellerInfo[1]}
                              </TableCell>
+
                              <TableCell align="right">
                                 {task[1].sellerInfo[2]}
                              </TableCell>
