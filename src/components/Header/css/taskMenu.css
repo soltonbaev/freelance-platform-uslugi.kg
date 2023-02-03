@@ -22,23 +22,20 @@ li {
    display: none;
    position: absolute;
    padding-top: 30px;
-   top: -20px;
+   top: -10px;
+   right: -50px;
    width: 150px;
    z-index: 1;
 }
 
 .servicesList li {
-   background-color: #cfcfcf;
-   color: black;
+   color: #1d76e2;
    padding-bottom: 5px;
-   /* padding-left: 20px;
-  padding-right: 20px; */
    font-size: 16px;
-   border-bottom: 1px solid white;
 }
 
 .servicesList li a:hover {
-   color: white !important;
+   font-weight: bold;
 }
 
 .servicesItem:hover .servicesList {
@@ -52,18 +49,13 @@ li {
    z-index: 100;
 }
 
-.servicesMenu .servicesMenuList {
+.servicesMenu .servicesMenuList{
    display: none;
    position: absolute;
-   background-color: #cfcfcf;
-   color: black;
+   color: #1d76e2;
    font-size: 16px;
 }
 
-.servicesMenu .servicesMenuList li {
-   border: none;
-   border-bottom: 1px solid white;
-}
 
 .servicesMenu .services .servicesList {
    position: absolute;

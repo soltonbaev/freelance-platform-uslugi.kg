@@ -5,6 +5,8 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Container,
+  List,
   Stack,
   Typography,
 } from "@mui/material";
@@ -24,6 +26,8 @@ const TaskCategoryPage = () => {
   }, []);
 
   const params = useParams();
+
+  console.log(params);
 
   const navigate = useNavigate();
   console.log("cat", categoriesArr);
@@ -92,17 +96,33 @@ const TaskCategoryPage = () => {
           }}
         /> */}
       </Box>
-      <ul className="nav-way" style={{ display: "flex", color: "black"}} >
-        <li>
-          <NavLink to="/" style={{color: "black"}} >Главная страница</NavLink>
-        </li>
-        <li>
-          <NavLink to="/categories-page" style={{color: "black"}} >Все сервисы</NavLink>
-        </li>
-        <li>
-          <NavLink to="#" style={{color: "black"}} >{category[0].title}</NavLink>
-        </li>
-      </ul>
+      <Container sx={{ mt: "20px" }}>
+        <List
+          className="nav-way"
+          sx={{
+            display: "flex",
+            mb: "20px",
+            color: "black",
+            flexDirection: { xs: "column", sm: "row" },
+          }}
+        >
+          <li>
+            <NavLink to="/" style={{ color: "black" }}>
+              Главная страница
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/categories-page" style={{ color: "black" }}>
+              Все сервисы
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="#" style={{ color: "black" }}>
+              {category[0].title}
+            </NavLink>
+          </li>
+        </List>
+      </Container>
 
       {services.map((service) => (
         <Box>
@@ -137,11 +157,13 @@ const TaskCategoryPage = () => {
                 }}
               />
               <CardContent>
-                <NavLink style={{color: "black"}} to={`/task-page/${service.title}`} >
-                <Typography gutterBottom variant="h4" component="div">
-                  {service.title}
-                </Typography>
-
+                <NavLink
+                  style={{ color: "black" }}
+                  to={`/task-page/${service.title}`}
+                >
+                  <Typography gutterBottom variant="h4" component="div">
+                    {service.title}
+                  </Typography>
                 </NavLink>
                 <Typography
                   variant="body2"
