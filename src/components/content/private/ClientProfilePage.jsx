@@ -6,6 +6,7 @@ import {
    CardActions,
    CardContent,
    Grid,
+   MenuItem,
    Paper,
    TextField,
    Typography,
@@ -47,6 +48,9 @@ const ClientProfilePage = () => {
       category,
       setCategory,
       updateUser,
+      cities,
+      categoriesArr,
+      getCategoriesServices,
    } = useGlobalContext();
    const [open, setOpen] = useState(false);
    const [isEditable, setIsEditable] = useState(false);
@@ -56,6 +60,9 @@ const ClientProfilePage = () => {
       setIsEditable(!isEditable);
    };
 
+   useEffect(() => {
+      getCategoriesServices();
+   }, []);
    async function deleteAccount() {
       const user = fireBase.auth().currentUser;
       user
@@ -72,6 +79,7 @@ const ClientProfilePage = () => {
 
    return (
       <Container maxWidth="md" sx={{margin: '1rem'}}>
+         {console.log('Profile city', city)}
          {open && (
             <WarningModal
                setOpen={setOpen}
@@ -123,6 +131,7 @@ const ClientProfilePage = () => {
                         value={userDetails.email}
                      />
                      <TextField
+                        select
                         sx={{margin: '0.5rem'}}
                         InputLabelProps={{
                            shrink: true,
@@ -133,7 +142,11 @@ const ClientProfilePage = () => {
                         value={city}
                         onChange={e => setCity(e.target.value)}
                         onBlur={() => setIsEditable(false)}
-                     />
+                     >
+                        {cities.map(city => {
+                           return <MenuItem value={city}>{city}</MenuItem>;
+                        })}
+                     </TextField>
                      <TextField
                         sx={{margin: '0.5rem'}}
                         InputLabelProps={{
@@ -149,6 +162,7 @@ const ClientProfilePage = () => {
                      {isUserWorker && (
                         <>
                            <TextField
+                              select
                               sx={{margin: '0.5rem'}}
                               InputLabelProps={{
                                  shrink: true,
@@ -159,7 +173,16 @@ const ClientProfilePage = () => {
                               value={category}
                               onChange={e => setCategory(e.target.value)}
                               onBlur={() => setIsEditable(false)}
-                           />
+                           >
+                              {console.log('profile categories', categoriesArr)}
+                              {categoriesArr.map(categoryItem => {
+                                 return (
+                                    <MenuItem value={categoryItem.id}>
+                                       {categoryItem.id}
+                                    </MenuItem>
+                                 );
+                              })}
+                           </TextField>
                            <TextField
                               sx={{margin: '0.5rem'}}
                               InputLabelProps={{
@@ -184,7 +207,10 @@ const ClientProfilePage = () => {
                               onChange={e => setAboutMe(e.target.value)}
                               onBlur={() => setIsEditable(false)}
                            />
-                           <RenderRating uid={userDetails.uid} />
+                           <Box>
+                              Средняя оценка:
+                              <RenderRating uid={userDetails.uid} />
+                           </Box>
                            <Box>Мои отзывы</Box>
                         </>
                      )}
@@ -206,6 +232,7 @@ const ClientProfilePage = () => {
                         Редактировать поля
                      </Button>
                      <Button
+                        color="secondary"
                         sx={{margin: '0.5rem 1rem'}}
                         variant="outlined"
                         size="small"
@@ -250,6 +277,7 @@ const ClientProfilePage = () => {
                   Выйти из аккаунта
                </Button>
                <Button
+                  color="error"
                   sx={{margin: '1rem'}}
                   variant="contained"
                   onClick={() => {

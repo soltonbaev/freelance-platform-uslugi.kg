@@ -1,4 +1,5 @@
 import {
+
   Button,
   Card,
   CardActionArea,
@@ -42,18 +43,22 @@ const TaskCategoryPage = () => {
         <>
           {" "}
           <Box
+
             sx={{
-              backgroundImage: `url(${category[0].imageUrl})`,
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
-              backgroundAttachment: "fixed",
-              webkitBackgroundSize: "cover",
-              mozBackgroundSize: "cover",
-              oBackgroundSize: "cover",
-              backgroundSize: "cover",
+               background: 'black',
+               backgroundImage: `url(${category.imgUrl})`,
+               backgroundRepeat: 'no-repeat',
+               backgroundPosition: 'center',
+               backgroundAttachment: 'fixed',
+               webkitBackgroundSize: 'cover',
+               mozBackgroundSize: 'cover',
+               oBackgroundSize: 'cover',
+               backgroundSize: 'cover',
+               backgroundColor: 'balck',
             }}
-          >
+         >
             <Box
+
               sx={{
                 width: "100vw",
                 height: "400px ",
@@ -63,26 +68,27 @@ const TaskCategoryPage = () => {
                 flexDirection: "column",
                 backgroundColor: "rgba(0,0,0,0.2)",
               }}
+
             >
-              <Typography
-                variant="h2"
-                style={{
-                  textAlign: "center",
-                  color: "white",
-                }}
-              >
-                {category[0].title}
-              </Typography>
-              <Typography
-                style={{
-                  color: "white",
-                  textAlign: "center",
-                  fontWeight: "30px",
-                  fontSize: "25px",
-                }}
-              >
-                {category[0].desc}
-              </Typography>
+               <Typography
+                  variant="h2"
+                  style={{
+                     textAlign: 'center',
+                     color: 'white',
+                  }}
+               >
+                  {category[0].title}
+               </Typography>
+               <Typography
+                  style={{
+                     color: 'white',
+                     textAlign: 'center',
+                     fontWeight: '30px',
+                     fontSize: '25px',
+                  }}
+               >
+                  {category[0].desc}
+               </Typography>
             </Box>
             {/* <img
           src="https://avatars.mds.yandex.net/i?id=c35e86300ad03620f1315bff8d910b00-5584150-images-thumbs&n=13"
@@ -92,6 +98,7 @@ const TaskCategoryPage = () => {
             objectFit: "cover",
           }}
         /> */}
+
           </Box>
           <ul className="nav-way" style={{ display: "flex", color: "black" }}>
             <li>
@@ -170,20 +177,30 @@ const TaskCategoryPage = () => {
                             backgroundColor: "#0d7a5f",
                           }}
                           onClick={() => navigate("/")}
+
                         >
-                          Заказать
-                        </Button>
-                      </Stack>
-                    </Box>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
+                           {service.desc}
+                        </Typography>
+                        <Box sx={{marginTop: '2vw'}}>
+                           <Stack spacing={2} direction="row">
+                              <Button
+                                 variant="contained"
+                                 style={{
+                                    backgroundColor: '#0d7a5f',
+                                 }}
+                                 onClick={() => navigate('/')}
+                              >
+                                 Contained
+                              </Button>
+                           </Stack>
+                        </Box>
+                     </CardContent>
+                  </CardActionArea>
+               </Card>
             </Box>
-          ))}
-        </>
-      ) : null}
-    </Box>
-  );
+         ))}
+      </Box>
+   );
 };
 
 export default TaskCategoryPage;
