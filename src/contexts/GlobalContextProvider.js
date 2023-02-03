@@ -48,6 +48,7 @@ const GlobalContextProvider = ({children}) => {
    let [servicesArr, setServicesArr] = useState([]);
    let [city, setCity] = useState('');
    let [aboutMe, setAboutMe] = useState('');
+   let [tasksCount, setTasksCount] = useState('');
    const cities = ['Бишкек', 'Ош', 'Джалал-Абад', 'Баткен', 'Чолпон-Ата'];
 
    async function getUsersByQuery(workerQuery, cityQuery) {
@@ -117,6 +118,7 @@ const GlobalContextProvider = ({children}) => {
       setHourlyWage(userDetails.hourlyWage);
       setCity(userDetails.city);
       setAboutMe(userDetails.aboutMe);
+      setTasksCount(userDetails.tasksCompleted);
    }
 
    useEffect(() => {
@@ -183,8 +185,8 @@ const GlobalContextProvider = ({children}) => {
 
    async function setTaskCompleted(taskUid) {
       const docRef = doc(db, 'tasks', taskUid);
-
-      updateDoc(docRef, {isCompleted: true})
+      let count = tasksCount + 1;
+      updateDoc(docRef, {isCompleted: true, tasksCompleted: count})
          .then(docRef => {
             console.log('Task marked as completed');
          })
