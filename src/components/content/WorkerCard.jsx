@@ -7,9 +7,10 @@ import {
   useRadioGroup,
 } from "@mui/material";
 import React from "react";
+import RenderRating from "./public/reviews/RenderRating";
 
 const WorkerCard = (props) => {
-  const { firstName, lastName, image, review, skils, price, aboutMe } = props;
+  const { firstName, lastName, image, uid, skils, price, aboutMe } = props;
 
   return (
     <Card
@@ -50,7 +51,7 @@ const WorkerCard = (props) => {
             {firstName} {lastName}
           </Typography>
           <Typography variant="body2" sx={{ marginTop: "0.5rem" }}>
-            {review}
+            <RenderRating uid={uid} />
           </Typography>
           <Typography variant="body2" sx={{ marginTop: "0.5rem" }}>
             132 выполненые задачи
