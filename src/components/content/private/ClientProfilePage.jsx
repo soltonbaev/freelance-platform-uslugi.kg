@@ -1,9 +1,12 @@
 import {Button, Paper} from '@mui/material';
 import {Container} from '@mui/system';
-import React, {useEffect} from 'react';
+import {deleteDoc, doc} from 'firebase/firestore';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../../contexts/GlobalContextProvider';
 import fireBase from '../../../helpers/firebase';
+import WarningModal from '../public/WarningModal';
+import {db} from '../../../helpers/firebase';
 
 const ClientProfilePage = () => {
    const {
@@ -17,10 +20,41 @@ const ClientProfilePage = () => {
       fireBase.auth().signOut();
       navigate('/');
    };
-   const {firstName, lastName, email, city, hourlyWage, aboutMe} = userDetails;
+   const {
+      firstName,
+      lastName,
+      email,
+      city,
+      hourlyWage,
+      aboutMe,
+      uid,
+   } = userDetails;
+   const [open, setOpen] = useState(false);
+   async function deleteAccount() {
+      const user = fireBase.auth().currentUser;
+      user
+         .delete()
+         .then(function() {
+            console.log('user deleted successfully');
+            deleteDoc(doc(db, 'userData', uid));
+            handleLogOut();
+         })
+         .catch(function(error) {
+            console.log('delete error');
+         });
+   }
 
    return (
       <Container maxWidth="md">
+         {open && (
+            <WarningModal
+               setOpen={setOpen}
+               title={'Вы действительно хотите удалить свой аккаунт?'}
+               body={'Все данные будут удалены безвовратно'}
+               action={deleteAccount}
+               open={open}
+            />
+         )}
          <Paper
             elevation={5}
             sx={{height: '50vh', padding: '1rem', margin: '2rem'}}
@@ -71,6 +105,15 @@ const ClientProfilePage = () => {
                }}
             >
                Выйти из аккаунта
+            </Button>
+            <Button
+               sx={{margin: '1rem'}}
+               variant="contained"
+               onClick={() => {
+                  setOpen(true);
+               }}
+            >
+               Удалить аккаунт
             </Button>
          </Paper>
       </Container>
