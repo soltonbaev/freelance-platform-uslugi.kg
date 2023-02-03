@@ -10,7 +10,8 @@ import React from "react";
 import RenderRating from "./public/reviews/RenderRating";
 
 const WorkerCard = (props) => {
-  const { firstName, lastName, image, uid, skils, price, aboutMe } = props;
+  const { firstName, lastName, image, uid, skils, price, aboutMe, category } =
+    props;
 
   return (
     <Card
@@ -71,7 +72,7 @@ const WorkerCard = (props) => {
             fontSize: "30px",
           }}
         >
-          Скилы
+          Специальность:{category}
         </Typography>
 
         <Typography
@@ -82,7 +83,7 @@ const WorkerCard = (props) => {
             fontSize: "20px",
           }}
         >
-          {skils} : ${price}/hr
+          {price}сом/час
         </Typography>
       </Box>
       <Box

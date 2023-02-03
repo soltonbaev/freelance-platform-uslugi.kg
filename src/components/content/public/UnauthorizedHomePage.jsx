@@ -184,7 +184,7 @@ const UnauthorizedHomePage = () => {
           }}
         >
           {usersByType.map((item) => {
-            console.log(item);
+            console.log("llll", item);
             return (
               <WorkerCard
                 lastName={item.lastName}
@@ -193,6 +193,8 @@ const UnauthorizedHomePage = () => {
                 price={item.hourlyWage}
                 image={item.photoUrl}
                 uid={item.uid}
+                category={item.category}
+                aboutMe={item.aboutMe}
               />
             );
           })}
