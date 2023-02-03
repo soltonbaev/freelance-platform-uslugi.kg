@@ -6,6 +6,7 @@ import {
    CardActions,
    CardContent,
    Grid,
+   MenuItem,
    Paper,
    TextField,
    Typography,
@@ -47,6 +48,7 @@ const ClientProfilePage = () => {
       category,
       setCategory,
       updateUser,
+      cities,
    } = useGlobalContext();
    const [open, setOpen] = useState(false);
    const [isEditable, setIsEditable] = useState(false);
@@ -123,6 +125,7 @@ const ClientProfilePage = () => {
                         value={userDetails.email}
                      />
                      <TextField
+                        select
                         sx={{margin: '0.5rem'}}
                         InputLabelProps={{
                            shrink: true,
@@ -133,7 +136,11 @@ const ClientProfilePage = () => {
                         value={city}
                         onChange={e => setCity(e.target.value)}
                         onBlur={() => setIsEditable(false)}
-                     />
+                     >
+                        {cities.map(city => {
+                           return <MenuItem>{city}</MenuItem>;
+                        })}
+                     </TextField>
                      <TextField
                         sx={{margin: '0.5rem'}}
                         InputLabelProps={{
