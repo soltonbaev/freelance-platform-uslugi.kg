@@ -19,12 +19,13 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import appStoreLogo from '../Footer/app-store.png';
 import playMarketLogo from '../Footer/google-play.png';
 import {ExpandMore} from '@mui/icons-material';
-import siteLogo from './logo.jpg';
+import siteLogo from './logo.png';
+import {useGlobalContext} from '../../contexts/GlobalContextProvider';
 
 const Footer = () => {
+   const {user, isUserWorker} = useGlobalContext();
    const footerInfo = [
       {
-
          title: 'Страницы',
          id: 1,
          footerContent: [
@@ -42,7 +43,7 @@ const Footer = () => {
       },
       {
          title: 'Помощь',
-          id: 2,
+         id: 2,
          footerContent: [
             {
                name: 'О нас',
@@ -67,7 +68,6 @@ const Footer = () => {
          ],
       },
       {
-
          title: 'Политика сайта',
          id: 3,
          footerContent: [
@@ -92,7 +92,12 @@ const Footer = () => {
 
    return (
       <div>
-         <Box sx={{background: '#cfcfcf', minHeight: '250px'}}>
+         <Box
+            sx={{
+               background: 'linear-gradient(45deg,  #1d76e2, #3f00c9);',
+               minHeight: '250px',
+            }}
+         >
             <Container>
                <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'block'}}}>
                   <Box
@@ -102,26 +107,55 @@ const Footer = () => {
                         pt: '30px',
                      }}
                   >
-                     <Grid sx={{width: '200px'}}>
+                     <Grid container sx={{width: '200px'}}>
                         <Typography color="white" variant="h6">
-                           <img src={siteLogo} width={150} />
+                           <img src={siteLogo} width={200} />
                         </Typography>
                         <Grid>
-                           <NavLink to="/auth">
-                              <Button
-                                 sx={{color: 'white', backgroundColor: 'black'}}
-                                 variant="outlined"
-                                 href="#"
-                                 size="large"
+                           {user && isUserWorker ? (
+                              <Box
+                                 sx={{
+                                    borderStyle: 'solid',
+                                    borderColor: 'white',
+                                    color: 'white',
+                                    borderRadius: '8px',
+                                    padding: '30px 15px',
+                                 }}
                               >
-                                 ВХОД
-                              </Button>
-                           </NavLink>
+                                 Режим помощника
+                              </Box>
+                           ) : user ? (
+                              <Box
+                                 sx={{
+                                    borderStyle: 'solid',
+                                    borderColor: 'white',
+                                    color: 'white',
+                                    borderRadius: '8px',
+                                    padding: '30px 15px',
+                                 }}
+                              >
+                                 Режим клиента
+                              </Box>
+                           ) : (
+                              <NavLink to="/auth">
+                                 <Button
+                                    sx={{
+                                       color: 'white',
+                                       borderColor: 'white',
+                                    }}
+                                    variant="outlined"
+                                    href="#"
+                                    size="large"
+                                 >
+                                    ВХОД
+                                 </Button>
+                              </NavLink>
+                           )}
                         </Grid>
                      </Grid>
                      {footerInfo.map(item => (
                         <Grid key={item.id} sx={{width: '200px'}}>
-                           <Typography variant="h6" color="black">
+                           <Typography variant="h6" color="white">
                               {item.title}
                            </Typography>
                            {item.footerContent.map(page => (
@@ -135,7 +169,7 @@ const Footer = () => {
                                     sx={{
                                        ml: 'auto',
                                        my: 1,
-                                       color: 'black',
+                                       color: '#ffffff8c',
                                        display: 'block',
                                        mb: '5px',
                                     }}
@@ -148,7 +182,7 @@ const Footer = () => {
                      ))}
                      <Grid sx={{width: '200px'}}>
                         <Stack direction="column" spacing={2}>
-                           <Typography variant="h6" color="black">
+                           <Typography variant="h6" color="white">
                               Скачать приложение
                            </Typography>
                            <NavLink to="#">
@@ -170,7 +204,7 @@ const Footer = () => {
                         </Stack>
                      </Grid>
                   </Box>
-                  <Divider sx={{mt: '10px', backgroundColor: 'black'}} />
+                  <Divider sx={{mt: '10px', backgroundColor: 'white'}} />
                   <Box
                      sx={{
                         display: 'flex',
@@ -178,17 +212,17 @@ const Footer = () => {
                         alignItems: 'center',
                      }}
                   >
-                     <Typography color="black">
-                        © 2023 - All rights reserved
+                     <Typography color="#ffffff8c">
+                        © 2023 - Создано Тимой, Эрнасом и Ибраимом
                      </Typography>
                      <ButtonGroup>
                         <NavLink to="#">
-                           <IconButton sx={{color: 'black'}}>
+                           <IconButton sx={{color: '#ffffff8c'}}>
                               <InstagramIcon />
                            </IconButton>
                         </NavLink>
                         <NavLink to="#">
-                           <IconButton sx={{color: 'black'}}>
+                           <IconButton sx={{color: '#ffffff8c'}}>
                               <FacebookIcon />
                            </IconButton>
                         </NavLink>
@@ -260,8 +294,8 @@ const Footer = () => {
                      </Accordion>
                   ))}
                   <Grid sx={{mt: '20px', mb: '20px'}}>
-                     <Typography variant="h6" color="black">
-                     Скачать приложение
+                     <Typography variant="h6" color="white">
+                        Скачать приложение
                      </Typography>
 
                      <Stack
@@ -297,17 +331,17 @@ const Footer = () => {
                         alignItems: 'center',
                      }}
                   >
-                     <Typography color="black">
-                        © 2023 - All rights reserved
+                     <Typography color="#ffffff8c">
+                        © 2023 - Создано Тимой, Эрнасом и Ибраимом
                      </Typography>
                      <ButtonGroup>
                         <NavLink to="#">
-                           <IconButton sx={{color: 'black'}}>
+                           <IconButton sx={{color: '#ffffff8c'}}>
                               <InstagramIcon />
                            </IconButton>
                         </NavLink>
                         <NavLink to="#">
-                           <IconButton sx={{color: 'black'}}>
+                           <IconButton sx={{color: '#ffffff8c'}}>
                               <FacebookIcon />
                            </IconButton>
                         </NavLink>

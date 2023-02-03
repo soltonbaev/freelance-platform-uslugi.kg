@@ -12,6 +12,7 @@ import {
    InputLabel,
    Link,
    MenuItem,
+   Paper,
    Select,
    TextField,
    Typography,
@@ -145,17 +146,21 @@ const AuthPage = () => {
    };
 
    return (
-      <div>
-         {isUserWorker ? (
-            <h1>Регистрация/Логин для продавца услуг</h1>
-         ) : (
-            <h1>Регистрация/Логин для покупателя услуг</h1>
-         )}
-         <Container component="main" maxWidth="xs">
+      <Container maxWidth="sm">
+         <Paper
+            elevation={5}
+            sx={{minHeight: '50vh', margin: '1rem', padding: '1rem'}}
+         >
+            {isUserWorker ? (
+               <h1>Регистрация/Логин для продавца услуг</h1>
+            ) : (
+               <h1>Регистрация/Логин для покупателя услуг</h1>
+            )}
+
             <CssBaseline />
             <Box
                sx={{
-                  marginTop: 8,
+                  marginTop: 1,
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
@@ -348,11 +353,6 @@ const AuthPage = () => {
                   )}
 
                   <Grid container>
-                     <Grid item xs>
-                        <Link href="#" variant="body2">
-                           Forgot password?
-                        </Link>
-                     </Grid>
                      <Grid item>
                         {hasAccount ? (
                            <Link
@@ -360,7 +360,7 @@ const AuthPage = () => {
                               variant="body2"
                               onClick={() => setHasAccount(!hasAccount)}
                            >
-                              Don't have an account? Sign Up
+                              Нет аккаунта? Зарегистрируйтесь
                            </Link>
                         ) : (
                            <Link
@@ -368,15 +368,15 @@ const AuthPage = () => {
                               variant="body2"
                               onClick={() => setHasAccount(!hasAccount)}
                            >
-                              Have an account? Sign In
+                              Есть аккаунт? Залогиньтесь
                            </Link>
                         )}
                      </Grid>
                   </Grid>
                </Box>
             </Box>
-         </Container>
-      </div>
+         </Paper>
+      </Container>
    );
 };
 
