@@ -1,10 +1,7 @@
 li {
    list-style-type: none;
 }
-.services {
-   /* border-right: 1px solid rgb(95, 95, 95);
-  border-left: 1px solid rgb(95, 95, 95); */
-}
+
 .servicesItem {
    position: relative;
 }
