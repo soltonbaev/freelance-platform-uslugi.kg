@@ -128,7 +128,7 @@ const TaskPage = () => {
         <li>
           <NavLink to="#" style={{ color: "black" }}>
             {service[0].title}
-          </NavLink>
+          </NavLink>  
         </li>
       </ul>
       {/* ================ */}
