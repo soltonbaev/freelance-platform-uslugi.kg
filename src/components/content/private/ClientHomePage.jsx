@@ -20,6 +20,7 @@ const ClientHomePage = () => {
       setCategory,
       getCategoriesServices,
       getServices,
+      cities,
    } = useGlobalContext();
 
    useEffect(() => {

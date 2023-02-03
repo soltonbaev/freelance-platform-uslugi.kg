@@ -1,5 +1,4 @@
 import {
-
    doc,
    getDoc,
    getDocs,
@@ -11,7 +10,6 @@ import {
 } from 'firebase/firestore';
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import fireBase, {db} from '../helpers/firebase';
-
 
 export const globalContext = createContext();
 export const useGlobalContext = () => useContext(globalContext);
@@ -63,7 +61,6 @@ const GlobalContextProvider = ({children}) => {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach(doc => {
          arr.push(doc.data());
-
       });
       setUsersByQuery(arr);
    }
@@ -183,11 +180,24 @@ const GlobalContextProvider = ({children}) => {
          }
       }
    }
+
+   async function setTaskCompleted(taskUid) {
+      const docRef = doc(db, 'tasks', taskUid);
+
+      updateDoc(docRef, {isCompleted: true})
+         .then(docRef => {
+            console.log('Task marked as completed');
+         })
+         .catch(error => {
+            console.log(error);
+         });
+   }
    useEffect(() => {
       authListener();
    }, []);
 
    let value = {
+      category,
       services,
       user,
       setUser,
@@ -225,14 +235,15 @@ const GlobalContextProvider = ({children}) => {
       hourlyWage,
       setHourlyWage,
       updateUser,
+      city,
       setCity,
       aboutMe,
       setAboutMe,
+      setTaskCompleted,
    };
    return (
       <globalContext.Provider value={value}>{children}</globalContext.Provider>
    );
-
 };
 
 export default GlobalContextProvider;
