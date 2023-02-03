@@ -193,6 +193,8 @@ const UnauthorizedHomePage = () => {
                 price={item.hourlyWage}
                 image={item.photoUrl}
                 uid={item.uid}
+                category={item.category}
+                aboutMe={item.aboutMe}
               />
             );
           })}
