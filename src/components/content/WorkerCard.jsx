@@ -82,7 +82,7 @@ const WorkerCard = (props) => {
             fontSize: "20px",
           }}
         >
-          {skils} : ${price}/hr
+          {skils} : {price}сом/час
         </Typography>
       </Box>
       <Box

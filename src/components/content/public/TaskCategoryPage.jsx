@@ -5,8 +5,6 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Container,
-  List,
   Stack,
   Typography,
 } from "@mui/material";
@@ -27,8 +25,6 @@ const TaskCategoryPage = () => {
 
   const params = useParams();
 
-  console.log(params);
-
   const navigate = useNavigate();
   console.log("cat", categoriesArr);
 
@@ -39,12 +35,12 @@ const TaskCategoryPage = () => {
   const services = servicesArr.filter((service) => {
     if (service.category === category[0].id) return service;
   });
-  console.log("ernas", category);
 
   return (
     <Box>
       {category.length ? (
         <>
+          {" "}
           <Box
             sx={{
               backgroundImage: `url(${category[0].imageUrl})`,
@@ -65,7 +61,7 @@ const TaskCategoryPage = () => {
                 justifyContent: "center",
                 alignItems: "center",
                 flexDirection: "column",
-                backgroundColor: "rgba(0,0,0,0.4)",
+                backgroundColor: "rgba(0,0,0,0.2)",
               }}
             >
               <Typography
@@ -96,43 +92,24 @@ const TaskCategoryPage = () => {
             objectFit: "cover",
           }}
         /> */}
-
-      </Box>
-      <Container sx={{ mt: "20px" }}>
-        <List
-          className="nav-way"
-          sx={{
-            display: "flex",
-            mb: "20px",
-            color: "black",
-            flexDirection: { xs: "column", sm: "row" },
-          }}
-        >
-          <li>
-            <NavLink to="/" style={{ color: "black" }}>
-              Главная страница
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/categories-page" style={{ color: "black" }}>
-              Все сервисы
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="#" style={{ color: "black" }}>
-              {category[0].title}
-            </NavLink>
-          </li>
-        </List>
-      </Container>
-
-      {services.map((service) => (
-        <Box>
-          <Card
-            sx={{
-              width: { xs: "300px", md: "70vw" },
-
-
+          </Box>
+          <ul className="nav-way" style={{ display: "flex", color: "black" }}>
+            <li>
+              <NavLink to="/" style={{ color: "black" }}>
+                Главная страница
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/categories-page" style={{ color: "black" }}>
+                Все сервисы
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="#" style={{ color: "black" }}>
+                {category[0].title}
+              </NavLink>
+            </li>
+          </ul>
           {services.map((service) => (
             <Box>
               <Card
@@ -147,34 +124,37 @@ const TaskCategoryPage = () => {
                   borderRadius: "10px",
                   flexDirection: { xs: "column" },
                 }}
+              >
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    height="140px"
+                    image={service.imageUrl}
+                    alt={service.title}
+                    sx={{
+                      float: { xs: "center", md: "left" },
+                      width: "200px",
+                      height: "200px",
+                      borderRadius: "50%",
 
-              />
-              <CardContent>
-                <NavLink
-                  style={{ color: "black" }}
-                  to={`/task-page/${service.title}`}
-                >
-                  <Typography gutterBottom variant="h4" component="div">
-                    {service.title}
-                  </Typography>
-                </NavLink>
-                <Typography
-                  variant="body2"
-                  color="#3d463d"
-                  style={{
-                    fontFamily: "Inter, Arial, Helvetica, sans-serif",
-                    fontSize: "1rem",
-                    fontWeight: "normal",
-                  }}
-                >
-                  {service.desc}
-                </Typography>
-                <Box sx={{ marginTop: "2vw" }}>
-                  <Stack spacing={2} direction="row">
-                    <Button
-                      variant="contained"
-
-    style={{
+                      margin: "1vw",
+                      display: { xs: "flex", md: "block" },
+                      justifyContent: { xs: "center", md: "none" },
+                    }}
+                  />
+                  <CardContent>
+                    <NavLink
+                      style={{ color: "black" }}
+                      to={`/task-page/${service.title}`}
+                    >
+                      <Typography gutterBottom variant="h4" component="div">
+                        {service.title}
+                      </Typography>
+                    </NavLink>
+                    <Typography
+                      variant="body2"
+                      color="#3d463d"
+                      style={{
                         fontFamily: "Inter, Arial, Helvetica, sans-serif",
                         fontSize: "1rem",
                         fontWeight: "normal",
