@@ -1,5 +1,4 @@
 import {
-
    doc,
    getDoc,
    getDocs,
@@ -12,101 +11,117 @@ import {
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import fireBase, {db} from '../helpers/firebase';
 
-
 export const globalContext = createContext();
 export const useGlobalContext = () => useContext(globalContext);
 
-const GlobalContextProvider = ({ children }) => {
-  const services = [
-    {
-      title: "Moving Services",
-      link: "#",
-      imgUrl:
-        "https://www.bostonmagazine.com/wp-content/uploads/sites/2/2019/06/moving-season-guide.jpg",
-      subServices: [
-        { name: "Help Moving", link: "#", id: 1 },
-        { name: "Heavy Lifting", link: "#", id: 2 },
-        { name: "Furniture Movers", link: "#", id: 3 },
-        { name: "Full Service Help Moving", link: "#", id: 4 },
-      ],
-    },
-  ];
-  let [user, setUser] = useState("");
-  let [hasAccount, setHasAccount] = useState("");
-  let [isLoggedIn, setIsLoggedIn] = useState(false);
-  let [userDetails, setUserDetails] = useState({});
-  let [isUserWorker, setIsUserWorker] = useState(false);
-  let [category, setCategory] = useState("");
-  let [usersByQuery, setUsersByQuery] = useState([]);
-  let [taskUid, setTaskUid] = useState("");
-  let [isChatActive, setIsChatActive] = useState(false);
-  let [usersByType, setUsersByType] = useState([]);
-  const cities = ["Бишкек", "Ош", "Джалал-Абад", "Баткен", "Чолпон-Ата"];
+const GlobalContextProvider = ({children}) => {
+   const services = [
+      {
+         title: 'Moving Services',
+         link: '#',
+         imgUrl:
+            'https://www.bostonmagazine.com/wp-content/uploads/sites/2/2019/06/moving-season-guide.jpg',
+         subServices: [
+            {name: 'Help Moving', link: '#', id: 1},
+            {name: 'Heavy Lifting', link: '#', id: 2},
+            {name: 'Furniture Movers', link: '#', id: 3},
+            {name: 'Full Service Help Moving', link: '#', id: 4},
+         ],
+      },
+   ];
 
-  let [categoriesArr, setCategoriesArr] = useState([]);
-  let [servicesArr, setServicesArr] = useState([]);
+   let [user, setUser] = useState('');
+   let [hasAccount, setHasAccount] = useState('');
+   let [isLoggedIn, setIsLoggedIn] = useState(false);
+   let [userDetails, setUserDetails] = useState({});
+   let [isUserWorker, setIsUserWorker] = useState(false);
+   let [category, setCategory] = useState('');
+   let [usersByQuery, setUsersByQuery] = useState([]);
+   let [taskUid, setTaskUid] = useState('');
+   let [isChatActive, setIsChatActive] = useState(false);
+   let [usersByType, setUsersByType] = useState([]);
+   let [firstName, setFirstName] = useState('');
+   let [lastName, setLastName] = useState('');
+   let [photoUrl, setPhotoUrl] = useState('');
+   let [hourlyWage, setHourlyWage] = useState('');
+   let [categoriesArr, setCategoriesArr] = useState([]);
+   let [servicesArr, setServicesArr] = useState([]);
+   let [city, setCity] = useState('');
+   let [aboutMe, setAboutMe] = useState('');
+   const cities = ['Бишкек', 'Ош', 'Джалал-Абад', 'Баткен', 'Чолпон-Ата'];
 
-  async function getUsersByQuery(workerQuery, cityQuery) {
-    const arr = [];
-    const q = query(
-      collection(db, "userData"),
-      where("isUserWorker", "==", workerQuery),
-      where("city", "==", cityQuery)
-    );
-
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      arr.push(doc.data());
-    });
-    setUsersByQuery(arr);
-  }
-  // -------
-  async function getUsersByType(workerQuery) {
-    const arr = [];
-    const q = query(
-      collection(db, "userData"),
-      where("isUserWorker", "==", workerQuery)
-    );
-
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      arr.push(doc.data());
-    });
-    setUsersByType(arr);
-  }
-
-  async function getCategoriesServices() {
-    const arr = [];
-    async function getData() {
-      const querySnapshot = await getDocs(
-        collection(db, "admin", "servicesData", "categories")
+   async function getUsersByQuery(workerQuery, cityQuery) {
+      const arr = [];
+      const q = query(
+         collection(db, 'userData'),
+         where('isUserWorker', '==', workerQuery),
+         where('city', '==', cityQuery)
       );
 
-      querySnapshot.forEach((doc) => {
-        arr.push({ id: doc.id, ...doc.data() });
-
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach(doc => {
+         arr.push(doc.data());
       });
-    }
-    await getData();
-    setCategoriesArr(arr);
-  }
-
-  async function getServices() {
-    const arr = [];
-    async function getData() {
-      const querySnapshot = await getDocs(
-        collection(db, "admin", "servicesData", "services")
+      setUsersByQuery(arr);
+   }
+   // -------
+   async function getUsersByType(workerQuery) {
+      const arr = [];
+      const q = query(
+         collection(db, 'userData'),
+         where('isUserWorker', '==', workerQuery)
       );
-      querySnapshot.forEach((doc) => {
-        arr.push(doc.data());
+
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach(doc => {
+         arr.push(doc.data());
       });
-    }
-    await getData();
-    // return arr;
-    setServicesArr(arr);
-  }
+      setUsersByType(arr);
+   }
 
+   async function getCategoriesServices() {
+      const arr = [];
+      async function getData() {
+         const querySnapshot = await getDocs(
+            collection(db, 'admin', 'servicesData', 'categories')
+         );
 
+         querySnapshot.forEach(doc => {
+            arr.push({id: doc.id, ...doc.data()});
+         });
+      }
+      await getData();
+      setCategoriesArr(arr);
+   }
+
+   async function getServices() {
+      const arr = [];
+      async function getData() {
+         const querySnapshot = await getDocs(
+            collection(db, 'admin', 'servicesData', 'services')
+         );
+         querySnapshot.forEach(doc => {
+            arr.push(doc.data());
+         });
+      }
+      await getData();
+      // return arr;
+      setServicesArr(arr);
+   }
+
+   function setUserDefaults() {
+      setCategory(userDetails.category);
+      setFirstName(userDetails.firstName);
+      setLastName(userDetails.lastName);
+      setPhotoUrl(userDetails.imgUrl);
+      setHourlyWage(userDetails.hourlyWage);
+      setCity(userDetails.city);
+      setAboutMe(userDetails.aboutMe);
+   }
+
+   useEffect(() => {
+      setUserDefaults();
+   }, [userDetails]);
    const authListener = () => {
       fireBase.auth().onAuthStateChanged(async user => {
          if (user) {
@@ -129,47 +144,91 @@ const GlobalContextProvider = ({ children }) => {
       });
    };
 
+   async function updateUser() {
+      const userObj = {
+         firstName: firstName,
+         lastName: lastName,
+         imgUrl: photoUrl,
+         isUserWorker: isUserWorker,
+         city: city,
+      };
+      if (isUserWorker) {
+         userObj.category = category;
+         userObj.hourlyWage = hourlyWage;
+         userObj.aboutMe = aboutMe;
+      }
 
-  useEffect(() => {
-    authListener();
-  }, []);
+      const docRef = doc(db, 'userData', userDetails.uid);
 
+      updateDoc(docRef, userObj)
+         .then(docRef => {
+            getFromDb();
+            console.log(
+               'A New Document Field has been added to an existing document'
+            );
+         })
+         .catch(error => {
+            console.log(error);
+         });
+      async function getFromDb() {
+         const docRef = doc(db, 'userData', userDetails.uid);
+         const docSnap = await getDoc(docRef);
+         if (docSnap.exists()) {
+            setUserDetails(docSnap.data());
+         } else {
+            console.log('No such document!');
+         }
+      }
+   }
+   useEffect(() => {
+      authListener();
+   }, []);
 
-  let value = {
-    services,
-    user,
-    setUser,
-    hasAccount,
-    setHasAccount,
-    isLoggedIn,
-    setIsLoggedIn,
-    userDetails,
-    setUserDetails,
-    isUserWorker,
-    setIsUserWorker,
-    categoriesArr,
-    servicesArr,
-    getCategoriesServices,
-
-    getServices,
-    setCategory,
-    category,
-    cities,
-    usersByQuery,
-    setUsersByQuery,
-    getUsersByQuery,
-    taskUid,
-    setTaskUid,
-    isChatActive,
-    setIsChatActive,
-    usersByType,
-    setUsersByType,
-    getUsersByType,
-  };
-  return (
-    <globalContext.Provider value={value}>{children}</globalContext.Provider>
-  );
-
+   let value = {
+      services,
+      user,
+      setUser,
+      hasAccount,
+      setHasAccount,
+      isLoggedIn,
+      setIsLoggedIn,
+      userDetails,
+      setUserDetails,
+      isUserWorker,
+      setIsUserWorker,
+      categoriesArr,
+      servicesArr,
+      getCategoriesServices,
+      getServices,
+      setCategory,
+      category,
+      cities,
+      usersByQuery,
+      setUsersByQuery,
+      getUsersByQuery,
+      taskUid,
+      setTaskUid,
+      isChatActive,
+      setIsChatActive,
+      usersByType,
+      setUsersByType,
+      getUsersByType,
+      firstName,
+      setFirstName,
+      lastName,
+      setLastName,
+      photoUrl,
+      setPhotoUrl,
+      hourlyWage,
+      setHourlyWage,
+      updateUser,
+      setCity,
+      aboutMe,
+      setAboutMe,
+   };
+   return (
+      <globalContext.Provider value={value}>{children}</globalContext.Provider>
+   );
 };
 
 export default GlobalContextProvider;
