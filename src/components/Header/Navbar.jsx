@@ -202,7 +202,7 @@ const Navbar = () => {
                            }}
                            src={Logo}
                            style={{
-                              width: '15rem',
+                              width: '13rem',
                            }}
                         />
                      </Box>

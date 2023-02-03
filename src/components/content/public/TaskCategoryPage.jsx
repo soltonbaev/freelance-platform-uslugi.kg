@@ -5,6 +5,8 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Container,
+  List,
   Stack,
   Typography,
 } from "@mui/material";
@@ -24,6 +26,8 @@ const TaskCategoryPage = () => {
   }, []);
 
   const params = useParams();
+
+  console.log(params);
 
   const navigate = useNavigate();
   console.log("cat", categoriesArr);
@@ -92,24 +96,42 @@ const TaskCategoryPage = () => {
             objectFit: "cover",
           }}
         /> */}
-          </Box>
-          <ul className="nav-way" style={{ display: "flex", color: "black" }}>
-            <li>
-              <NavLink to="/" style={{ color: "black" }}>
-                Главная страница
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/categories-page" style={{ color: "black" }}>
-                Все сервисы
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="#" style={{ color: "black" }}>
-                {category[0].title}
-              </NavLink>
-            </li>
-          </ul>
+
+      </Box>
+      <Container sx={{ mt: "20px" }}>
+        <List
+          className="nav-way"
+          sx={{
+            display: "flex",
+            mb: "20px",
+            color: "black",
+            flexDirection: { xs: "column", sm: "row" },
+          }}
+        >
+          <li>
+            <NavLink to="/" style={{ color: "black" }}>
+              Главная страница
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/categories-page" style={{ color: "black" }}>
+              Все сервисы
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="#" style={{ color: "black" }}>
+              {category[0].title}
+            </NavLink>
+          </li>
+        </List>
+      </Container>
+
+      {services.map((service) => (
+        <Box>
+          <Card
+            sx={{
+              width: { xs: "300px", md: "70vw" },
+
 
           {services.map((service) => (
             <Box>
@@ -125,37 +147,34 @@ const TaskCategoryPage = () => {
                   borderRadius: "10px",
                   flexDirection: { xs: "column" },
                 }}
-              >
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    height="140px"
-                    image={service.imageUrl}
-                    alt={service.title}
-                    sx={{
-                      float: { xs: "center", md: "left" },
-                      width: "200px",
-                      height: "200px",
-                      borderRadius: "50%",
 
-                      margin: "1vw",
-                      display: { xs: "flex", md: "block" },
-                      justifyContent: { xs: "center", md: "none" },
-                    }}
-                  />
-                  <CardContent>
-                    <NavLink
-                      style={{ color: "black" }}
-                      to={`/task-page/${service.title}`}
-                    >
-                      <Typography gutterBottom variant="h4" component="div">
-                        {service.title}
-                      </Typography>
-                    </NavLink>
-                    <Typography
-                      variant="body2"
-                      color="#3d463d"
-                      style={{
+              />
+              <CardContent>
+                <NavLink
+                  style={{ color: "black" }}
+                  to={`/task-page/${service.title}`}
+                >
+                  <Typography gutterBottom variant="h4" component="div">
+                    {service.title}
+                  </Typography>
+                </NavLink>
+                <Typography
+                  variant="body2"
+                  color="#3d463d"
+                  style={{
+                    fontFamily: "Inter, Arial, Helvetica, sans-serif",
+                    fontSize: "1rem",
+                    fontWeight: "normal",
+                  }}
+                >
+                  {service.desc}
+                </Typography>
+                <Box sx={{ marginTop: "2vw" }}>
+                  <Stack spacing={2} direction="row">
+                    <Button
+                      variant="contained"
+
+    style={{
                         fontFamily: "Inter, Arial, Helvetica, sans-serif",
                         fontSize: "1rem",
                         fontWeight: "normal",

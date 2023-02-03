@@ -18,7 +18,7 @@ import categoryPage from "./css/categoryPage.css";
 const CategoriesPage = () => {
   const { servicesArr, categoriesArr, getCategoriesServices, getServices } =
     useGlobalContext();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(getCurrPage());
   const numOfPages = Math.ceil(categoriesArr.length / 2);
 
   useEffect(() => {
@@ -31,6 +31,22 @@ const CategoriesPage = () => {
     const end = begin + 2;
     return categoriesArr.slice(begin, end);
   }
+
+  useEffect(() => {
+    saveCurrPage();
+  }, [page]);
+
+  function getCurrPage(){
+    let currPage = JSON.parse(localStorage.getItem("currPage")) ? JSON.parse(localStorage.getItem("currPage")) : 1 ;
+    return +currPage;
+  }
+
+
+  function saveCurrPage(){
+    localStorage.setItem("currPage", JSON.stringify(page));
+  }
+
+
 
   return (
     <div>
@@ -53,8 +69,16 @@ const CategoriesPage = () => {
         </Container>
       </Box>
       {/* ============ */}
+        
+      
 
-      <ul className="nav-way" style={{ display: "flex", color: "black" }}>
+
+      <Container
+        className="all-services-content"
+        sx={{ mt: "30px", mb: "30px" }}
+      >
+        <List className="nav-way" sx={{ display: "flex", mb: "20px", color: "black", flexDirection: {xs: "column", sm: "row"}}} >
+
         <li>
           <NavLink to="/" style={{ color: "black" }}>
             Главная страница
@@ -65,12 +89,7 @@ const CategoriesPage = () => {
             Все сервисы
           </NavLink>
         </li>
-      </ul>
-
-      <Container
-        className="all-services-content"
-        sx={{ mt: "30px", mb: "30px" }}
-      >
+      </List>
         <Box sx={{ textAlign: "center" }}>
           <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 6 }}>
             {currentData().map((item) => (
@@ -78,8 +97,10 @@ const CategoriesPage = () => {
                 <Card>
                   <CardMedia
                     component="img"
-                    height="300px"
-                    width="200px"
+
+                    height="200"
+                    width="200"
+
                     image={item.imageUrl}
                     alt={item.title}
                   />

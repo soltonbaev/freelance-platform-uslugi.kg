@@ -20,7 +20,7 @@ import MyTasks from './components/content/private/MyTasks';
 const PUBLIC_ROUTES = [
    {link: '/', element: <HomePage />, id: 1},
    {link: '/auth', element: <AuthPage />, id: 2},
-   {link: '/task', element: <TaskPage />, id: 3},
+   {link: '/task-page/:id', element: <TaskPage />, id: 3},
    {link: '/profile', element: <ClientProfilePage />, id: 4},
    {link: '/my-tasks', element: <MyTasks />, id: 5},
    {link: '/categories-page', element: <CategoriesPage />, id: 6},
