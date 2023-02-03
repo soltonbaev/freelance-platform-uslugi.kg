@@ -12,7 +12,7 @@ const UserCard = props => {
    const {setWorkerObj} = useStepWizardContext();
    return (
       <Grid item xs={3}>
-         <Paper elevation={3}>
+         <Paper elevation={3} sx={{padding: "20px", mb: "20px"}}>
             <Typography>
                {firstName} {lastName}
             </Typography>

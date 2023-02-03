@@ -1,3 +1,4 @@
+import { Divider } from '@mui/material';
 import React from 'react';
 import {useGlobalContext} from '../../../../contexts/GlobalContextProvider';
 
@@ -14,6 +15,7 @@ const Message = ({message}) => {
          />
          <div className="chat-bubble__right">
             <p className="user-name">{message.name}</p>
+            <Divider sx={{background: "black"}} />
             <p className="user-message">{message.text}</p>
          </div>
       </div>

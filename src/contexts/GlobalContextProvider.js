@@ -48,6 +48,7 @@ const GlobalContextProvider = ({children}) => {
    let [servicesArr, setServicesArr] = useState([]);
    let [city, setCity] = useState('');
    let [aboutMe, setAboutMe] = useState('');
+   let [chatWithUser, setChatWithUser] = useState("");
    const cities = ['Бишкек', 'Ош', 'Джалал-Абад', 'Баткен', 'Чолпон-Ата'];
 
    async function getUsersByQuery(workerQuery, cityQuery) {
@@ -240,6 +241,8 @@ const GlobalContextProvider = ({children}) => {
       aboutMe,
       setAboutMe,
       setTaskCompleted,
+      setChatWithUser,
+      chatWithUser
    };
    return (
       <globalContext.Provider value={value}>{children}</globalContext.Provider>

@@ -11,7 +11,8 @@ function App() {
    const {isChatActive} = useGlobalContext();
    return (
       <>
-         <Header />
+      {isChatActive || <Header />}
+         
          <MainRoutes />
          {isChatActive || <Footer />}
       </>
