@@ -61,6 +61,9 @@ const BecomeWorker = () => {
                 padding: "20px",
                 background: "#ffffff",
                 width: { xs: "80%", sm: "500px" },
+
+                margin: "1rem",
+
               }}
             >
               <Typography
@@ -84,10 +87,12 @@ const BecomeWorker = () => {
                   flexDirection: { xs: "column", sm: "row" },
                 }}
               >
+
                 <Stack
                   spacing={2}
                   sx={{ width: { xs: "100%", sm: "300px" }, mb: "10px" }}
                 >
+
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">
                       Выбрать город
@@ -138,12 +143,14 @@ const BecomeWorker = () => {
                     margin: "0 auto",
                   }}
                 >
+
                   <Typography variant="h4">
                     {category && city
                       ? Math.floor(Math.random() * 200)
                       : "0"}{" "}
                     сом{" "}
                   </Typography>
+
                   <Typography variant="h5" sx={{ padding: 0, ml: "4px" }}>
                     в час
                   </Typography>

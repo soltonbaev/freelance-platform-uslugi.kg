@@ -72,16 +72,22 @@ const CategoriesPage = () => {
         
       
 
+
       <Container
         className="all-services-content"
         sx={{ mt: "30px", mb: "30px" }}
       >
         <List className="nav-way" sx={{ display: "flex", mb: "20px", color: "black", flexDirection: {xs: "column", sm: "row"}}} >
+
         <li>
-          <NavLink to="/" style={{color: "black"}} >Главная страница</NavLink>
+          <NavLink to="/" style={{ color: "black" }}>
+            Главная страница
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/categories-page" style={{color: "black"}} >Все сервисы</NavLink>
+          <NavLink to="/categories-page" style={{ color: "black" }}>
+            Все сервисы
+          </NavLink>
         </li>
       </List>
         <Box sx={{ textAlign: "center" }}>
@@ -91,8 +97,10 @@ const CategoriesPage = () => {
                 <Card>
                   <CardMedia
                     component="img"
+
                     height="200"
                     width="200"
+
                     image={item.imageUrl}
                     alt={item.title}
                   />

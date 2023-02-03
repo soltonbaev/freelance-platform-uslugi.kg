@@ -1,4 +1,5 @@
 import {
+
    doc,
    getDoc,
    getDocs,
@@ -10,6 +11,7 @@ import {
 } from 'firebase/firestore';
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import fireBase, {db} from '../helpers/firebase';
+
 
 export const globalContext = createContext();
 export const useGlobalContext = () => useContext(globalContext);
@@ -61,6 +63,7 @@ const GlobalContextProvider = ({children}) => {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach(doc => {
          arr.push(doc.data());
+
       });
       setUsersByQuery(arr);
    }
@@ -229,6 +232,7 @@ const GlobalContextProvider = ({children}) => {
    return (
       <globalContext.Provider value={value}>{children}</globalContext.Provider>
    );
+
 };
 
 export default GlobalContextProvider;
