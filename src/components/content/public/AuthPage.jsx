@@ -43,17 +43,22 @@ const AuthPage = () => {
       setCategory,
       category,
       cities,
+      firstName,
+      setFirstName,
+      lastName,
+      setLastName,
+      photoUrl,
+      setPhotoUrl,
+      hourlyWage,
+      setHourlyWage,
    } = useGlobalContext();
    const {city, setCity, isWizardInProgress} = useStepWizardContext();
-   let [firstName, setFirstName] = useState('');
-   let [lastName, setLastName] = useState('');
+
    let [email, setEmail] = useState('');
    let [phoneNumber, setPhoneNumber] = useState('');
    let [password, setPassword] = useState('');
    let [emailError, setEmailError] = useState('');
    let [passwordError, setPasswordError] = useState('');
-   let [photoUrl, setPhotoUrl] = useState('');
-   let [hourlyWage, setHourlyWage] = useState('');
 
    const handleSignUp = () => {
       fireBase

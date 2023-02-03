@@ -8,8 +8,6 @@ import RenderRating from './reviews/RenderRating';
 const UserCard = props => {
    const {firstName, lastName, aboutMe, hourlyWage, uid} = props.user;
 
-   const value = 5;
-
    const navigate = useNavigate();
    const {setWorkerObj} = useStepWizardContext();
    return (
@@ -19,7 +17,7 @@ const UserCard = props => {
                {firstName} {lastName}
             </Typography>
             <Typography>
-               <RenderRating uid={uid} value={value} />
+               <RenderRating uid={uid} />
             </Typography>
             <Typography>{aboutMe}</Typography>
             <Typography>{hourlyWage} сом за час</Typography>
