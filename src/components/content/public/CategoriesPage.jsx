@@ -54,12 +54,16 @@ const CategoriesPage = () => {
       </Box>
       {/* ============ */}
 
-      <ul className="nav-way" style={{ display: "flex", color: "black"}} >
+      <ul className="nav-way" style={{ display: "flex", color: "black" }}>
         <li>
-          <NavLink to="/" style={{color: "black"}} >Главная страница</NavLink>
+          <NavLink to="/" style={{ color: "black" }}>
+            Главная страница
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/categories-page" style={{color: "black"}} >Все сервисы</NavLink>
+          <NavLink to="/categories-page" style={{ color: "black" }}>
+            Все сервисы
+          </NavLink>
         </li>
       </ul>
 
@@ -74,9 +78,9 @@ const CategoriesPage = () => {
                 <Card>
                   <CardMedia
                     component="img"
-                    height="200"
-                    width="200"
-                    image={item.imgUrl}
+                    height="300px"
+                    width="200px"
+                    image={item.imageUrl}
                     alt={item.title}
                   />
                   <Box

@@ -33,9 +33,10 @@ const WorkerCard = (props) => {
         <CardMedia
           component="img"
           style={{
-            width: "100px",
-            height: "100px",
+            width: "120px",
+            height: "120px",
             margin: "20px",
+            borderRadius: "50%",
           }}
           image={image}
         />

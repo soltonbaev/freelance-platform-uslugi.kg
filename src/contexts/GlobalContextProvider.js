@@ -1,36 +1,20 @@
 import {
-
-   doc,
-   getDoc,
-   getDocs,
-   collection,
-   query,
-   where,
-   setDoc,
-   updateDoc,
-} from 'firebase/firestore';
-import React, {createContext, useContext, useEffect, useState} from 'react';
-import fireBase, {db} from '../helpers/firebase';
-
+  doc,
+  getDoc,
+  getDocs,
+  collection,
+  query,
+  where,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import fireBase, { db } from "../helpers/firebase";
 
 export const globalContext = createContext();
 export const useGlobalContext = () => useContext(globalContext);
 
 const GlobalContextProvider = ({ children }) => {
-  const services = [
-    {
-      title: "Moving Services",
-      link: "#",
-      imgUrl:
-        "https://www.bostonmagazine.com/wp-content/uploads/sites/2/2019/06/moving-season-guide.jpg",
-      subServices: [
-        { name: "Help Moving", link: "#", id: 1 },
-        { name: "Heavy Lifting", link: "#", id: 2 },
-        { name: "Furniture Movers", link: "#", id: 3 },
-        { name: "Full Service Help Moving", link: "#", id: 4 },
-      ],
-    },
-  ];
   let [user, setUser] = useState("");
   let [hasAccount, setHasAccount] = useState("");
   let [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -84,7 +68,6 @@ const GlobalContextProvider = ({ children }) => {
 
       querySnapshot.forEach((doc) => {
         arr.push({ id: doc.id, ...doc.data() });
-
       });
     }
     await getData();
@@ -106,37 +89,33 @@ const GlobalContextProvider = ({ children }) => {
     setServicesArr(arr);
   }
 
-
-   const authListener = () => {
-      fireBase.auth().onAuthStateChanged(async user => {
-         if (user) {
-            setUser(user);
-            console.log('authListener User', user);
-            async function getFromDb() {
-               const docRef = doc(db, 'userData', user.uid);
-               const docSnap = await getDoc(docRef);
-               if (docSnap.exists()) {
-                  let docSnapData = docSnap.data();
-                  setUserDetails(docSnapData);
-               } else {
-                  console.log('No such document!');
-               }
-            }
-            await getFromDb();
-         } else {
-            setUser('');
-         }
-      });
-   };
-
+  const authListener = () => {
+    fireBase.auth().onAuthStateChanged(async (user) => {
+      if (user) {
+        setUser(user);
+        console.log("authListener User", user);
+        async function getFromDb() {
+          const docRef = doc(db, "userData", user.uid);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            let docSnapData = docSnap.data();
+            setUserDetails(docSnapData);
+          } else {
+            console.log("No such document!");
+          }
+        }
+        await getFromDb();
+      } else {
+        setUser("");
+      }
+    });
+  };
 
   useEffect(() => {
     authListener();
   }, []);
 
-
   let value = {
-    services,
     user,
     setUser,
     hasAccount,
@@ -169,7 +148,6 @@ const GlobalContextProvider = ({ children }) => {
   return (
     <globalContext.Provider value={value}>{children}</globalContext.Provider>
   );
-
 };
 
 export default GlobalContextProvider;
