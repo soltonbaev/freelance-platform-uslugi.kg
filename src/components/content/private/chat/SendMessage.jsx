@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {db} from '../../../../helpers/firebase';
 import {addDoc, collection, serverTimestamp} from 'firebase/firestore';
 import {useGlobalContext} from '../../../../contexts/GlobalContextProvider';
+import { Container } from '@mui/system';
 const SendMessage = ({scroll}) => {
    const [message, setMessage] = useState('');
    const {userDetails, taskUid} = useGlobalContext();
@@ -29,6 +30,7 @@ const SendMessage = ({scroll}) => {
       scroll.current.scrollIntoView({behavior: 'smooth'});
    };
    return (
+      <Container sx={{display: "flex", justifyContent: "center" }}>
       <form onSubmit={event => sendMessage(event)} className="send-message">
          <label htmlFor="messageInput" hidden>
             Enter Message
@@ -44,6 +46,8 @@ const SendMessage = ({scroll}) => {
          />
          <button type="submit">Send</button>
       </form>
+
+      </Container>
    );
 };
 

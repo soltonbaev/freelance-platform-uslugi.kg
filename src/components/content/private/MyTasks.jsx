@@ -28,6 +28,8 @@ const MyTasks = () => {
       taskCount,
       getUsersByQuery,
       usersByQuery,
+      chatWithUser,
+      setChatWithUser,
    } = useGlobalContext();
    const [chatsWithSellers, setChatsWithSellers] = useState([]);
    const [chatsWithBuyers, setChatsWithBuyers] = useState([]);
@@ -123,6 +125,7 @@ const MyTasks = () => {
                                    <Button
                                       onClick={() => {
                                          setTaskUid(task[0]);
+                                         setChatWithUser(task[1].sellerInfo[0]);
                                          navigate('/chat');
                                       }}
                                       variant="outlined"
@@ -187,6 +190,7 @@ const MyTasks = () => {
                                    <Button
                                       onClick={() => {
                                          setTaskUid(task[0]);
+                                         setChatWithUser(task[1].buyerInfo[0]);
                                          navigate('/chat');
                                       }}
                                       variant="outlined"

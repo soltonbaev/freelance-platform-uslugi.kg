@@ -35,6 +35,7 @@ const GlobalContextProvider = ({children}) => {
    let [service, setService] = useState([]);
    let [city, setCity] = useState('');
    let [aboutMe, setAboutMe] = useState('');
+   let [chatWithUser, setChatWithUser] = useState("");
    let [tasksCount, setTasksCount] = useState('');
    const cities = ['Бишкек', 'Ош', 'Джалал-Абад', 'Баткен', 'Чолпон-Ата'];
 
@@ -260,6 +261,8 @@ const GlobalContextProvider = ({children}) => {
       aboutMe,
       setAboutMe,
       setTaskCompleted,
+      setChatWithUser,
+      chatWithUser,
       service,
       setService,
       updateUser,

@@ -46,6 +46,10 @@ const Footer = () => {
                name: 'О работе с нами',
                link: '/become-worker',
                id: 2,
+            },{
+               name: 'Локации',
+               link: '/location',
+               id: 3,
             },
          ],
       },

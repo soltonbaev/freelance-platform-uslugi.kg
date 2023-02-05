@@ -11,6 +11,8 @@ import {db} from '../../../../helpers/firebase';
 import Message from './Message';
 import SendMessage from './SendMessage';
 import {useGlobalContext} from '../../../../contexts/GlobalContextProvider';
+import { Container } from '@mui/system';
+import ChatHeader from "./ChatHeader"
 
 const ChatBox = () => {
    const [messages, setMessages] = useState([]);
@@ -37,7 +39,9 @@ const ChatBox = () => {
    }, []);
 
    return (
+      <Container >
       <main className="chat-box">
+         <ChatHeader/>
          <div className="messages-wrapper">
             {messages.map(message => (
                <Message key={message.id} message={message} />
@@ -47,6 +51,8 @@ const ChatBox = () => {
          <span ref={scroll}></span>
          <SendMessage scroll={scroll} />
       </main>
+
+      </Container>
    );
 };
 

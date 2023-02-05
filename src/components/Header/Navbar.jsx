@@ -50,7 +50,7 @@ const Navbar = () => {
          ]);
       } else {
          setPages([
-            {name: 'Локации', link: '/', id: 1},
+            {name: 'Локации', link: '/location', id: 1},
             {name: 'Предложить услуги', link: '/become-worker', id: 2},
          ]);
       }

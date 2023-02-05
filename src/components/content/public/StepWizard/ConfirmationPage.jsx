@@ -11,7 +11,7 @@ import {useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../../../contexts/GlobalContextProvider';
 import {useStepWizardContext} from '../../../../contexts/StepWizardContext';
 const ConfirmationPage = () => {
-   const {category} = useGlobalContext();
+   const {category, setChatWithUser} = useGlobalContext();
    const {
       time,
       taskLength,
@@ -19,12 +19,13 @@ const ConfirmationPage = () => {
       taskDesc,
       setTaskDesc,
       createTask,
+      
    } = useStepWizardContext();
    return (
-      <Container maxWidth="md">
+      <Container maxWidth="md" sx={{mb: "50px"}}>
          <Paper
             elevation={5}
-            sx={{height: '50vh', padding: '1rem', margin: '2rem'}}
+            sx={{minHeight: '50vh', padding: '20px', minWidht: "70vw"}}
          >
             <Grid
                container
@@ -32,6 +33,7 @@ const ConfirmationPage = () => {
                direction="column"
                alignItems="center"
                justifyContent="center"
+               
             >
                <h1>Шаг 4 - Подтвердите оформление услуги </h1>
                <Grid
@@ -39,9 +41,11 @@ const ConfirmationPage = () => {
                   container
                   alignItems="center"
                   justifyContent="center"
+                  mb="20px"
+                  columns={{ xs: 2, sm: 6 }}
                >
                   <Grid item>
-                     <Paper elevation={4}>
+                     <Paper elevation={4} sx={{padding: "20px"}}>
                         <Typography>Проверьте описание задачи</Typography>
                         <TextareaAutosize
                            aria-label="minimum height"
@@ -58,7 +62,7 @@ const ConfirmationPage = () => {
                      </Paper>
                   </Grid>
                   <Grid item>
-                     <Paper elevation={4}>
+                     <Paper elevation={4} sx={{padding: "20px"}}>
                         <Typography></Typography>
                         {category}
 
@@ -83,7 +87,9 @@ const ConfirmationPage = () => {
                </Grid>
                <Button
                   variant="outlined"
+                  
                   onClick={() => {
+                     setChatWithUser(workerObj.firstName)
                      createTask();
                   }}
                >
