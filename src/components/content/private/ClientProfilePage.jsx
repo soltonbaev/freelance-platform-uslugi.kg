@@ -223,7 +223,7 @@ const ClientProfilePage = () => {
                      <Box>
                         <Avatar
                            alt="Avatar Url"
-                           src={userDetails.imgUrl}
+                           src={userDetails.photoUrl}
                            sx={{margin: 'auto', width: 260, height: 260}}
                         />
                      </Box>

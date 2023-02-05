@@ -125,7 +125,12 @@ const MyTasks = () => {
                                    <Button
                                       onClick={() => {
                                          setTaskUid(task[0]);
-                                         setChatWithUser(task[1].sellerInfo[0]);
+                                         getUsersByQuery({
+                                            uid: task[1].sellerUid,
+                                         }).then(result => {
+                                            console.log(result);
+                                            setChatWithUser(result[0]);
+                                         });
                                          navigate('/chat');
                                       }}
                                       variant="outlined"
