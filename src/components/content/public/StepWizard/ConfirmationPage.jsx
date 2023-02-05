@@ -11,7 +11,7 @@ import {useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../../../contexts/GlobalContextProvider';
 import {useStepWizardContext} from '../../../../contexts/StepWizardContext';
 const ConfirmationPage = () => {
-   const {category} = useGlobalContext();
+   const {category, setChatWithUser} = useGlobalContext();
    const {
       time,
       taskLength,
@@ -19,6 +19,7 @@ const ConfirmationPage = () => {
       taskDesc,
       setTaskDesc,
       createTask,
+      
    } = useStepWizardContext();
    return (
       <Container maxWidth="md" sx={{mb: "50px"}}>
@@ -88,6 +89,7 @@ const ConfirmationPage = () => {
                   variant="outlined"
                   
                   onClick={() => {
+                     setChatWithUser(workerObj.firstName)
                      createTask();
                   }}
                >
