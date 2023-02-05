@@ -19,7 +19,7 @@ const StepWizardContextProvider = ({children}) => {
    const [taskDesc, setTaskDesc] = useState('');
    const [workerObj, setWorkerObj] = useState('');
    const [isWizardInProgress, setIsWizardInProgress] = useState(false);
-   const {userDetails, setTaskUid} = useGlobalContext();
+   const {userDetails, setTaskUid, service} = useGlobalContext();
 
    async function createTask() {
       const taskObj = {
@@ -34,7 +34,6 @@ const StepWizardContextProvider = ({children}) => {
          scheduledTimeAndDate: time,
          isCompleted: false,
          timeStamp: Date.now(),
-
          taskDesc: taskDesc,
          taskLength: taskLength,
       };

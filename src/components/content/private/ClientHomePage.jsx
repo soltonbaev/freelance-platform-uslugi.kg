@@ -23,10 +23,10 @@ const ClientHomePage = () => {
       cities,
    } = useGlobalContext();
 
-   useEffect(() => {
-      getCategoriesServices();
-      getServices();
-   }, []);
+   // useEffect(() => {
+   //    getCategoriesServices();
+   //    getServices();
+   // }, []);
 
    return (
       <Container maxWidth="md">

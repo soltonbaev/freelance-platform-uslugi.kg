@@ -15,21 +15,6 @@ export const globalContext = createContext();
 export const useGlobalContext = () => useContext(globalContext);
 
 const GlobalContextProvider = ({children}) => {
-   const services = [
-      {
-         title: 'Moving Services',
-         link: '#',
-         imgUrl:
-            'https://www.bostonmagazine.com/wp-content/uploads/sites/2/2019/06/moving-season-guide.jpg',
-         subServices: [
-            {name: 'Help Moving', link: '#', id: 1},
-            {name: 'Heavy Lifting', link: '#', id: 2},
-            {name: 'Furniture Movers', link: '#', id: 3},
-            {name: 'Full Service Help Moving', link: '#', id: 4},
-         ],
-      },
-   ];
-
    let [user, setUser] = useState('');
    let [hasAccount, setHasAccount] = useState('');
    let [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -46,10 +31,16 @@ const GlobalContextProvider = ({children}) => {
    let [hourlyWage, setHourlyWage] = useState('');
    let [categoriesArr, setCategoriesArr] = useState([]);
    let [servicesArr, setServicesArr] = useState([]);
+   let [service, setService] = useState([]);
    let [city, setCity] = useState('');
    let [aboutMe, setAboutMe] = useState('');
    let [tasksCount, setTasksCount] = useState('');
    const cities = ['Бишкек', 'Ош', 'Джалал-Абад', 'Баткен', 'Чолпон-Ата'];
+
+   useEffect(() => {
+      getServices();
+      getCategoriesServices();
+   }, []);
 
    async function getUsersByQuery(workerQuery, cityQuery) {
       const arr = [];
@@ -200,7 +191,6 @@ const GlobalContextProvider = ({children}) => {
 
    let value = {
       category,
-      services,
       user,
       setUser,
       hasAccount,
@@ -242,6 +232,8 @@ const GlobalContextProvider = ({children}) => {
       aboutMe,
       setAboutMe,
       setTaskCompleted,
+      service,
+      setService,
    };
    return (
       <globalContext.Provider value={value}>{children}</globalContext.Provider>

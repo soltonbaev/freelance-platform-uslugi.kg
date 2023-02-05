@@ -31,8 +31,8 @@ const UnauthorizedHomePage = () => {
 
    useEffect(() => {
       setCategory('');
-      getCategoriesServices();
-      getServices();
+      // getCategoriesServices();
+      // getServices();
       getUsersByType(true);
    }, []);
 
