@@ -31,10 +31,10 @@ const MyTasks = () => {
    const [workerUid, setWorkerUid] = useState([]);
    const navigate = useNavigate();
    useEffect(() => {
-      console.log('userDetails', userDetails);
+      // console.log('userDetails', userDetails);
       getChatsWithBuyers(user);
       getChatsWithSellers(user);
-   }, []);
+   }, [userDetails]);
 
    const [addReviewModal, setAddReviewModal] = useState(false);
 

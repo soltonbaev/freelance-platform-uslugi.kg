@@ -38,9 +38,9 @@ const BecomeWorker = () => {
     getCategoriesServices,
   } = useGlobalContext();
 
-  useEffect(() => {
-    getCategoriesServices();
-  }, []);
+//   useEffect(() => {
+//     getCategoriesServices();
+//   }, []);
 
   return (
     <div>

@@ -60,9 +60,9 @@ const ClientProfilePage = () => {
       setIsEditable(!isEditable);
    };
 
-   useEffect(() => {
-      getCategoriesServices();
-   }, []);
+   // useEffect(() => {
+   //    getCategoriesServices();
+   // }, []);
    async function deleteAccount() {
       const user = fireBase.auth().currentUser;
       user

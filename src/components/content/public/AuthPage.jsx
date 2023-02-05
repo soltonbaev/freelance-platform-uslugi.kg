@@ -93,6 +93,7 @@ const AuthPage = () => {
             displayName: signUpRes.user.email.split('@')[0],
             isUserWorker: isUserWorker,
             city: city,
+            tasksCompleted: 0,
          };
          if (isUserWorker) {
             userObj.category = category;

@@ -22,10 +22,10 @@ const TaskCategoryPage = () => {
       getServices,
    } = useGlobalContext();
 
-   useEffect(() => {
-      getCategoriesServices();
-      getServices();
-   }, []);
+   //  useEffect(() => {
+   //     getCategoriesServices();
+   //     getServices();
+   //  }, []);
 
    const params = useParams();
 
