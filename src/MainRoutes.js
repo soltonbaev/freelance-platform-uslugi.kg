@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Outlet, Route, Routes} from 'react-router-dom';
 import HomePage from './components/content/public/HomePage';
 import AuthPage from './components/content/public/AuthPage';
@@ -16,6 +16,7 @@ import ChatBox from './components/content/private/chat/ChatBox';
 import ChatHistory from './components/content/private/chat/ChatHistory';
 // import Review from '../../components/content/public/reviews/Review';
 import MyTasks from './components/content/private/MyTasks';
+import {ConsoleGroup, ConsoleGroupEnd} from './helpers/console';
 
 const PUBLIC_ROUTES = [
    {link: '/', element: <HomePage />, id: 1},
@@ -36,6 +37,10 @@ const PUBLIC_ROUTES = [
 ];
 
 const MainRoutes = () => {
+   useEffect(() => {
+      ConsoleGroup('Spawning MainRoutes...');
+   }, []);
+
    return (
       <Routes>
          <Route

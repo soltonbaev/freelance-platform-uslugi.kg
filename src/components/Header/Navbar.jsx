@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -10,8 +10,15 @@ import {Container, Stack} from '@mui/system';
 import Logo from './2023-01-30_15-20-08.png';
 import {Menu, MenuItem} from '@mui/material';
 import {useGlobalContext} from '../../contexts/GlobalContextProvider';
+import {ConsoleGroup, ConsoleGroupEnd} from '../../helpers/console';
 
 const Navbar = () => {
+   useEffect(() => {
+      ConsoleGroup('Spawning Navbar...');
+      return () => {
+         ConsoleGroupEnd('Ending Navbar...');
+      };
+   }, []);
    const navigate = useNavigate();
    const {
       user,
@@ -20,8 +27,8 @@ const Navbar = () => {
       setIsUserWorker,
       userDetails,
    } = useGlobalContext();
-   const [anchorElNav, setAnchorElNav] = React.useState(null);
-   const [pages, setPages] = React.useState([
+   const [anchorElNav, setAnchorElNav] = useState(null);
+   const [pages, setPages] = useState([
       {name: 'Локации', link: '/', id: 1},
       {name: 'Предложить услуги', link: '/become-worker', id: 2},
    ]);
@@ -33,7 +40,7 @@ const Navbar = () => {
       setAnchorElNav(null);
    };
 
-   React.useEffect(() => {
+   useEffect(() => {
       if (user) {
          setPages([
             {name: 'Заказать услугу', link: '/', id: 1},
@@ -49,7 +56,7 @@ const Navbar = () => {
       }
    }, [user]);
 
-   React.useEffect(() => {
+   useEffect(() => {
       if (user && isUserWorker) {
          setPages([
             {name: 'Мои услуги', link: '/my-tasks', id: 2},
@@ -80,97 +87,95 @@ const Navbar = () => {
                         alignItems: 'center',
                      }}
                   >
-                     <IconButton
+                     {/* <IconButton
                         size="large"
                         edge="start"
                         color="inherit"
                         aria-label="menu"
                         sx={{mr: 2}}
-                     >
-                        <Box
-                           sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}
+                     > */}
+                     <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
+                        <IconButton
+                           size="large"
+                           aria-label="account of current user"
+                           aria-controls="menu-appbar"
+                           aria-haspopup="true"
+                           onClick={handleOpenNavMenu}
                         >
-                           <IconButton
-                              size="large"
-                              aria-label="account of current user"
-                              aria-controls="menu-appbar"
-                              aria-haspopup="true"
-                              onClick={handleOpenNavMenu}
-                           >
-                              <MenuIcon />
-                           </IconButton>
-                           <Menu
-                              id="menu-appbar"
-                              anchorEl={anchorElNav}
-                              anchorOrigin={{
-                                 vertical: 'bottom',
-                                 horizontal: 'left',
-                                 color: 'black',
-                              }}
-                              keepMounted
-                              transformOrigin={{
-                                 vertical: 'top',
-                                 horizontal: 'left',
-                              }}
-                              open={Boolean(anchorElNav)}
-                              onClose={handleCloseNavMenu}
+                           <MenuIcon />
+                        </IconButton>
+                        <Menu
+                           id="menu-appbar"
+                           anchorEl={anchorElNav}
+                           anchorOrigin={{
+                              vertical: 'bottom',
+                              horizontal: 'left',
+                              color: 'black',
+                           }}
+                           keepMounted
+                           transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'left',
+                           }}
+                           open={Boolean(anchorElNav)}
+                           onClose={handleCloseNavMenu}
+                           sx={{
+                              display: {xs: 'block', md: 'none'},
+                           }}
+                        >
+                           {pages.map(page => (
+                              <MenuItem key={page.id}>
+                                 <NavLink
+                                    to={page.link}
+                                    style={{
+                                       textDecoration: 'none',
+                                    }}
+                                 >
+                                    <Typography
+                                       sx={{
+                                          ml: 'auto',
+                                          my: 1,
+                                          color: 'black',
+                                          display: 'block',
+                                          fontSize: '15px',
+                                       }}
+                                    >
+                                       {page.name}
+                                    </Typography>
+                                 </NavLink>
+                              </MenuItem>
+                           ))}
+                           <Box
                               sx={{
-                                 display: {xs: 'block', md: 'none'},
+                                 display: 'flex',
+                                 justifyContent: 'center',
                               }}
                            >
-                              {pages.map(page => (
-                                 <MenuItem key={page.id}>
-                                    <NavLink
-                                       to={page.link}
-                                       style={{
-                                          textDecoration: 'none',
-                                       }}
-                                    >
-                                       <Typography
-                                          sx={{
-                                             ml: 'auto',
-                                             my: 1,
-                                             color: 'black',
-                                             display: 'block',
-                                             fontSize: '15px',
-                                          }}
-                                       >
-                                          {page.name}
-                                       </Typography>
-                                    </NavLink>
-                                 </MenuItem>
-                              ))}
-                              <Box
-                                 sx={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                 }}
-                              >
-                                 {!user ? (
-                                    <Button
-                                       variant="outlined"
-                                       color="error"
-                                       style={{
-                                          color: '#1d76e2',
-                                          borderColor:
-                                             'linear-gradient(45deg,  #1d76e2, #3f00c9)',
-                                          fontWeight: 'bold ',
-                                          width: '7rem',
-                                          height: '3rem',
-                                          textAlign: 'center',
-                                       }}
-                                       onClick={() => {
-                                          setHasAccount(true);
-                                          setIsUserWorker(false);
-                                          navigate('/auth');
-                                       }}
-                                    >
-                                       ВХОД
-                                    </Button>
-                                 ) : (
-                                    ''
-                                 )}
-                                 {/* {!isUserWorker && (
+                              {!user ? (
+                                 <Button
+                                    variant="outlined"
+                                    color="error"
+                                    style={{
+                                       color: '#1d76e2',
+                                       borderColor:
+                                          'linear-gradient(45deg,  #1d76e2, #3f00c9)',
+                                       fontWeight: 'bold ',
+                                       width: '7rem',
+                                       height: '3rem',
+                                       textAlign: 'center',
+                                    }}
+                                    onClick={() => {
+                                       setHasAccount(true);
+                                       setIsUserWorker(false);
+                                       navigate('/auth');
+                                    }}
+                                 >
+                                    ВХОД
+                                 </Button>
+                              ) : (
+                                 ''
+                              )}
+                              {/* {!isUserWorker && (
                                     <Button
                                        variant="outlined"
                                        color="error"
@@ -191,10 +196,10 @@ const Navbar = () => {
                                        Become a Tasker
                                     </Button>
                                  )} */}
-                              </Box>
-                           </Menu>
-                        </Box>
-                     </IconButton>
+                           </Box>
+                        </Menu>
+                     </Box>
+                     {/* </IconButton> */}
                      <Box sx={{flexGrow: '1', cursor: 'pointer'}}>
                         <img
                            onClick={() => {

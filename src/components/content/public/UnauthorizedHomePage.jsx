@@ -15,6 +15,8 @@ import {useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../../contexts/GlobalContextProvider';
 import CheckIcon from '@mui/icons-material/Check';
 import WorkerCard from '../WorkerCard';
+import ServicePicker from './ServicePicker';
+import bgImg from './bishkek-city.jpg';
 
 const UnauthorizedHomePage = () => {
    const navigate = useNavigate();
@@ -22,8 +24,6 @@ const UnauthorizedHomePage = () => {
       categoriesArr,
       category,
       setCategory,
-      getCategoriesServices,
-      getServices,
       getUsersByType,
       usersByType,
       setUsersByType,
@@ -38,20 +38,19 @@ const UnauthorizedHomePage = () => {
 
    return (
       <Box>
-         <h1 style={{textAlign: 'center'}}>Добро пожаловать</h1>
          <Box
             sx={{
-               backgroundImage:
-                  ' url(https://placepic.ru/wp-content/uploads/2018/10/bfc11ec1075aa8714a8dfc780382e413.jpg)',
+               // backgroundImage:
+               //    ' url(https://placepic.ru/wp-content/uploads/2018/10/bfc11ec1075aa8714a8dfc780382e413.jpg)',
+               backgroundImage: `url(${bgImg})`,
 
                backgroundRepeat: 'no-repeat',
                backgroundPosition: 'center',
                backgroundAttachment: 'fixed',
                mozBackgroundSize: 'cover',
-               oBackgroundSize: 'cover',
                backgroundSize: 'cover',
                webkitBackgroundSize: 'cover',
-               backgroundColor: 'balck',
+               backgroundColor: 'black',
                height: '70vh',
                //  margin: "1rem",
                display: 'flex',
@@ -60,46 +59,10 @@ const UnauthorizedHomePage = () => {
                flexDirection: 'column',
             }}
          >
-            <FormControl
-               fullWidth
-               style={{
-                  display: 'flex',
-                  margin: 'auto',
-
-                  width: '50vw',
-                  background: 'linear-gradient(27deg,  #1d76e2, #3f00c9)',
-                  borderRadius: '10px',
-                  borderColor: 'blue',
-                  borderBlockColor: 'blue',
-               }}
-            >
-               <InputLabel
-                  id="demo-simple-select-label"
-                  sx={{
-                     color: 'white',
-                  }}
-               >
-                  Какими услугами вы хотели бы сегодня воспользоваться?
-               </InputLabel>
-               <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={category}
-                  label="Категория услуг"
-                  onChange={e => {
-                     setCategory(e.target.value);
-                     navigate('/task-options');
-                  }}
-               >
-                  {categoriesArr.map(category => {
-                     return (
-                        <MenuItem value={category.id}>
-                           {category.title}
-                        </MenuItem>
-                     );
-                  })}
-               </Select>
-            </FormControl>
+            <h1 style={{textAlign: 'center', color: 'white'}}>
+               Добро пожаловать
+            </h1>
+            <ServicePicker />
          </Box>
 
          <Card
@@ -193,17 +156,18 @@ const UnauthorizedHomePage = () => {
                }}
             >
                {usersByType.map(item => {
-                  console.log('llll', item);
                   return (
                      <WorkerCard
+                        key={item.uid}
                         lastName={item.lastName}
                         firstName={item.firstName}
-                        skils={item.title}
+                        specialization={item.specialization}
                         price={item.hourlyWage}
                         image={item.photoUrl}
                         uid={item.uid}
                         category={item.category}
                         aboutMe={item.aboutMe}
+                        tasksCompleted={item.tasksCompleted}
                      />
                   );
                })}

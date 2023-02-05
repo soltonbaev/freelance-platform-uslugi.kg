@@ -8,7 +8,7 @@ const FoundWorkersPage = () => {
    const {usersByQuery, getUsersByQuery} = useGlobalContext();
    const {city, setIsWizardInProgress} = useStepWizardContext();
    useEffect(() => {
-      getUsersByQuery(true, city);
+      getUsersByQuery({isUserWorker: true, city: city});
       setIsWizardInProgress(true);
    }, []);
 

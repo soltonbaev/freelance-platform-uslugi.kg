@@ -15,10 +15,11 @@ const WorkerCard = props => {
       lastName,
       image,
       uid,
-      skils,
+      specialization,
       price,
       aboutMe,
       category,
+      tasksCompleted,
    } = props;
 
    return (
@@ -28,11 +29,10 @@ const WorkerCard = props => {
             // minWidth: { xs: "400px", lg: "30vw" },
             width: {xs: '400px', lg: '30vw'},
             height: 'fit-content',
-
-            margin: 'auto',
+            padding: '1rem 0.5rem',
             border: '1px solid rgb(29, 118, 226)',
             borderRadius: '10px',
-            margin: '20px',
+            margin: '0.5rem',
          }}
       >
          <Box
@@ -63,7 +63,7 @@ const WorkerCard = props => {
                   <RenderRating uid={uid} />
                </Typography>
                <Typography variant="body2" sx={{marginTop: '0.5rem'}}>
-                  132 выполненые задачи
+                  Выполненных задач: {tasksCompleted}
                </Typography>
             </CardContent>
          </Box>
@@ -79,7 +79,7 @@ const WorkerCard = props => {
                   fontSize: '15px',
                }}
             >
-               Специальность:{category}
+               Специальность: {specialization}
             </Typography>
 
             <Typography
@@ -90,7 +90,7 @@ const WorkerCard = props => {
                   fontSize: '20px',
                }}
             >
-               Оплата за час: {price}
+               Оплата за час: {price} сом
             </Typography>
          </Box>
          <Box
@@ -103,10 +103,10 @@ const WorkerCard = props => {
                sx={{
                   marginTop: '0.5rem',
                   fontWeight: 'normal',
-                  fontSize: '20px',
+                  // fontSize: '2px',
                }}
             >
-               {aboutMe}
+               Обо мне: {aboutMe}
             </Typography>
          </Box>
       </Card>

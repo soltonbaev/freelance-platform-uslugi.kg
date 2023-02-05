@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {LockOutlined} from '@mui/icons-material';
 import {
    Avatar,
@@ -25,8 +25,19 @@ import {useNavigate} from 'react-router-dom';
 import {collection, setDoc, addDoc, doc, getDoc} from 'firebase/firestore';
 import {db} from '../../../helpers/firebase';
 import {useStepWizardContext} from '../../../contexts/StepWizardContext';
+import {Console, ConsoleGroup, ConsoleGroupEnd} from '../../../helpers/console';
 
 const AuthPage = () => {
+   useEffect(() => {
+      ConsoleGroup('Spawning AuthPage...');
+      Console('First Name', firstName);
+      Console('Last Name', lastName);
+      Console('auth photoUrl', photoUrl);
+      return () => {
+         ConsoleGroupEnd('Ending AuthPage...');
+      };
+   }, []);
+
    const navigate = useNavigate();
    const {
       user,
@@ -51,16 +62,30 @@ const AuthPage = () => {
       setPhotoUrl,
       hourlyWage,
       setHourlyWage,
+      service,
    } = useGlobalContext();
    const {city, setCity, isWizardInProgress} = useStepWizardContext();
 
    let [email, setEmail] = useState('');
    let [phoneNumber, setPhoneNumber] = useState('');
    let [password, setPassword] = useState('');
+   let [firstNameError, setFirstNameError] = useState('');
+   let [lastNameError, setLasttNameError] = useState('');
+   let [photoUrlError, setPhotoUrlError] = useState('');
    let [emailError, setEmailError] = useState('');
    let [passwordError, setPasswordError] = useState('');
 
    const handleSignUp = () => {
+      if (!firstName) {
+         setFirstNameError('Please enter your first name');
+         return;
+      } else if (!lastName) {
+         setLasttNameError('Please enter your last name');
+         return;
+      } else if (!photoUrl) {
+         setPhotoUrlError('Please enter url for your photo');
+         return;
+      }
       fireBase
          .auth()
          .createUserWithEmailAndPassword(email, password)
@@ -68,6 +93,7 @@ const AuthPage = () => {
             addToDb(res);
             setUser(res.user);
             isWizardInProgress ? navigate('/confirm') : navigate('/');
+            isUserWorker && navigate('/profile');
          })
          .catch(err => {
             switch (err.code) {
@@ -84,6 +110,7 @@ const AuthPage = () => {
          });
 
       async function addToDb(signUpRes) {
+         console.log(photoUrl);
          const userObj = {
             firstName: firstName,
             lastName: lastName,
@@ -97,8 +124,8 @@ const AuthPage = () => {
          };
          if (isUserWorker) {
             userObj.category = category;
+            userObj.specialization = service;
             userObj.hourlyWage = hourlyWage;
-            userObj.reviews = [];
          }
          try {
             const docRef = await setDoc(
@@ -122,7 +149,6 @@ const AuthPage = () => {
             setUser(res.user);
             getFromDb(res);
             setIsLoggedIn(true);
-            isWizardInProgress ? navigate('/confirm') : navigate('/');
          })
          .catch(err => {
             switch (err.code) {
@@ -143,7 +169,13 @@ const AuthPage = () => {
          console.log('uid', loginRes.user.uid);
          const docSnap = await getDoc(docRef);
          if (docSnap.exists()) {
-            setUserDetails(docSnap.data());
+            let userDataRes = docSnap.data();
+            setUserDetails(userDataRes);
+            isWizardInProgress
+               ? navigate('/confirm')
+               : userDataRes.isUserWorker
+               ? navigate('/profile')
+               : navigate('/');
          } else {
             // doc.data() will be undefined in this case
             console.log('No such document!');
@@ -175,6 +207,7 @@ const AuthPage = () => {
                <Avatar>
                   <LockOutlined />
                </Avatar>
+
                {hasAccount ? (
                   <Typography>Войти в свой аккаунт</Typography>
                ) : (
@@ -190,7 +223,7 @@ const AuthPage = () => {
                         id="first-name"
                         label="Имя"
                         name="firstName"
-                        helperText={emailError}
+                        helperText={firstNameError}
                         value={firstName}
                         onChange={e => {
                            setFirstName(e.target.value);
@@ -208,7 +241,7 @@ const AuthPage = () => {
                         id="email"
                         label="Фамилия"
                         name="lastName"
-                        helperText={emailError}
+                        helperText={lastNameError}
                         value={lastName}
                         onChange={e => {
                            setLastName(e.target.value);
@@ -261,7 +294,7 @@ const AuthPage = () => {
                         type="text"
                         id="photoUrl"
                         autoComplete="current-password"
-                        helperText={passwordError}
+                        helperText={photoUrlError}
                         value={photoUrl}
                         onChange={e => {
                            setPhotoUrl(e.target.value);
@@ -284,7 +317,11 @@ const AuthPage = () => {
                            }}
                         >
                            {cities.map(city => {
-                              return <MenuItem value={city}>{city}</MenuItem>;
+                              return (
+                                 <MenuItem key={city} value={city}>
+                                    {city}
+                                 </MenuItem>
+                              );
                            })}
                         </Select>
                      </FormControl>

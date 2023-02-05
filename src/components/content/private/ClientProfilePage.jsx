@@ -7,7 +7,6 @@ import {
    CardContent,
    Grid,
    MenuItem,
-   Paper,
    TextField,
    Typography,
 } from '@mui/material';
@@ -20,8 +19,13 @@ import fireBase from '../../../helpers/firebase';
 import WarningModal from '../public/WarningModal';
 import {db} from '../../../helpers/firebase';
 import RenderRating from '../public/reviews/RenderRating';
+import {Console, ConsoleGroup, ConsoleGroupEnd} from '../../../helpers/console';
 
 const ClientProfilePage = () => {
+   useEffect(() => {
+      ConsoleGroup('Spawning ClientProfilePage...');
+      ConsoleGroupEnd('Ending ClientProfilePage...');
+   });
    const navigate = useNavigate();
    const handleLogOut = () => {
       fireBase.auth().signOut();
@@ -47,7 +51,7 @@ const ClientProfilePage = () => {
       setPhotoUrl,
       category,
       setCategory,
-      updateUser,
+      updateCurrentUser,
       cities,
       categoriesArr,
       getCategoriesServices,
@@ -236,7 +240,7 @@ const ClientProfilePage = () => {
                         sx={{margin: '0.5rem 1rem'}}
                         variant="outlined"
                         size="small"
-                        onClick={updateUser}
+                        onClick={updateCurrentUser}
                      >
                         Сохранить данные
                      </Button>

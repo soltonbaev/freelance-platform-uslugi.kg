@@ -24,6 +24,10 @@ const MyTasks = () => {
       setTaskUid,
       isUserWorker,
       setTaskCompleted,
+      updateUser,
+      taskCount,
+      getUsersByQuery,
+      usersByQuery,
    } = useGlobalContext();
    const [chatsWithSellers, setChatsWithSellers] = useState([]);
    const [chatsWithBuyers, setChatsWithBuyers] = useState([]);
@@ -95,7 +99,7 @@ const MyTasks = () => {
                      {!isUserWorker
                         ? chatsWithBuyers.map(task => (
                              <TableRow
-                                key={task[1].sellerInfo[0]}
+                                key={task[0]}
                                 sx={{
                                    '&:last-child td, &:last-child th': {
                                       border: 0,
@@ -126,15 +130,27 @@ const MyTasks = () => {
                                       Чат
                                    </Button>
                                 </TableCell>
+
                                 <TableCell align="right">
                                    {task[1].isCompleted ? (
                                       <Button disabled>Завершено</Button>
                                    ) : (
                                       <Button
                                          onClick={() => {
+                                            //   console.log(res);
                                             setWorkerUid(task[1].sellerUid);
                                             setAddReviewModal(true);
                                             setTaskCompleted(task[0]);
+                                            getUsersByQuery({
+                                               uid: task[1].sellerUid,
+                                            }).then(result => {
+                                               console.log(result);
+                                               updateUser(task[1].sellerUid, {
+                                                  tasksCompleted:
+                                                     +result[0].tasksCompleted +
+                                                     1,
+                                               });
+                                            });
                                             getChatsWithBuyers(user);
                                          }}
                                          variant="contained"

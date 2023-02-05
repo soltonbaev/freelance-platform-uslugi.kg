@@ -9,6 +9,7 @@ import {
 import React, {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../../contexts/GlobalContextProvider';
+import ServicePicker from '../public/ServicePicker';
 
 const ClientHomePage = () => {
    const navigate = useNavigate();
@@ -35,8 +36,8 @@ const ClientHomePage = () => {
             sx={{minHeight: '50vh', padding: '1rem', margin: '1rem'}}
          >
             <h1>С возвращением, {userDetails.firstName}</h1>
-
-            <FormControl sx={{width: '80%'}}>
+            <ServicePicker />
+            {/* <FormControl sx={{width: '80%'}}>
                <InputLabel id="demo-simple-select-label">
                   Какими услугами вы хотели бы сегодня воспользоваться?
                </InputLabel>
@@ -58,7 +59,7 @@ const ClientHomePage = () => {
                      );
                   })}
                </Select>
-            </FormControl>
+            </FormControl> */}
          </Paper>
       </Container>
    );

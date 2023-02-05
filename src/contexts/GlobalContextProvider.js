@@ -1,3 +1,4 @@
+import noImagePlaceholder from '../../src/no-image-placeholder.png';
 import {
    doc,
    getDoc,
@@ -10,7 +11,7 @@ import {
 } from 'firebase/firestore';
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import fireBase, {db} from '../helpers/firebase';
-
+import {Console, ConsoleGroup, ConsoleGroupEnd} from '../helpers/console';
 export const globalContext = createContext();
 export const useGlobalContext = () => useContext(globalContext);
 
@@ -38,23 +39,39 @@ const GlobalContextProvider = ({children}) => {
    const cities = ['Бишкек', 'Ош', 'Джалал-Абад', 'Баткен', 'Чолпон-Ата'];
 
    useEffect(() => {
+      ConsoleGroup('Spawning GlobalContextProvider...');
       getServices();
       getCategoriesServices();
+      Console('photoUrl', photoUrl);
+      Console('category', category);
    }, []);
 
-   async function getUsersByQuery(workerQuery, cityQuery) {
+   useEffect(() => {
+      Console('Category state changaed to:', category);
+   }, [category]);
+
+   async function getUsersByQuery(queryTypeObj) {
       const arr = [];
-      const q = query(
-         collection(db, 'userData'),
-         where('isUserWorker', '==', workerQuery),
-         where('city', '==', cityQuery)
-      );
+      let q;
+      if (queryTypeObj.isUserWorker && queryTypeObj.city) {
+         q = query(
+            collection(db, 'userData'),
+            where('isUserWorker', '==', queryTypeObj.isUserWorker),
+            where('city', '==', queryTypeObj.city)
+         );
+      } else if (queryTypeObj.uid) {
+         q = query(
+            collection(db, 'userData'),
+            where('uid', '==', queryTypeObj.uid)
+         );
+      }
 
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach(doc => {
          arr.push(doc.data());
       });
       setUsersByQuery(arr);
+      return arr;
    }
    // -------
    async function getUsersByType(workerQuery) {
@@ -105,11 +122,12 @@ const GlobalContextProvider = ({children}) => {
       setCategory(userDetails.category);
       setFirstName(userDetails.firstName);
       setLastName(userDetails.lastName);
-      setPhotoUrl(userDetails.imgUrl);
+      setPhotoUrl(userDetails.photoUrl);
       setHourlyWage(userDetails.hourlyWage);
       setCity(userDetails.city);
       setAboutMe(userDetails.aboutMe);
       setTasksCount(userDetails.tasksCompleted);
+      setIsUserWorker(userDetails.isUserWorker);
    }
 
    useEffect(() => {
@@ -137,7 +155,7 @@ const GlobalContextProvider = ({children}) => {
       });
    };
 
-   async function updateUser() {
+   async function updateCurrentUser() {
       const userObj = {
          firstName: firstName,
          lastName: lastName,
@@ -174,10 +192,20 @@ const GlobalContextProvider = ({children}) => {
       }
    }
 
+   async function updateUser(uid, options) {
+      const docRef = doc(db, 'userData', uid);
+      updateDoc(docRef, options)
+         .then(docRef => {
+            console.log(`user ${uid} updated`);
+         })
+         .catch(error => {
+            console.log(error);
+         });
+   }
+
    async function setTaskCompleted(taskUid) {
       const docRef = doc(db, 'tasks', taskUid);
-      let count = tasksCount + 1;
-      updateDoc(docRef, {isCompleted: true, tasksCompleted: count})
+      updateDoc(docRef, {isCompleted: true})
          .then(docRef => {
             console.log('Task marked as completed');
          })
@@ -226,7 +254,7 @@ const GlobalContextProvider = ({children}) => {
       setPhotoUrl,
       hourlyWage,
       setHourlyWage,
-      updateUser,
+      updateCurrentUser,
       city,
       setCity,
       aboutMe,
@@ -234,6 +262,8 @@ const GlobalContextProvider = ({children}) => {
       setTaskCompleted,
       service,
       setService,
+      updateUser,
+      tasksCount,
    };
    return (
       <globalContext.Provider value={value}>{children}</globalContext.Provider>

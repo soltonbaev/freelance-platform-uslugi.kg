@@ -4,11 +4,16 @@ import fireBase, {db} from '../helpers/firebase';
 import {useGlobalContext} from './GlobalContextProvider';
 import {collection, addDoc} from 'firebase/firestore';
 import {useNavigate} from 'react-router-dom';
+import {ConsoleGroup, ConsoleGroupEnd} from '../helpers/console';
 
 export const stepWizardContext = createContext();
 export const useStepWizardContext = () => useContext(stepWizardContext);
 
 const StepWizardContextProvider = ({children}) => {
+   useEffect(() => {
+      ConsoleGroup('Spawning StepWizardContext...');
+   }, []);
+
    const navigate = useNavigate();
    const [buyerId, setBuyerId] = useState('');
    const [sellerId, setSellerId] = useState('');
@@ -29,6 +34,7 @@ const StepWizardContextProvider = ({children}) => {
             userDetails.lastName,
             userDetails.email,
          ],
+         service: service,
          sellerUid: workerObj.uid,
          sellerInfo: [workerObj.firstName, workerObj.lastName, workerObj.email],
          scheduledTimeAndDate: time,

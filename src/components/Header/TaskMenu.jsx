@@ -3,9 +3,16 @@ import {Box, Container} from '@mui/system';
 import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {useGlobalContext} from '../../contexts/GlobalContextProvider';
+import {ConsoleGroup, ConsoleGroupEnd} from '../../helpers/console';
 import './css/taskMenu.css';
 
 const TaskMenu = () => {
+   useEffect(() => {
+      ConsoleGroup('Spawning TaskMenu...');
+      return () => {
+         ConsoleGroupEnd('Ending TaskMenu...');
+      };
+   }, []);
    const {
       servicesArr,
       categoriesArr,
@@ -40,7 +47,7 @@ const TaskMenu = () => {
                   }}
                >
                   {categoriesArr.map(category => (
-                     <Grid className="services">
+                     <Grid key={`tm-${category.id}`} className="services">
                         <Box
                            className="servicesItem"
                            sx={{textAlign: 'center', minHeight: '30px'}}
@@ -54,7 +61,7 @@ const TaskMenu = () => {
                                  {servicesArr.map(service => {
                                     if (service.category === category.id) {
                                        return (
-                                          <li>
+                                          <li key={`tm-${service.title}`}>
                                              <Link
                                                 to={`/task-page/${service.title}`}
                                              >
@@ -92,58 +99,59 @@ const TaskMenu = () => {
                   >
                      Категории
                   </Typography>
-                  <li className="servicesMenuList">
-                     <Paper
-                        elevation={3}
-                        sx={{
-                           background: 'white',
-                           padding: '5px',
-                           color: '#1d76e2',
-                        }}
-                     >
-                        {categoriesArr.map(category => (
-                           <li>
-                              <Grid className="services" sx={{width: '180px'}}>
-                                 <Box
-                                    className="servicesItem"
-                                    sx={{
-                                       textAlign: 'center',
-                                       minHeight: '30px',
-                                    }}
-                                 >
-                                    <Typography>{category.title}</Typography>
 
-                                    <ul className="servicesList">
-                                       <Paper
-                                          elevation={3}
-                                          sx={{
-                                             background: 'white',
-                                             padding: '5px',
-                                          }}
-                                       >
-                                          {servicesArr.map(service => {
-                                             if (
-                                                service.category === category.id
-                                             ) {
-                                                return (
-                                                   <li>
-                                                      <Link
-                                                         to={`/task-page/${service.title}`}
-                                                      >
-                                                         {service.title}
-                                                      </Link>
-                                                   </li>
-                                                );
-                                             }
-                                          })}
-                                       </Paper>
-                                    </ul>
+                  <Paper
+                     elevation={3}
+                     sx={{
+                        background: 'white',
+                        padding: '5px',
+                        color: '#1d76e2',
+                     }}
+                  >
+                     {categoriesArr.map(category => (
+                        <li key={`tmm-${category.id}`}>
+                           <Grid className="services" sx={{width: '180px'}}>
+                              <Box
+                                 className="servicesItem"
+                                 sx={{
+                                    textAlign: 'center',
+                                    minHeight: '30px',
+                                 }}
+                              >
+                                 <Typography>{category.title}</Typography>
+
+                                 <Box className="servicesList">
+                                    <Paper
+                                       elevation={3}
+                                       sx={{
+                                          background: 'white',
+                                          padding: '5px',
+                                       }}
+                                    >
+                                       {servicesArr.map(service => {
+                                          if (
+                                             service.category === category.id
+                                          ) {
+                                             return (
+                                                <Box
+                                                   key={`tmm-${service.title}`}
+                                                >
+                                                   <Link
+                                                      to={`/task-page/${service.title}`}
+                                                   >
+                                                      {service.title}
+                                                   </Link>
+                                                </Box>
+                                             );
+                                          }
+                                       })}
+                                    </Paper>
                                  </Box>
-                              </Grid>
-                           </li>
-                        ))}
-                     </Paper>
-                  </li>
+                              </Box>
+                           </Grid>
+                        </li>
+                     ))}
+                  </Paper>
                </ul>
             </Box>
          </Container>

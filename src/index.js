@@ -8,17 +8,17 @@ import Header from './components/Header/Header';
 import {BrowserRouter} from 'react-router-dom';
 import GlobalContextProvider from './contexts/GlobalContextProvider';
 import StepWizardContextProvider from './contexts/StepWizardContext';
+import {ConsoleGroup} from './helpers/console';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+ConsoleGroup('Spawning index.js...');
 root.render(
    <BrowserRouter>
-      <React.StrictMode>
-         <GlobalContextProvider>
-            <StepWizardContextProvider>
-               <App />
-            </StepWizardContextProvider>
-         </GlobalContextProvider>
-      </React.StrictMode>
+      <GlobalContextProvider>
+         <StepWizardContextProvider>
+            <App />
+         </StepWizardContextProvider>
+      </GlobalContextProvider>
    </BrowserRouter>
 );
 

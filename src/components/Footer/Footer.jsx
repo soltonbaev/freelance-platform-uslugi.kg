@@ -12,7 +12,7 @@ import {
    Typography,
 } from '@mui/material';
 import {Container} from '@mui/system';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link, NavLink, useNavigate} from 'react-router-dom';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -21,9 +21,17 @@ import playMarketLogo from '../Footer/google-play.png';
 import {ExpandMore} from '@mui/icons-material';
 import siteLogo from './logo.png';
 import {useGlobalContext} from '../../contexts/GlobalContextProvider';
+import {ConsoleGroup, ConsoleGroupEnd} from '../../helpers/console';
 
 const Footer = () => {
    const {user, isUserWorker} = useGlobalContext();
+
+   useEffect(() => {
+      ConsoleGroup('Spawning Footer...');
+      return () => {
+         ConsoleGroupEnd('Ending Footer...');
+      };
+   }, []);
    const footerInfo = [
       {
          title: 'Страницы',
@@ -144,7 +152,6 @@ const Footer = () => {
                                        borderColor: 'white',
                                     }}
                                     variant="outlined"
-                                    href="#"
                                     size="large"
                                  >
                                     ВХОД
@@ -229,7 +236,7 @@ const Footer = () => {
                      </ButtonGroup>
                   </Box>
                </Box>
-               {/* =============================================================================================== */}
+               {/* =============================MOBILE-VERSION-START======================== */}
                <Box sx={{flexGrow: 1, display: {sm: 'block', md: 'none'}}}>
                   <Box
                      sx={{
@@ -247,7 +254,6 @@ const Footer = () => {
                         <Button
                            sx={{color: 'white', backgroundColor: 'black'}}
                            variant="outlined"
-                           href="#"
                            size="large"
                         >
                            ВХОД
@@ -348,6 +354,7 @@ const Footer = () => {
                      </ButtonGroup>
                   </Box>
                </Box>
+               {/* =============================MOBILE-VERSION-END======================== */}
             </Container>
          </Box>
       </div>
