@@ -16,6 +16,7 @@ import ChatBox from './components/content/private/chat/ChatBox';
 import ChatHistory from './components/content/private/chat/ChatHistory';
 // import Review from '../../components/content/public/reviews/Review';
 import MyTasks from './components/content/private/MyTasks';
+import Location from './components/content/public/Location';
 
 const PUBLIC_ROUTES = [
    {link: '/', element: <HomePage />, id: 1},
@@ -32,6 +33,7 @@ const PUBLIC_ROUTES = [
    {link: '/confirm', element: <ConfirmationPage />, id: 12},
    // {link: '/review', element: <Review />, id: 13},
    {link: '/chat', element: <ChatBox />, id: 13},
+   {link: "/location", element: <Location/>, id:14}
    // {link: '/chat-history', element: <ChatHistory />, id: 13},
 ];
 
