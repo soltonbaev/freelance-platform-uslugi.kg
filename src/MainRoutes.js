@@ -18,6 +18,7 @@ import ChatHistory from './components/content/private/chat/ChatHistory';
 import MyTasks from './components/content/private/MyTasks';
 
 import {ConsoleGroup, ConsoleGroupEnd} from './helpers/console';
+import Location from './components/content/public/Location';
 
 const PUBLIC_ROUTES = [
    {link: '/', element: <HomePage />, id: 1},
